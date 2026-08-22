@@ -10,8 +10,11 @@ Uso:
 Codigo de saida:
     0 -- conversao ok, saida.md escrito
     1 -- arquivo de entrada nao existe, ou uso incorreto dos argumentos
-    2 -- conversao rodou mas produziu saida vazia/curta demais (provavel PDF
-         escaneado sem texto extraivel, ou arquivo corrompido)
+    2 -- conversao rodou (ou tentou rodar) mas falhou de alguma forma: saida
+         vazia/curta demais (provavel PDF escaneado sem texto extraivel, ou
+         arquivo corrompido), ou qualquer excecao levantada pelo marker/surya
+         durante a conversao (ex.: dependencia de runtime ausente, como o
+         binario externo llama-server)
 """
 import sys
 from pathlib import Path
@@ -56,6 +59,9 @@ def main(argv: list[str]) -> int:
     except FileNotFoundError as e:
         print(f"erro: {e}", file=sys.stderr)
         return 1
+    except Exception as e:
+        print(f"erro: conversao falhou -- {e}", file=sys.stderr)
+        return 2
 
     if is_output_too_short(markdown_text):
         print(
