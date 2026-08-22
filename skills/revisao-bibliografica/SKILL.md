@@ -155,7 +155,14 @@ raiz deste plugin. Se não conseguir localizar automaticamente, informe o aluno 
 caminho.)
 
 Leia o código de saída do comando:
-- **0**: conversão ok — status vira `verificado`.
+- **0**: conversão ok (com reconhecimento de fórmula/OCR, quando o PDF precisou) — status vira
+  `verificado`.
+- **3**: conversão ok, mas sem reconhecimento de fórmula/OCR — o binário `llama-server` (usado pelo
+  `marker` pra isso) não está instalado nesta máquina. Status ainda vira `verificado` (o texto restante
+  do artigo saiu normal, é real e usável), mas registre no `resumo` que fórmulas/equações desse artigo
+  podem não ter sido capturadas corretamente, e avise o aluno no resumo final do Passo 7 — sobretudo se
+  o tema tiver cara de precisar de fórmula (áreas exatas/engenharia). Não é preciso pedir pro aluno
+  instalar nada a menos que ele pergunte ou o tema realmente dependa de fórmula.
 - **2**: saída curta/vazia demais — status vira `pendente-conversao`, avise o aluno explicitamente
   (provável PDF escaneado sem texto, ou arquivo corrompido) em vez de adicionar como se estivesse
   pronto.
@@ -163,8 +170,8 @@ Leia o código de saída do comando:
   (por exemplo, um caminho com espaço não citado corretamente quebraria os argumentos): reporte ao
   aluno o comando exato que você rodou, pra facilitar o diagnóstico.
 - **127** (ou mensagem de "comando não encontrado"): o próprio `uv` não está instalado — isso é
-  diferente de exit 1/2, que vêm do script rodando. Avise o aluno claramente que precisa instalar o
-  `uv` (aponte para https://docs.astral.sh/uv/getting-started/installation/) e pare — não tente outro
+  diferente dos códigos acima, que vêm do script rodando. Avise o aluno claramente que precisa instalar
+  o `uv` (aponte para https://docs.astral.sh/uv/getting-started/installation/) e pare — não tente outro
   método de conversão.
 
 ## Passo 6 — Indexar
@@ -216,4 +223,6 @@ aguardando download manual, e esse artigo não está mais nessa situação.
 Informe ao aluno, em 2-3 frases: quantas referências foram adicionadas com sucesso (`verificado`),
 quantas ficaram pendentes de conversão, e quantas foram pra `baixar-manualmente.md` aguardando download
 manual. Se algum PDF órfão foi indexado nesta rodada (Passo 6), avise também e peça pro aluno conferir
-os metadados inferidos daquela entrada.
+os metadados inferidos daquela entrada. Se alguma conversão saiu no código 3 (Passo 5) — sem
+reconhecimento de fórmula por falta do `llama-server` —, avise quais referências caíram nesse caso e
+que fórmulas/equações delas podem precisar de conferência manual.

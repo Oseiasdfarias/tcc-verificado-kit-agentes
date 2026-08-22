@@ -8,6 +8,18 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.2.1 — 2026-08-22
+
+Correção: `revisao-bibliografica` não travava mais a conversão inteira sem o binário `llama-server`
+(dependência do `marker` pra reconhecimento de fórmula em CPU), mas ainda perdia o PDF inteiro quando
+ele faltava — mesmo pra artigos sem nenhuma fórmula.
+
+- `scripts/pdf_to_md.py` agora tenta a conversão completa primeiro; se falhar especificamente por
+  `llama-server` ausente, tenta de novo com extração pura de texto (sem fórmula/OCR) em vez de falhar
+  tudo. Novo código de saída `3` sinaliza esse caso.
+- `revisao-bibliografica` reconhece o código `3`: referência ainda entra como `verificado` (o texto é
+  real), mas o aluno é avisado que fórmulas daquele artigo podem precisar de conferência manual.
+
 ## 1.2.0 — 2026-08-22
 
 Orquestração em estágios adaptativos: detecta em que ponto do TCC você está e sugere o próximo passo,
