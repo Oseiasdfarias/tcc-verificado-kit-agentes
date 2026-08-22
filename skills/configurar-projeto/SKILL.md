@@ -13,7 +13,7 @@ existe (banca, por exemplo, normalmente só é definida mais tarde).
 
 Confira se `tcc-kit/config.md` já existe.
 
-- Se existir: mostre os dados atuais (os 8 campos) e pergunte o que o aluno quer fazer. Aceite tanto um
+- Se existir: mostre todos os dados atuais e pergunte o que o aluno quer fazer. Aceite tanto um
   pedido específico ("atualiza a banca", "muda o orientador") quanto um pedido genérico ("quero revisar
   tudo de novo"). Pra cada campo que ele indicar, faça a pergunta correspondente do Passo 2 (a mesma
   pergunta, incluindo `Banca` — que o Passo 2 não cobre no fluxo do zero: se o aluno pedir pra atualizar
