@@ -13,11 +13,14 @@ existe (banca, por exemplo, normalmente só é definida mais tarde).
 
 Confira se `tcc-kit/config.md` já existe.
 
-- Se existir: mostre os dados atuais (os 8 campos) e pergunte o que o aluno quer fazer. Aceite tanto um
+- Se existir: mostre todos os dados atuais e pergunte o que o aluno quer fazer. Aceite tanto um
   pedido específico ("atualiza a banca", "muda o orientador") quanto um pedido genérico ("quero revisar
   tudo de novo"). Pra cada campo que ele indicar, faça a pergunta correspondente do Passo 2 (a mesma
   pergunta, incluindo `Banca` — que o Passo 2 não cobre no fluxo do zero: se o aluno pedir pra atualizar
-  a banca aqui, pergunte os nomes dos membros diretamente). Não recolete campos que ele não pediu pra
+  a banca aqui, pergunte os nomes dos membros diretamente). Se o aluno pedir pra mudar o
+  `Modo de escrita`, pergunte diretamente se ele quer `co-piloto` ou `rápido` (esse campo também não é
+  perguntado no fluxo do zero do Passo 2 — só é preenchido via `escrever-capitulo` ou através desta
+  atualização). Não recolete campos que ele não pediu pra
   mudar — mantenha os valores atuais deles como estão. Depois de coletar as respostas dos campos
   indicados, pule direto pro Passo 4 (Salvar), atualizando só esses campos e preservando os demais.
 - Se não existir: siga pro Passo 2 (fluxo normal, do zero).
@@ -36,6 +39,10 @@ Nesta ordem, uma pergunta por mensagem (não despeje todas de uma vez):
 Banca fica de fora deste fluxo — normalmente ainda não existe nesse estágio inicial do projeto. Se o
 aluno mencionar a banca espontaneamente, registre; senão, deixe como "a definir" sem perguntar. Quando a
 banca for definida, o aluno pode rodar esta skill de novo e pedir pra atualizar só esse campo (Passo 1).
+
+`Modo de escrita` também fica de fora deste fluxo do zero — esse campo só passa a existir quando o
+aluno usa `escrever-capitulo` pela primeira vez (que pergunta o modo e oferece salvar como padrão), ou
+quando ele pede explicitamente pra configurar isso aqui (Passo 1).
 
 ## Passo 3 — Logo da universidade
 
@@ -62,6 +69,7 @@ indicados no Passo 1 (numa atualização parcial), preservando os demais como es
 **Cidade:** <cidade>
 **Ano previsto de conclusão:** <ano>
 **Logo:** <caminho do arquivo, ou "não informado">
+**Modo de escrita:** <co-piloto, rápido, ou "não definido">
 Definido em: <data de hoje, AAAA-MM-DD>
 ```
 

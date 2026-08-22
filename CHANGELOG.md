@@ -8,6 +8,21 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.4.0 — 2026-08-22
+
+Escrita assistida de capítulo: transforma o plano aprovado em prosa real, em dois modos escolhíveis
+pelo aluno.
+
+- Skill nova: `escrever-capitulo` — modo `co-piloto` (entrevista socrática por seção, rascunha com as
+  respostas reais do aluno) ou `rápido` (rascunha direto do plano, sem perguntas extras). Grounding
+  anti-alucinação idêntico nos dois modos: todo dado vem de `tcc/dados/resumo-real.md`, toda citação
+  usa só referência com `status: verificado`. Sempre sugere `revisar-capitulo` antes de considerar o
+  capítulo pronto.
+- `tcc-kit/config.md` ganha o campo `Modo de escrita` (extensão retrocompatível — configs antigos
+  continuam funcionando, a skill pergunta e oferece salvar quando o campo não existe)
+- `iniciar-tcc` agora detecta um 7º estágio: plano aprovado mas capítulo ainda sem conteúdo real
+  escrito
+
 ## 1.3.0 — 2026-08-22
 
 Template LaTeX por universidade: coleta os dados institucionais do projeto e ajuda a encontrar/adaptar
