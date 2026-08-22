@@ -73,16 +73,25 @@ desde o Passo 4 (mesmo sem PDF ainda), então uma busca repetida não deve trat�
 
 ## Passo 4 — Download
 
+Antes de baixar qualquer coisa, garanta que `tcc/referencias/pdfs/` e `tcc/referencias/md/` existem —
+rode `mkdir -p tcc/referencias/pdfs tcc/referencias/md` uma vez no início deste passo. Sem isso, o
+`curl` e a conversão do Passo 5 falham num projeto novo, e essa falha é fácil de confundir com "o site
+bloqueou o download" quando a causa real é só a pasta não existir.
+
 Pra cada artigo confirmado e não-duplicado: gere uma `chave` no padrão `sobrenomeAno` (mesmo padrão da
 Aula 2.11 do curso pro `.bib` — ex: `silva2021`; se colidir com uma chave já existente no índice —
-`verificado`, `pendente-conversao` ou `pendente-manual` — acrescente `b`, `c`, etc: `silva2021b`).
+`verificado`, `pendente-conversao` ou `pendente-manual` — **ou com uma chave que você já atribuiu a
+outro artigo nesta mesma execução** (mantenha uma lista das chaves já usadas nesta rodada: downloads
+bem-sucedidos só são gravados em `index.yaml` no Passo 6, no final do lote, então dois artigos
+confirmados no mesmo lote — ex: dois autores "Silva, 2021" diferentes — podem colidir sem que o índice
+ainda saiba disso) — acrescente `b`, `c`, etc: `silva2021b`).
 
 Se o artigo tem `openAccessPdf.url`: tente baixar com
-`curl -sL -o tcc/referencias/pdfs/<chave>.pdf "<url>"`. Confirme que o arquivo baixado é um PDF válido —
+`curl -sL -o "tcc/referencias/pdfs/<chave>.pdf" "<url>"`. Confirme que o arquivo baixado é um PDF válido —
 não basta checar tamanho: um HTML de página de erro ou de desafio anti-bot (Cloudflare e afins) salvo
 com extensão `.pdf` é um sinal de falha disfarçada de sucesso, e uma página de desafio maior que "alguns
 KB" passaria despercebida por uma checagem só de tamanho. Confirme o conteúdo de verdade — rode
-`file tcc/referencias/pdfs/<chave>.pdf` e confira que o retorno começa com "PDF document" (ou leia os
+`file "tcc/referencias/pdfs/<chave>.pdf"` e confira que o retorno começa com "PDF document" (ou leia os
 primeiros bytes do arquivo e confira que começam com `%PDF-`) — além de existir e ter tamanho razoável
 (acima de alguns KB).
 
@@ -90,8 +99,15 @@ Se o download deu certo e o PDF é válido, siga direto pro Passo 5 — não cri
 `baixar-manualmente.md` nem em `index.yaml` com `pendente-manual` pra esse artigo.
 
 Se não tem `openAccessPdf.url`, ou o download falhar por qualquer motivo (incluindo o caso de o arquivo
-baixado não passar na checagem de PDF válido acima): não trate como erro fatal. Faça as duas coisas
-abaixo pra esse artigo:
+baixado não passar na checagem de PDF válido acima): não trate como erro fatal.
+
+Se o motivo específico foi o arquivo baixado não passar na checagem de PDF válido, **apague-o primeiro**
+(`rm "tcc/referencias/pdfs/<chave>.pdf"`) antes de seguir: deixá-lo na pasta faz o Passo 5 tentar
+convertê-lo na próxima varredura e sobrescrever o status `pendente-manual` (criado logo abaixo) com
+`pendente-conversao`, quebrando o fluxo de download manual — o aluno baixaria o PDF de verdade depois e
+ele seria ignorado pra sempre, porque `pendente-conversao` fica fora do critério de varredura do Passo 5.
+
+Faça as duas coisas abaixo pra esse artigo:
 
 1. Acrescente uma entrada em `tcc/referencias/baixar-manualmente.md` nesse formato:
 
@@ -117,12 +133,15 @@ Baixe o PDF manualmente e salve como `tcc/referencias/pdfs/<chave>.pdf`.
 ## Passo 5 — Conversão
 
 Pra cada PDF presente em `tcc/referencias/pdfs/` cuja `chave` correspondente ainda não tem status
-`verificado` nem `pendente-conversao` no índice — isso cobre os baixados automaticamente no Passo 4 e os
+`verificado` nem `pendente-conversao` no índice — isso cobre os baixados automaticamente no Passo 4, os
 que o aluno colocou manualmente depois de uma rodada anterior (nesse caso a entrada já existe no índice
-com status `pendente-manual`, criada no Passo 4) — rode:
+com status `pendente-manual`, criada no Passo 4), **e também um PDF que esteja na pasta sem nenhuma
+entrada correspondente no índice** (órfão — ex: sobra de uma execução interrompida, ou um arquivo que o
+aluno colocou lá por conta própria sem passar pelo Passo 1/2 desta skill; trate-o como o caso de
+inserção manual descrito no Passo 6) — rode:
 
 ```bash
-uv run --with marker-pdf <caminho do plugin>/scripts/pdf_to_md.py tcc/referencias/pdfs/<chave>.pdf tcc/referencias/md/<chave>.md
+uv run --with marker-pdf "<caminho do plugin>/scripts/pdf_to_md.py" "tcc/referencias/pdfs/<chave>.pdf" "tcc/referencias/md/<chave>.md"
 ```
 
 (O caminho exato do plugin instalado pode variar — procure o arquivo `scripts/pdf_to_md.py` relativo à
@@ -134,8 +153,13 @@ Leia o código de saída do comando:
 - **2**: saída curta/vazia demais — status vira `pendente-conversao`, avise o aluno explicitamente
   (provável PDF escaneado sem texto, ou arquivo corrompido) em vez de adicionar como se estivesse
   pronto.
-- **1**: arquivo de entrada não encontrado — não deveria acontecer aqui (acabamos de confirmar o
-  arquivo no Passo 4), trate como bug e reporte ao aluno.
+- **1**: arquivo de entrada não encontrado, ou argumentos malformados — não presuma que é impossível
+  (por exemplo, um caminho com espaço não citado corretamente quebraria os argumentos): reporte ao
+  aluno o comando exato que você rodou, pra facilitar o diagnóstico.
+- **127** (ou mensagem de "comando não encontrado"): o próprio `uv` não está instalado — isso é
+  diferente de exit 1/2, que vêm do script rodando. Avise o aluno claramente que precisa instalar o
+  `uv` (aponte para https://docs.astral.sh/uv/getting-started/installation/) e pare — não tente outro
+  método de conversão.
 
 ## Passo 6 — Indexar
 
@@ -144,8 +168,17 @@ entrada em `tcc/referencias/index.yaml` com essa `chave` — caso normal, criada
 `pendente-manual` quando o download automático falhou — **atualize essa entrada no lugar** (troque o
 `status`, preencha `arquivo_pdf`/`arquivo_md`, e reescreva `resumo` a partir do conteúdo real de
 `md/<chave>.md` agora que ele existe). Só crie uma entrada nova se essa `chave` ainda não existir no
-índice (caso raro: o download automático do Passo 4 deu certo de primeira, sem nunca passar por
-`pendente-manual`).
+índice — dois casos possíveis:
+- caso raro: o download automático do Passo 4 deu certo de primeira, sem nunca passar por
+  `pendente-manual`;
+- PDF órfão detectado pelo Passo 5 (sem nenhuma entrada prévia no índice, colocado na pasta fora do
+  fluxo desta skill): trate como uma inserção manual comum — gere uma `chave` a partir do nome do
+  arquivo (use o padrão `sobrenomeAno` se der pra inferir do conteúdo convertido, senão use o nome do
+  arquivo sem a extensão) e preencha os demais campos (`titulo`, `autores`, `ano`, `veiculo`) a partir
+  do que der pra inferir do texto em `md/<chave>.md`. Como esses metadados não vieram de uma busca que
+  o aluno confirmou no Passo 2, deixe isso explícito no `resumo` (algo como "metadados inferidos
+  automaticamente a partir do PDF — confira antes de usar") e avise o aluno no resumo final do Passo 7
+  pra ele conferir essa entrada.
 
 ```yaml
 referencias:
@@ -176,4 +209,5 @@ aguardando download manual, e esse artigo não está mais nessa situação.
 
 Informe ao aluno, em 2-3 frases: quantas referências foram adicionadas com sucesso (`verificado`),
 quantas ficaram pendentes de conversão, e quantas foram pra `baixar-manualmente.md` aguardando download
-manual.
+manual. Se algum PDF órfão foi indexado nesta rodada (Passo 6), avise também e peça pro aluno conferir
+os metadados inferidos daquela entrada.

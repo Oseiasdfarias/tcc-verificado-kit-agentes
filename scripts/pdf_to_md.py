@@ -42,6 +42,7 @@ def convert(input_path: Path, output_path: Path) -> str:
     rendered = converter(str(input_path))
     markdown_text, _, _ = text_from_rendered(rendered)
 
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(markdown_text, encoding="utf-8")
     return markdown_text
 

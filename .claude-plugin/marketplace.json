@@ -7,7 +7,7 @@
     {
       "name": "tcc-kit",
       "source": "./",
-      "description": "Kit de agentes anti-alucinação do TCC Verificado: verificação de dados e citações, orientador rigoroso, banca crítica, revisor de forma, e a skill revisar-capitulo que roda tudo em sequência.",
+      "description": "Kit de agentes anti-alucinação do TCC Verificado: verificação de dados e citações, orientador rigoroso, banca crítica, revisor de forma, a skill revisar-capitulo que roda tudo em sequência, e a skill revisao-bibliografica que busca, confirma com o aluno, baixa e indexa referências acadêmicas reais.",
       "version": "1.1.0"
     }
   ]

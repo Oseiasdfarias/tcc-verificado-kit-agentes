@@ -15,6 +15,11 @@ Dentro do Claude Code, no terminal do seu projeto de TCC:
 
 Se pedir `/reload-plugins`, rode esse comando também.
 
+**Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
+(gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
+https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes e a skill
+`revisar-capitulo` não precisam disso.
+
 ## Usar
 
 - **Auditoria completa de um capítulo**: peça "audita esse capítulo antes de eu considerar pronto" —
