@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.2.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.3.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="#como-funciona">Como funciona</a> •
   <a href="#ferramentas">Ferramentas</a> •
   <a href="#instalar">Instalar</a> •
   <a href="#o-que-tem-no-kit">O que tem no kit</a> •
@@ -28,6 +29,52 @@ Plugin do Claude Code com agentes especialistas, um motor de revisão bibliográ
 orquestração adaptativa que sugere o próximo passo guiado, pra escrever e revisar um TCC sem dado
 inventado, citação falsa ou argumento fraco — parte do método ensinado no curso
 [TCC Verificado](https://tccverificado.com.br).
+
+## Como funciona
+
+```mermaid
+flowchart TD
+    Aluno["Aluno<br/>(linguagem natural)"] --> Hub1["iniciar-tcc<br/>(detecta estágio, sugere)"]
+
+    Hub1 --> S1["1. configurar-projeto"]
+    Hub1 --> S2["2. escolher-template<br/>(busca/adapta)"]
+    Hub1 --> S3["3. escolher-tema"]
+    Hub1 --> S4["4. revisao-bibliografica"]
+    Hub1 --> S5["5. planejar-capitulo"]
+
+    S1 --> A1[("tcc-kit/config.md")]
+    S2 --> A2[("tcc-kit/template.md<br/>+ edita tcc/")]
+    S3 --> A3[("tcc-kit/tema.md")]
+    S4 --> A4[("tcc-kit/referencias/")]
+    S5 --> A5[("tcc-kit/capitulos/&lt;slug&gt;/plano.md")]
+
+    A5 -.-> Escrita["Escrita do capítulo<br/>(manual, fora do kit)"]
+    Escrita --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
+
+    Hub2 --> G1["guardiao-dados"]
+    Hub2 --> G2["revisor-citacoes"]
+    Hub2 --> G3["orientador-rigoroso"]
+    Hub2 --> G4["banca-critica"]
+    Hub2 --> G5["revisor-forma"]
+
+    Hub2 --> Rel[("tcc-kit/relatorios/&lt;capitulo&gt;-&lt;data&gt;.md")]
+
+    classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px
+    classDef hub2 fill:#a5d8ff,stroke:#1971c2,stroke-width:2px
+    classDef skill fill:#b2f2bb,stroke:#2f9e44,stroke-width:2px
+    classDef agente fill:#eebefa,stroke:#9c36b5,stroke-width:2px
+    classDef artefato fill:#e9ecef,stroke:#495057,stroke-width:1px
+
+    class Hub1 hub
+    class Hub2 hub2
+    class S1,S2,S3,S4,S5 skill
+    class G1,G2,G3,G4,G5 agente
+    class A1,A2,A3,A4,A5,Rel artefato
+```
+
+`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 5 skills numeradas
+fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
+direto.
 
 ## Ferramentas
 
@@ -53,17 +100,32 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
 > https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes, a skill
-> `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `escolher-tema`, `planejar-capitulo`)
-> não precisam disso.
+> `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
+> `escolher-template`, `escolher-tema`, `planejar-capitulo`) não precisam disso.
 
 ## O que tem no kit
 
 ### Por onde começar
 
 Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
-`iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: escolher tema, buscar
-referências, ou planejar um capítulo. Nenhuma dessas etapas fica presa a essa skill — você pode pedir
-qualquer uma delas direto, a qualquer momento.
+`iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: configurar o projeto,
+escolher um template, escolher tema, buscar referências, ou planejar um capítulo. Nenhuma dessas etapas
+fica presa a essa skill — você pode pedir qualquer uma delas direto, a qualquer momento.
+
+### Configurar o projeto
+
+Primeira coisa a fazer num projeto novo: peça "configura meu projeto" — a skill `configurar-projeto`
+coleta universidade, curso, orientador e outros dados institucionais, e salva em
+`tcc-kit/config.md`. Você pode rodar de novo mais tarde pra completar dados que ainda não tinha (ex: a
+banca, quando for definida).
+
+### Escolher template
+
+Peça "acha um template LaTeX pra minha universidade" — a skill `escolher-template` pesquisa no
+Overleaf, te mostra as opções encontradas (mais o link da galeria geral, pra você pesquisar sozinho se
+preferir), orienta o download (sempre manual — o Overleaf não permite baixar automaticamente), e adapta
+a capa do template com os dados de `tcc-kit/config.md`, preenchendo com placeholder o que ainda não
+tiver definido.
 
 ### Escolher tema
 
