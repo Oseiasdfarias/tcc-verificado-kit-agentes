@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img width="360" src="assets/logo.png" alt="TCC Verificado">
+  <img width="220" src="assets/logo-kit.png" alt="Kit de Agentes — três passadas de revisão">
 </p>
 
 <p align="center">
