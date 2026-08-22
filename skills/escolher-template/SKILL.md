@@ -10,15 +10,30 @@ Overleaf) e adapta com os dados institucionais dele. O valor real aqui é poupar
 candidatos relevantes — não existe forma de baixar um template do Overleaf automaticamente, então o
 download continua sendo um passo manual do aluno em qualquer caso.
 
-## Passo 1 — Perguntar se quer buscar ou usar o padrão
+## Passo 1 — Confira se já existe um template escolhido
+
+Confira se `tcc-kit/template.md` já existe.
+
+Se existir: mostre a origem do template atual (`Origem`, `Campos preenchidos`, `Campos como
+placeholder`) e pergunte ao aluno o que ele quer fazer:
+- (a) reescolher o template do zero;
+- (b) só readaptar com os dados atuais de `tcc-kit/config.md` (sem buscar de novo);
+- (c) manter como está, não fazer nada agora.
+
+Se (a): siga o fluxo normal a partir do Passo 2 (a pergunta buscar-ou-padrão). Se (b): pule direto
+pro Passo 8 (adaptação). Se (c): encerre a skill sem fazer nada.
+
+Se não existir: siga direto pro Passo 2.
+
+## Passo 2 — Perguntar se quer buscar ou usar o padrão
 
 Pergunte: "Quer que eu pesquise um template LaTeX específico da sua universidade no Overleaf, ou
 prefere já usar o template ABNT padrão do curso?"
 
-Se o aluno preferir o padrão do curso: pule direto pro Passo 7 (adaptação) — o template padrão já está
+Se o aluno preferir o padrão do curso: pule direto pro Passo 8 (adaptação) — o template padrão já está
 em `tcc/`, não precisa buscar nem baixar nada.
 
-## Passo 2 — Buscar
+## Passo 3 — Buscar
 
 Determine o nome da universidade: pergunte se não souber, ou leia de `tcc-kit/config.md` se já
 existir. Busque com WebSearch:
@@ -34,7 +49,7 @@ Se não encontrar nada claramente relevante, tente uma busca mais ampla:
 precisa que a Semantic Scholar API do motor de referências (`revisao-bibliografica`). Isso é esperado,
 não um bug: o valor é poupar garimpo, não garantir precisão.
 
-## Passo 3 — Apresentar candidatos
+## Passo 4 — Apresentar candidatos
 
 Apresente os candidatos encontrados (título do template, link, breve descrição de 1 linha) numa lista
 numerada. **Sempre inclua também o link da galeria geral do Overleaf**
@@ -44,7 +59,7 @@ candidatos — o aluno pode preferir pesquisar sozinho.
 Pergunte qual o aluno quer usar: um dos candidatos, o padrão do curso, ou se ele prefere pesquisar por
 conta própria (nesse caso, pare aqui e espere ele voltar com uma escolha).
 
-## Passo 4 — Orientar o download manual
+## Passo 5 — Orientar o download manual
 
 Se o aluno escolheu um template do Overleaf: **não existe download direto de zip nas páginas de
 template do Overleaf** (só "Open as Template", que abre o editor deles, ou "View Source", só
@@ -59,16 +74,16 @@ visualização) — oriente o passo manual:
 
 Espere o aluno confirmar que terminou — nunca assuma que foi feito.
 
-## Passo 5 — Confirmar que os arquivos mudaram
+## Passo 6 — Confirmar que os arquivos mudaram
 
 Se o aluno escolheu um template do Overleaf, confira se `tcc/` realmente tem arquivos novos/diferentes
 dos que tinha antes (ex: nomes de arquivo `.tex` diferentes do padrão abnTeX2, ou conteúdo visivelmente
 diferente). Se não notar mudança nenhuma, avise o aluno explicitamente e pergunte de novo — nunca finja
 que os arquivos foram atualizados.
 
-Se o aluno escolheu o padrão do curso (Passo 1), pule este passo — não há nada pra conferir.
+Se o aluno escolheu o padrão do curso (Passo 2), pule este passo — não há nada pra conferir.
 
-## Passo 6 — Reestruturar se precisar
+## Passo 7 — Reestruturar se precisar
 
 Olhe os arquivos `.tex` presentes em `tcc/` (e subpastas, se houver). Identifique: qual é o arquivo
 principal (compila o documento inteiro, geralmente com `\documentclass` e vários `\input`/`\include`),
@@ -76,7 +91,7 @@ quais são os capítulos individuais, e onde fica a bibliografia (`.bib`).
 
 Se a estrutura já bate com a convenção do kit (`tcc/capitulos/<slug>.tex` pros capítulos,
 `tcc/referencias.bib` pra bibliografia, arquivo principal direto em `tcc/`), não faça nada neste passo
-— registre "já estava no formato esperado" pro resumo do Passo 8.
+— registre "já estava no formato esperado" pro resumo do Passo 9.
 
 Se a estrutura for diferente (ex: capítulos numa subpasta com nome diferente, tipo `chapters/ch1.tex`):
 - Pra cada capítulo que der pra identificar com confiança um dos 5 slugs do curso (`introducao`,
@@ -89,9 +104,9 @@ Se a estrutura for diferente (ex: capítulos numa subpasta com nome diferente, t
 - Confirme que a ordem de inclusão dos capítulos no arquivo principal continua a mesma de antes — só os
   caminhos mudam, o documento renderizado tem que ficar idêntico ao original.
 
-Registre o que foi reorganizado (ou "já estava no formato esperado") pro resumo do Passo 8.
+Registre o que foi reorganizado (ou "já estava no formato esperado") pro resumo do Passo 9.
 
-## Passo 7 — Adaptar com os dados do onboarding
+## Passo 8 — Adaptar com os dados do onboarding
 
 Leia `tcc-kit/config.md`. Se não existir, avise o aluno que não há dados de onboarding ainda e sugira
 rodar `configurar-projeto` primeiro — mas se ele preferir seguir sem isso, adapte só com o que tiver,
@@ -107,12 +122,7 @@ Se não conseguir identificar com segurança onde inserir algum dado (a estrutur
 demais), não "chute" o lugar — avise o aluno que não conseguiu localizar automaticamente e peça pra
 ele indicar o arquivo/linha.
 
-## Passo 8 — Salvar e resumir
-
-Se `tcc-kit/template.md` já existir (reexecução): avise, pergunte se o aluno quer reescolher o
-template do zero (volta pro Passo 1) ou só readaptar com os dados atuais de `config.md` (pula direto
-pro Passo 7, mantendo `Origem`/`Estrutura` já registrados, só atualizando `Campos preenchidos`/`Campos
-como placeholder`/`Última adaptação`).
+## Passo 9 — Salvar e resumir
 
 Salve `tcc-kit/template.md`:
 
