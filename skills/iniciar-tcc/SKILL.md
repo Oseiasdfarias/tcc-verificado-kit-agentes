@@ -41,14 +41,15 @@ mais conta como "com referências".
 ## Passo 5 — Verificar plano e escrita de capítulo
 
 Se o aluno já indicou (ou você já souber de uma interação anterior nesta conversa) qual capítulo está
-em foco, confira, pra esse capítulo:
-- `tcc-kit/capitulos/<slug>/plano.md` existe? (plano aprovado)
-- `tcc/capitulos/<slug>.tex` existe e tem conteúdo real escrito? Critério: não é um limite fixo de
-  caracteres — é leitura de julgamento (mesmo tipo que `revisor-forma` já faz hoje), verificando se há
-  texto real, não só o placeholder que o template deixou.
+em foco, confira, pra esse capítulo, e registre os dois sinais separadamente — o Passo 6 usa a
+combinação dos dois pra escolher entre a ramificação 7 e a 8:
+- **Plano aprovado?** `tcc-kit/capitulos/<slug>/plano.md` existe?
+- **Conteúdo real escrito?** `tcc/capitulos/<slug>.tex` existe e tem conteúdo real escrito? Critério:
+  não é um limite fixo de caracteres — é leitura de julgamento (mesmo tipo que `revisor-forma` já faz
+  hoje), verificando se há texto real, não só o placeholder que o template deixou.
 
-Se o aluno ainda não indicou nenhum capítulo específico, pule este passo — a ramificação 7 abaixo só se
-aplica quando já se sabe qual capítulo está em jogo.
+Se o aluno ainda não indicou nenhum capítulo específico, pule este passo — as ramificações 7 e 8 abaixo
+só se aplicam quando já se sabe qual capítulo está em jogo.
 
 ## Passo 6 — Apresentar o estado e perguntar
 
@@ -102,6 +103,13 @@ passando o capítulo escolhido.
 > escrito. Quer que eu escreva agora?"
 
 Se confirmado, continue seguindo o que a skill `escrever-capitulo` orienta, já passando o capítulo em
+foco.
+
+**8. Capítulo em foco já escrito (plano aprovado e conteúdo real):**
+> "Vi que o capítulo de <nome do capítulo> já está escrito. Quer que eu rode a auditoria completa
+> (`revisar-capitulo`) antes de você considerar pronto?"
+
+Se confirmado, continue seguindo o que a skill `revisar-capitulo` orienta, já passando o capítulo em
 foco.
 
 ## Nunca decida e execute no mesmo passo

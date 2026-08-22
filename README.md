@@ -48,8 +48,9 @@ flowchart TD
     S4 --> A4[("tcc-kit/referencias/")]
     S5 --> A5[("tcc-kit/capitulos/&lt;slug&gt;/plano.md")]
 
-    A5 -.-> Escrita["Escrita do capítulo<br/>(manual, fora do kit)"]
-    Escrita --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
+    A5 --> S6["6. escrever-capitulo"]
+    S6 --> A6[("tcc/capitulos/&lt;slug&gt;.tex")]
+    A6 --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
 
     Hub2 --> G1["guardiao-dados"]
     Hub2 --> G2["revisor-citacoes"]
@@ -67,12 +68,12 @@ flowchart TD
 
     class Hub1 hub
     class Hub2 hub2
-    class S1,S2,S3,S4,S5 skill
+    class S1,S2,S3,S4,S5,S6 skill
     class G1,G2,G3,G4,G5 agente
-    class A1,A2,A3,A4,A5,Rel artefato
+    class A1,A2,A3,A4,A5,A6,Rel artefato
 ```
 
-`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 5 skills numeradas
+`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 6 skills numeradas
 fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
 direto.
 
@@ -101,7 +102,7 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
 > https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
-> `escolher-template`, `escolher-tema`, `planejar-capitulo`) não precisam disso.
+> `escolher-template`, `escolher-tema`, `planejar-capitulo`, `escrever-capitulo`) não precisam disso.
 
 ## O que tem no kit
 
@@ -109,7 +110,8 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
 `iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: configurar o projeto,
-escolher um template, escolher tema, buscar referências, ou planejar um capítulo. Nenhuma dessas etapas
+escolher um template, escolher tema, buscar referências, ou planejar um capítulo, ou escrever um
+capítulo já planejado. Nenhuma dessas etapas
 fica presa a essa skill — você pode pedir qualquer uma delas direto, a qualquer momento.
 
 ### Configurar o projeto

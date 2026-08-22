@@ -1,6 +1,6 @@
 ---
 name: escrever-capitulo
-description: Use quando o aluno quiser escrever de verdade um capítulo do TCC a partir de um plano já aprovado -- "escreve minha introdução", "escreve o capítulo de metodologia", "vamos escrever o referencial teórico". Rascunha a prosa em dois modos escolhíveis pelo aluno (co-piloto ou rápido), sempre com dado real e citação verificada.
+description: Use quando o aluno quiser escrever de verdade um capítulo do TCC a partir de um plano já aprovado -- "escreve minha introdução", "escreve o capítulo de metodologia", "vamos escrever o referencial teórico". Rascunha a prosa em dois modos escolhíveis pelo aluno (co-piloto ou rápido), sempre com dado real e citação verificada, ou quando `iniciar-tcc` detectar um plano aprovado sem capítulo escrito e o aluno confirmar que quer escrever agora.
 ---
 
 # Escrever Capítulo — transforma o plano aprovado em prosa
@@ -39,7 +39,9 @@ Leia o campo `Modo de escrita` de `tcc-kit/config.md`.
 Mapeie o capítulo pedido pro slug correspondente (mesma tabela de `planejar-capitulo`: introdução →
 `introducao`, referencial teórico/fundamentação/revisão de literatura → `referencial-teorico`,
 metodologia/método → `metodologia`, resultados → `resultados`, discussão/considerações
-finais/conclusão → `discussao-consideracoes-finais`).
+finais/conclusão → `discussao-consideracoes-finais`). Se o capítulo pedido não bater em nenhum dos 5
+slugs fixos, slugifique livre (minúsculo, hífen, sem acento) e procure
+`tcc-kit/capitulos/<slug-livre>/plano.md` normalmente.
 
 Leia `tcc-kit/capitulos/<slug>/plano.md`.
 
@@ -47,6 +49,13 @@ Leia `tcc-kit/capitulos/<slug>/plano.md`.
   `planejar-capitulo` primeiro — mas não bloqueie. Se o aluno quiser seguir sem plano formal (comum no
   modo rápido), pergunte diretamente quais seções ele quer no capítulo e qual o argumento de cada uma,
   de forma resumida, antes de prosseguir pro Passo 3.
+
+Antes de prosseguir pro Passo 3a/3b, confira se `tcc/capitulos/<slug>.tex` já tem conteúdo real (não só
+o placeholder que o template deixou — leia o arquivo e julgue pelo conteúdo, não por um número de
+caracteres). Se tiver, pergunte ao aluno ali mesmo: sobrescrever tudo, mesclar com o que já existe, ou
+só completar as seções que ainda faltam. Só prossiga pro Passo 3a/3b depois dessa resposta — não vale a
+pena fazer o aluno passar pela entrevista de uma seção inteira (Passo 3a) pra só então descobrir que o
+capítulo já estava escrito.
 
 ## Passo 3a — Modo co-piloto: entrevista por seção
 
@@ -85,12 +94,16 @@ plano (não dá pra rascunhar do vazio).
 
 ## Passo 4 — Grounding anti-alucinação (idêntico nos dois modos)
 
-Antes de finalizar qualquer seção, confira:
+Ao rascunhar qualquer seção (não só depois de pronta), respeite estas restrições:
 
 - **Toda afirmação numérica ou sobre dado/resultado** precisa vir de `tcc/dados/resumo-real.md`.
   Nunca escreva um número, percentual, ou afirmação de resultado que "parece razoável" — se o dado que
   a seção precisaria não está em `resumo-real.md`, avise o aluno explicitamente e pare naquele ponto em
-  vez de inventar ou aproximar.
+  vez de inventar ou aproximar. Se o arquivo `tcc/dados/resumo-real.md` não existir (nenhuma skill do
+  kit cria esse arquivo — ele é gerado manualmente pelo aluno, normalmente na Aula 2.3, análise dos
+  dados), avise o aluno explicitamente que esse arquivo ainda não foi criado, e pergunte se ele quer
+  fornecer os números relevantes direto na conversa pra essa seção, ou pausar até criar o arquivo —
+  nunca trave sem explicação, e nunca finja que a seção não precisa de dado nenhum.
 - **Toda citação** usa só `chave`s presentes em `tcc-kit/referencias/index.yaml` com
   `status: verificado`. Nunca cite uma `chave` com outro status (`pendente-manual`,
   `pendente-conversao`) como se já estivesse pronta, e nunca invente uma citação que não está no
@@ -103,10 +116,8 @@ Assim que uma seção for finalizada (nos dois modos), grave ela imediatamente e
 `tcc/capitulos/<slug>.tex` — não acumule o capítulo inteiro em memória até o fim. Isso preserva o
 progresso se o aluno interromper no meio de uma entrevista longa (modo co-piloto).
 
-Antes de começar a escrever a primeira seção, confira se `tcc/capitulos/<slug>.tex` já tem conteúdo
-real (não só o placeholder que o template deixou — leia o arquivo e julgue pelo conteúdo, não por um
-número de caracteres). Se tiver, pergunte ao aluno: sobrescrever tudo, mesclar com o que já existe, ou
-só completar as seções que ainda faltam.
+A checagem de conteúdo já existente em `tcc/capitulos/<slug>.tex` (sobrescrever/mesclar/completar) já
+foi feita no Passo 2, antes da entrevista — não repita essa pergunta aqui.
 
 ## Passo 6 — Resumo final
 
