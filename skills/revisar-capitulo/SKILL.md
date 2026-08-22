@@ -51,7 +51,13 @@ não alcançou). Se nenhum dos dois agentes encontrou nada, escreva "nenhum acha
 [relatório completo do agente]
 
 ## Citações (revisor-citacoes)
-[relatório completo do agente]
+[relatório completo do agente, MENOS a seção "## Lacunas encontradas" se ela existir -- essa seção vai
+separada, logo abaixo, pra não ficar aninhada como um H2 dentro de outro H2]
+
+## Lacunas encontradas (revisor-citacoes)
+[Só inclua esta seção se o relatório do revisor-citacoes tiver uma seção "## Lacunas encontradas" --
+nesse caso copie o conteúdo dela aqui. Se o relatório do revisor-citacoes não tiver essa seção, omita
+esta seção inteira (não escreva "nenhuma lacuna encontrada" -- só omita).]
 
 ## Argumento — orientador (orientador-rigoroso)
 [relatório completo do agente]
@@ -67,4 +73,6 @@ Revisado por IA — a decisão final sobre cada capítulo é sua (TCC Verificado
 ```
 
 Depois de salvar, informe ao aluno o caminho do relatório e um resumo de 2-3 frases: quantos achados
-bloqueantes, e o tom geral dos outros 3 agentes (sólido / precisa de ajuste / muitos apontamentos).
+bloqueantes, se o revisor-citacoes encontrou alguma lacuna (afirmação sem citação, ou citação NÃO
+ENCONTRADA que valeria buscar referência nova), e o tom geral dos outros 3 agentes (sólido / precisa de
+ajuste / muitos apontamentos).
