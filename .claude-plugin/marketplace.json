@@ -1,0 +1,14 @@
+{
+  "name": "tcc-verificado-kit-agentes",
+  "owner": {
+    "name": "TCC Verificado"
+  },
+  "plugins": [
+    {
+      "name": "tcc-kit",
+      "source": "./",
+      "description": "Kit de agentes anti-alucinação do TCC Verificado: verificação de dados e citações, orientador rigoroso, banca crítica, revisor de forma, e a skill revisar-capitulo que roda tudo em sequência.",
+      "version": "1.0.0"
+    }
+  ]
+}
