@@ -8,6 +8,19 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.2.0 — 2026-08-22
+
+Orquestração em estágios adaptativos: detecta em que ponto do TCC você está e sugere o próximo passo,
+sem forçar um roteiro fixo.
+
+- Skill nova: `iniciar-tcc` (detecta tema/referências existentes, sugere o próximo passo, sempre com
+  confirmação do aluno)
+- Skill nova: `escolher-tema` (conduz o brainstorm de tema até confirmação, salva `tcc-kit/tema.md`)
+- Skill nova: `planejar-capitulo` (gera e itera o plano de um capítulo, salva
+  `tcc-kit/capitulos/<capítulo>/plano.md`)
+- `tcc/referencias/` e `tcc/relatorios/` migraram pra `tcc-kit/referencias/` e `tcc-kit/relatorios/` —
+  namespace novo dedicado a tudo que o kit gera, separado do conteúdo real do TCC (`tcc/`)
+
 ## 1.1.0 — 2026-08-22
 
 Motor de revisão bibliográfica: busca, confirmação, download e indexação de referências reais antes

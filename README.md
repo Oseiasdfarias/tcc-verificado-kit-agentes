@@ -56,6 +56,19 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 ## O que tem no kit
 
+### Por onde começar
+
+Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
+`iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: escolher tema, buscar
+referências, ou planejar um capítulo. Nenhuma dessas etapas fica presa a essa skill — você pode pedir
+qualquer uma delas direto, a qualquer momento.
+
+### Escolher tema
+
+Ainda não tem tema? Peça "me ajuda a escolher um tema" — a skill `escolher-tema` conversa com você até
+convergir num tema específico e salva em `tcc-kit/tema.md`, já com termos de busca sugeridos pra
+alimentar a próxima etapa.
+
 ### Revisão bibliográfica
 
 Peça "busca referências sobre [seu tema]" a qualquer momento — a skill `revisao-bibliografica` busca
@@ -64,6 +77,13 @@ de links pra baixar manualmente), converte pra Markdown, e mantém tudo indexado
 `tcc-kit/referencias/index.yaml`. Essa base é o que a escrita consulta pra nunca inventar referência — e
 ela cresce ao longo do processo: se faltar uma referência no meio da escrita, o `revisor-citacoes`
 sugere buscar mais, você confirma.
+
+### Planejar um capítulo
+
+Antes de escrever de verdade, peça "planeja o capítulo de [nome]" — a skill `planejar-capitulo` propõe
+uma estrutura de seções, o argumento de cada uma, e quais referências já validadas entram em cada
+seção. Você aprova ou pede ajuste antes do plano ser salvo em
+`tcc-kit/capitulos/<capítulo>/plano.md`.
 
 ### Os 5 agentes de revisão
 
