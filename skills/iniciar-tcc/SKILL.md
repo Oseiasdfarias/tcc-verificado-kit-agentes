@@ -1,6 +1,6 @@
 ---
 name: iniciar-tcc
-description: Use quando o aluno perguntar por onde começar ou continuar, sem especificar o quê -- "por onde eu continuo?", "o que falta no meu TCC?", "vamos começar meu TCC", "me ajuda a organizar os próximos passos". Detecta em que estágio o aluno está (configuração institucional? template escolhido? tema definido? referências verificadas?) e sugere o próximo passo mais lógico.
+description: Use quando o aluno perguntar por onde começar ou continuar, sem especificar o quê -- "por onde eu continuo?", "o que falta no meu TCC?", "vamos começar meu TCC", "me ajuda a organizar os próximos passos". Detecta em que estágio o aluno está (configuração institucional? template escolhido? tema definido? referências verificadas? capítulo planejado? capítulo escrito?) e sugere o próximo passo mais lógico.
 ---
 
 # Iniciar TCC — detecta o estágio e sugere o próximo passo
@@ -38,7 +38,19 @@ Confira se `tcc-kit/referencias/index.yaml` existe. Se existir, conte quantas en
 Critério exato: zero entradas verificadas, ou arquivo ausente, conta como "sem referências". Uma ou
 mais conta como "com referências".
 
-## Passo 5 — Apresentar o estado e perguntar
+## Passo 5 — Verificar plano e escrita de capítulo
+
+Se o aluno já indicou (ou você já souber de uma interação anterior nesta conversa) qual capítulo está
+em foco, confira, pra esse capítulo:
+- `tcc-kit/capitulos/<slug>/plano.md` existe? (plano aprovado)
+- `tcc/capitulos/<slug>.tex` existe e tem conteúdo real escrito? Critério: não é um limite fixo de
+  caracteres — é leitura de julgamento (mesmo tipo que `revisor-forma` já faz hoje), verificando se há
+  texto real, não só o placeholder que o template deixou.
+
+Se o aluno ainda não indicou nenhum capítulo específico, pule este passo — a ramificação 7 abaixo só se
+aplica quando já se sabe qual capítulo está em jogo.
+
+## Passo 6 — Apresentar o estado e perguntar
 
 Os passos acima detectam várias coisas ao mesmo tempo, mas você só apresenta **uma** sugestão por vez
 — a do estágio mais cedo que ainda falta, nesta ordem de prioridade:
@@ -77,13 +89,20 @@ Se confirmado, continue seguindo o que a skill `revisao-bibliografica` orienta �
 busca sugeridos" de `tcc-kit/tema.md` como ponto de partida, deixando claro ao aluno que ele pode pedir
 outros termos.
 
-**6. Com tema e referências:**
+**6. Com tema e referências, sem plano pro capítulo em foco (ou nenhum capítulo em foco ainda):**
 > "Vi que seu tema é '<tema>' e você já tem <N> referência(s) verificada(s). Quer planejar algum
 > capítulo agora? (introdução, referencial teórico, metodologia, resultados, ou
 > discussão/considerações finais)"
 
 Se o aluno indicar um capítulo, continue seguindo o que a skill `planejar-capitulo` orienta, já
 passando o capítulo escolhido.
+
+**7. Plano aprovado pro capítulo em foco, mas ainda sem conteúdo real escrito:**
+> "Vi que você já tem um plano aprovado pro capítulo de <nome do capítulo>, mas ele ainda não foi
+> escrito. Quer que eu escreva agora?"
+
+Se confirmado, continue seguindo o que a skill `escrever-capitulo` orienta, já passando o capítulo em
+foco.
 
 ## Nunca decida e execute no mesmo passo
 
