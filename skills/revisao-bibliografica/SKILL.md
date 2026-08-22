@@ -6,7 +6,7 @@ description: Use quando o aluno pedir pra buscar/levantar referências sobre um 
 # Revisão Bibliográfica — busca, valida, baixa e indexa referências reais
 
 Esta skill busca artigos acadêmicos reais sobre um tema, deixa o aluno confirmar quais entram, baixa
-o PDF quando possível, converte pra Markdown, e mantém `tcc/referencias/index.yaml` atualizado —
+o PDF quando possível, converte pra Markdown, e mantém `tcc-kit/referencias/index.yaml` atualizado —
 a base que a escrita do TCC consulta pra nunca inventar referência.
 
 **Princípio inegociável**: você nunca adiciona uma referência à base sem o aluno confirmar aquele
@@ -65,7 +65,7 @@ outro termo". Só os artigos confirmados seguem pro Passo 3 — os outros são d
 
 ## Passo 3 — Checar duplicata
 
-Antes de processar cada artigo confirmado, leia `tcc/referencias/index.yaml` (se existir) e confira se
+Antes de processar cada artigo confirmado, leia `tcc-kit/referencias/index.yaml` (se existir) e confira se
 já existe uma entrada com o mesmo DOI (ou, se DOI ausente em algum dos dois lados, mesmo título
 normalizado — minúsculo, sem pontuação). Se já existir, pule esse artigo e avise o aluno que ele já
 está na base — isso vale também pra uma entrada com status `pendente-manual`: ela já está no índice
@@ -73,8 +73,8 @@ desde o Passo 4 (mesmo sem PDF ainda), então uma busca repetida não deve trat�
 
 ## Passo 4 — Download
 
-Antes de baixar qualquer coisa, garanta que `tcc/referencias/pdfs/` e `tcc/referencias/md/` existem —
-rode `mkdir -p tcc/referencias/pdfs tcc/referencias/md` uma vez no início deste passo. Sem isso, o
+Antes de baixar qualquer coisa, garanta que `tcc-kit/referencias/pdfs/` e `tcc-kit/referencias/md/` existem —
+rode `mkdir -p tcc-kit/referencias/pdfs tcc-kit/referencias/md` uma vez no início deste passo. Sem isso, o
 `curl` e a conversão do Passo 5 falham num projeto novo, e essa falha é fácil de confundir com "o site
 bloqueou o download" quando a causa real é só a pasta não existir.
 
@@ -87,11 +87,11 @@ confirmados no mesmo lote — ex: dois autores "Silva, 2021" diferentes — pode
 ainda saiba disso) — acrescente `b`, `c`, etc: `silva2021b`).
 
 Se o artigo tem `openAccessPdf.url`: tente baixar com
-`curl -sL -o "tcc/referencias/pdfs/<chave>.pdf" "<url>"`. Confirme que o arquivo baixado é um PDF válido —
+`curl -sL -o "tcc-kit/referencias/pdfs/<chave>.pdf" "<url>"`. Confirme que o arquivo baixado é um PDF válido —
 não basta checar tamanho: um HTML de página de erro ou de desafio anti-bot (Cloudflare e afins) salvo
 com extensão `.pdf` é um sinal de falha disfarçada de sucesso, e uma página de desafio maior que "alguns
 KB" passaria despercebida por uma checagem só de tamanho. Confirme o conteúdo de verdade — rode
-`file "tcc/referencias/pdfs/<chave>.pdf"` e confira que o retorno começa com "PDF document" (ou leia os
+`file "tcc-kit/referencias/pdfs/<chave>.pdf"` e confira que o retorno começa com "PDF document" (ou leia os
 primeiros bytes do arquivo e confira que começam com `%PDF-`) — além de existir e ter tamanho razoável
 (acima de alguns KB).
 
@@ -102,14 +102,14 @@ Se não tem `openAccessPdf.url`, ou o download falhar por qualquer motivo (inclu
 baixado não passar na checagem de PDF válido acima): não trate como erro fatal.
 
 Se o motivo específico foi o arquivo baixado não passar na checagem de PDF válido, **apague-o primeiro**
-(`rm "tcc/referencias/pdfs/<chave>.pdf"`) antes de seguir: deixá-lo na pasta faz o Passo 5 tentar
+(`rm "tcc-kit/referencias/pdfs/<chave>.pdf"`) antes de seguir: deixá-lo na pasta faz o Passo 5 tentar
 convertê-lo na próxima varredura e sobrescrever o status `pendente-manual` (criado logo abaixo) com
 `pendente-conversao`, quebrando o fluxo de download manual — o aluno baixaria o PDF de verdade depois e
 ele seria ignorado pra sempre, porque `pendente-conversao` fica fora do critério de varredura do Passo 5.
 
 Faça as duas coisas abaixo pra esse artigo:
 
-1. Acrescente uma entrada em `tcc/referencias/baixar-manualmente.md` nesse formato:
+1. Acrescente uma entrada em `tcc-kit/referencias/baixar-manualmente.md` nesse formato:
 
 ```markdown
 ## <chave>
@@ -119,10 +119,10 @@ Faça as duas coisas abaixo pra esse artigo:
 **Ano:** <ano>
 **Link:** <o melhor link que você tem — página do artigo, DOI, ou o que encontrou na busca>
 
-Baixe o PDF manualmente e salve como `tcc/referencias/pdfs/<chave>.pdf`.
+Baixe o PDF manualmente e salve como `tcc-kit/referencias/pdfs/<chave>.pdf`.
 ```
 
-2. Adicione (ou crie, se `tcc/referencias/index.yaml` ainda não existir) uma entrada nesse arquivo pra
+2. Adicione (ou crie, se `tcc-kit/referencias/index.yaml` ainda não existir) uma entrada nesse arquivo pra
    esse artigo, imediatamente, com `status: pendente-manual` — não espere o aluno baixar o PDF pra
    indexar (formato completo no Passo 6). Omita (ou deixe `null`) `arquivo_pdf` e `arquivo_md`; pra
    `resumo`, use o `abstract` da busca como resumo provisório se tiver disponível, deixando claro que
@@ -132,7 +132,7 @@ Baixe o PDF manualmente e salve como `tcc/referencias/pdfs/<chave>.pdf`.
 
 ## Passo 5 — Conversão
 
-Pra cada PDF presente em `tcc/referencias/pdfs/` cuja `chave` correspondente ainda não tem status
+Pra cada PDF presente em `tcc-kit/referencias/pdfs/` cuja `chave` correspondente ainda não tem status
 `verificado` nem `pendente-conversao` no índice — isso cobre os baixados automaticamente no Passo 4, os
 que o aluno colocou manualmente depois de uma rodada anterior (nesse caso a entrada já existe no índice
 com status `pendente-manual`, criada no Passo 4), **e também um PDF que esteja na pasta sem nenhuma
@@ -141,7 +141,7 @@ aluno colocou lá por conta própria sem passar pelo Passo 1/2 desta skill; trat
 inserção manual descrito no Passo 6) — rode:
 
 ```bash
-uv run --with marker-pdf "<caminho do plugin>/scripts/pdf_to_md.py" "tcc/referencias/pdfs/<chave>.pdf" "tcc/referencias/md/<chave>.md"
+uv run --with marker-pdf "<caminho do plugin>/scripts/pdf_to_md.py" "tcc-kit/referencias/pdfs/<chave>.pdf" "tcc-kit/referencias/md/<chave>.md"
 ```
 
 (O caminho exato do plugin instalado pode variar — procure o arquivo `scripts/pdf_to_md.py` relativo à
@@ -164,7 +164,7 @@ Leia o código de saída do comando:
 ## Passo 6 — Indexar
 
 Pra cada artigo processado no Passo 5 (status `verificado` ou `pendente-conversao`): se já existe uma
-entrada em `tcc/referencias/index.yaml` com essa `chave` — caso normal, criada no Passo 4 com status
+entrada em `tcc-kit/referencias/index.yaml` com essa `chave` — caso normal, criada no Passo 4 com status
 `pendente-manual` quando o download automático falhou — **atualize essa entrada no lugar** (troque o
 `status`, preencha `arquivo_pdf`/`arquivo_md`, e reescreva `resumo` a partir do conteúdo real de
 `md/<chave>.md` agora que ele existe). Só crie uma entrada nova se essa `chave` ainda não existir no
@@ -202,7 +202,7 @@ artigo já está pendente e não deve virar candidato "novo" de novo. Quando o a
 manualmente e essa skill roda de novo, o Passo 5 detecta o PDF novo na pasta, converte, e o Passo 6
 **atualiza essa mesma entrada** (mesma `chave`) pra `verificado` ou `pendente-conversao` — nunca cria
 uma segunda entrada pro mesmo artigo. Nesse momento, remova também a seção correspondente daquele
-artigo em `tcc/referencias/baixar-manualmente.md` — ela existe só pra rastrear o que ainda está
+artigo em `tcc-kit/referencias/baixar-manualmente.md` — ela existe só pra rastrear o que ainda está
 aguardando download manual, e esse artigo não está mais nessa situação.
 
 ## Passo 7 — Resumo final

@@ -36,7 +36,7 @@ antes de consolidar.
 
 ## Consolidando o relatório final
 
-Salve em `tcc/relatorios/<nome-do-capitulo>-<data>.md`, nesta estrutura:
+Salve em `tcc-kit/relatorios/<nome-do-capitulo>-<data>.md`, nesta estrutura:
 
 ```markdown
 # Auditoria — [nome do capítulo] — [data]

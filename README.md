@@ -36,7 +36,7 @@ curso [TCC Verificado](https://tccverificado.com.br).
 | [Semantic Scholar API](https://api.semanticscholar.org/) | Busca estruturada de artigos acadêmicos reais (metadado + link de acesso aberto) |
 | [marker](https://github.com/datalab-to/marker) | Conversão de PDF pra Markdown, com reconhecimento de fórmula/equação em LaTeX |
 | [uv](https://docs.astral.sh/uv/) | Executa o script de conversão sem instalação manual de dependência Python |
-| YAML | Formato do índice de referências (`tcc/referencias/index.yaml`) |
+| YAML | Formato do índice de referências (`tcc-kit/referencias/index.yaml`) |
 
 ## Instalar
 
@@ -61,7 +61,7 @@ Se pedir `/reload-plugins`, rode esse comando também.
 Peça "busca referências sobre [seu tema]" a qualquer momento — a skill `revisao-bibliografica` busca
 artigos reais, mostra os candidatos pra você confirmar, baixa o PDF quando possível (ou te dá a lista
 de links pra baixar manualmente), converte pra Markdown, e mantém tudo indexado em
-`tcc/referencias/index.yaml`. Essa base é o que a escrita consulta pra nunca inventar referência — e
+`tcc-kit/referencias/index.yaml`. Essa base é o que a escrita consulta pra nunca inventar referência — e
 ela cresce ao longo do processo: se faltar uma referência no meio da escrita, o `revisor-citacoes`
 sugere buscar mais, você confirma.
 
