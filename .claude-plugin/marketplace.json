@@ -7,8 +7,8 @@
     {
       "name": "tcc-kit",
       "source": "./",
-      "description": "Kit de agentes anti-alucinação do TCC Verificado: orquestração adaptativa (skills iniciar-tcc, configurar-projeto, escolher-template, escolher-tema, planejar-capitulo), verificação de dados e citações, orientador rigoroso, banca crítica, revisor de forma, skill revisar-capitulo que roda tudo em sequência, e skill revisao-bibliografica que busca, confirma, baixa e indexa referências acadêmicas reais.",
-      "version": "1.3.0"
+      "description": "Kit de agentes anti-alucinação do TCC Verificado: orquestração adaptativa (skills iniciar-tcc, configurar-projeto, escolher-template, escolher-tema, planejar-capitulo, escrever-capitulo), verificação de dados e citações, orientador rigoroso, banca crítica, revisor de forma, skill revisar-capitulo que roda tudo em sequência, e skill revisao-bibliografica que busca, confirma, baixa e indexa referências acadêmicas reais.",
+      "version": "1.4.0"
     }
   ]
 }

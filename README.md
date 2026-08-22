@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.3.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.4.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -48,8 +48,9 @@ flowchart TD
     S4 --> A4[("tcc-kit/referencias/")]
     S5 --> A5[("tcc-kit/capitulos/&lt;slug&gt;/plano.md")]
 
-    A5 -.-> Escrita["Escrita do capítulo<br/>(manual, fora do kit)"]
-    Escrita --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
+    A5 --> S6["6. escrever-capitulo"]
+    S6 --> A6[("tcc/capitulos/&lt;slug&gt;.tex")]
+    A6 --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
 
     Hub2 --> G1["guardiao-dados"]
     Hub2 --> G2["revisor-citacoes"]
@@ -67,12 +68,12 @@ flowchart TD
 
     class Hub1 hub
     class Hub2 hub2
-    class S1,S2,S3,S4,S5 skill
+    class S1,S2,S3,S4,S5,S6 skill
     class G1,G2,G3,G4,G5 agente
-    class A1,A2,A3,A4,A5,Rel artefato
+    class A1,A2,A3,A4,A5,A6,Rel artefato
 ```
 
-`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 5 skills numeradas
+`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 6 skills numeradas
 fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
 direto.
 
@@ -101,7 +102,7 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
 > https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
-> `escolher-template`, `escolher-tema`, `planejar-capitulo`) não precisam disso.
+> `escolher-template`, `escolher-tema`, `planejar-capitulo`, `escrever-capitulo`) não precisam disso.
 
 ## O que tem no kit
 
@@ -109,7 +110,8 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
 `iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: configurar o projeto,
-escolher um template, escolher tema, buscar referências, ou planejar um capítulo. Nenhuma dessas etapas
+escolher um template, escolher tema, buscar referências, ou planejar um capítulo, ou escrever um
+capítulo já planejado. Nenhuma dessas etapas
 fica presa a essa skill — você pode pedir qualquer uma delas direto, a qualquer momento.
 
 ### Configurar o projeto
@@ -148,6 +150,16 @@ Antes de escrever de verdade, peça "planeja o capítulo de [nome]" — a skill 
 uma estrutura de seções, o argumento de cada uma, e quais referências já validadas entram em cada
 seção. Você aprova ou pede ajuste antes do plano ser salvo em
 `tcc-kit/capitulos/<capítulo>/plano.md`.
+
+### Escrever um capítulo
+
+Depois do plano aprovado, peça "escreve minha introdução" (ou qualquer outro capítulo) — a skill
+`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo: `co-piloto` (ela
+pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade) ou `rápido` (escreve direto
+do plano, com o mínimo de perguntas) — sua escolha fica salva como padrão em `tcc-kit/config.md`, mas
+dá pra trocar pontualmente a qualquer momento ("escreve rápido dessa vez"). Nos dois modos, todo dado
+vem de `tcc/dados/resumo-real.md` e toda citação vem de referência já verificada — nunca inventa
+nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
 
 ### Os 5 agentes de revisão
 

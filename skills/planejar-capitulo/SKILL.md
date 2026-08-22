@@ -104,5 +104,6 @@ essa linha (isso marcaria incorretamente um rascunho como aprovado).
 
 ## Passo 7 — Resumo final
 
-Informe o aluno que o plano foi salvo, o caminho do arquivo, e que ele já pode começar a escrever esse
-capítulo seguindo o plano — a escrita em si não é conduzida por esta skill.
+Informe o aluno que o plano foi salvo, o caminho do arquivo, e que ele já pode pedir pra escrever esse
+capítulo — a skill `escrever-capitulo` transforma esse plano em prosa de verdade, em dois modos
+(co-piloto ou rápido).
