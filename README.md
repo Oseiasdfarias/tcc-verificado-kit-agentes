@@ -1,8 +1,27 @@
-# Kit de Agentes — TCC Verificado
+<p align="center">
+  <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
+  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
+  <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
+  <img src="https://img.shields.io/badge/versão-1.1.0-4A2712?style=for-the-badge">
+</p>
 
-[![Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-C98A52)](https://github.com/Oseiasdfarias/tcc-verificado-kit-agentes)
-[![Versão](https://img.shields.io/badge/versão-1.1.0-4A2712)](CHANGELOG.md)
-[![Python](https://img.shields.io/badge/python-3-3776AB?logo=python&logoColor=white)](scripts/pdf_to_md.py)
+<p align="center">
+  <img width="360" src="assets/logo.png" alt="TCC Verificado">
+</p>
+
+<p align="center">
+  <a href="#ferramentas">Ferramentas</a> •
+  <a href="#instalar">Instalar</a> •
+  <a href="#o-que-tem-no-kit">O que tem no kit</a> •
+  <a href="#atualizar">Atualizar</a>
+</p>
+
+<h3 align="center">Kit de Agentes</h3>
+<p align="center">Revise seu TCC contra dado inventado, citação falsa e argumento fraco.</p>
+
+---
+
+## Sobre
 
 Plugin do Claude Code com agentes especialistas e um motor de revisão bibliográfica, pra escrever e
 revisar um TCC sem dado inventado, citação falsa ou argumento fraco — parte do método ensinado no
@@ -22,17 +41,17 @@ curso [TCC Verificado](https://tccverificado.com.br).
 
 Dentro do Claude Code, no terminal do seu projeto de TCC:
 
-```
+```bash
 /plugin marketplace add Oseiasdfarias/tcc-verificado-kit-agentes
 /plugin install tcc-kit@tcc-verificado-kit-agentes
 ```
 
 Se pedir `/reload-plugins`, rode esse comando também.
 
-**Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
-(gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
-https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes e a skill
-`revisar-capitulo` não precisam disso.
+> **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
+> (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
+> https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes e a skill
+> `revisar-capitulo` não precisam disso.
 
 ## O que tem no kit
 
@@ -61,7 +80,7 @@ Peça "audita esse capítulo antes de eu considerar pronto" — a skill `revisar
 agentes na ordem certa (dado e citação primeiro, são bloqueantes; argumento e forma depois) e
 consolida tudo num relatório único, incluindo qualquer lacuna de referência encontrada.
 
-## Usar um agente específico
+### Usar um agente específico
 
 Peça em linguagem natural — "revisa esse capítulo como banca", "confere se esses dados batem", "revisa
 a forma/português desse texto".
@@ -73,9 +92,15 @@ na base, é sempre sua (ver Aula 3.2 do curso: "raciocínio não se terceiriza")
 
 ## Atualizar
 
-```
+```bash
 /plugin marketplace update tcc-verificado-kit-agentes
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
 Ver [CHANGELOG.md](CHANGELOG.md) pra histórico de versões.
+
+---
+
+<p align="center">
+  <sub>Parte do curso <a href="https://tccverificado.com.br">TCC Verificado</a></sub>
+</p>
