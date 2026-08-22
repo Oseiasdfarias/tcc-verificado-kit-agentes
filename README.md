@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="#como-funciona">Como funciona</a> •
   <a href="#ferramentas">Ferramentas</a> •
   <a href="#instalar">Instalar</a> •
   <a href="#o-que-tem-no-kit">O que tem no kit</a> •
@@ -28,6 +29,52 @@ Plugin do Claude Code com agentes especialistas, um motor de revisão bibliográ
 orquestração adaptativa que sugere o próximo passo guiado, pra escrever e revisar um TCC sem dado
 inventado, citação falsa ou argumento fraco — parte do método ensinado no curso
 [TCC Verificado](https://tccverificado.com.br).
+
+## Como funciona
+
+```mermaid
+flowchart TD
+    Aluno["Aluno<br/>(linguagem natural)"] --> Hub1["iniciar-tcc<br/>(detecta estágio, sugere)"]
+
+    Hub1 --> S1["1. configurar-projeto"]
+    Hub1 --> S2["2. escolher-template<br/>(busca/adapta)"]
+    Hub1 --> S3["3. escolher-tema"]
+    Hub1 --> S4["4. revisao-bibliografica"]
+    Hub1 --> S5["5. planejar-capitulo"]
+
+    S1 --> A1[("tcc-kit/config.md")]
+    S2 --> A2[("tcc-kit/template.md<br/>+ edita tcc/")]
+    S3 --> A3[("tcc-kit/tema.md")]
+    S4 --> A4[("tcc-kit/referencias/")]
+    S5 --> A5[("tcc-kit/capitulos/&lt;slug&gt;/plano.md")]
+
+    A5 -.-> Escrita["Escrita do capítulo<br/>(manual, fora do kit)"]
+    Escrita --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
+
+    Hub2 --> G1["guardiao-dados"]
+    Hub2 --> G2["revisor-citacoes"]
+    Hub2 --> G3["orientador-rigoroso"]
+    Hub2 --> G4["banca-critica"]
+    Hub2 --> G5["revisor-forma"]
+
+    Hub2 --> Rel[("tcc-kit/relatorios/&lt;capitulo&gt;-&lt;data&gt;.md")]
+
+    classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px
+    classDef hub2 fill:#a5d8ff,stroke:#1971c2,stroke-width:2px
+    classDef skill fill:#b2f2bb,stroke:#2f9e44,stroke-width:2px
+    classDef agente fill:#eebefa,stroke:#9c36b5,stroke-width:2px
+    classDef artefato fill:#e9ecef,stroke:#495057,stroke-width:1px
+
+    class Hub1 hub
+    class Hub2 hub2
+    class S1,S2,S3,S4,S5 skill
+    class G1,G2,G3,G4,G5 agente
+    class A1,A2,A3,A4,A5,Rel artefato
+```
+
+`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 5 skills numeradas
+fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
+direto.
 
 ## Ferramentas
 
