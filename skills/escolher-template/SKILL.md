@@ -36,7 +36,12 @@ em `tcc/`, não precisa buscar nem baixar nada.
 ## Passo 3 — Buscar
 
 Determine o nome da universidade: pergunte se não souber, ou leia de `tcc-kit/config.md` se já
-existir. Busque com WebSearch:
+existir. Se `tcc-kit/config.md` não existir, avise o aluno aqui mesmo que ainda não há dados de
+onboarding e sugira rodar `configurar-projeto` antes de continuar — mas deixe claro que ele pode seguir
+sem isso se preferir; isso não bloqueia, é só um aviso adiantado (os dados institucionais só fazem
+falta de verdade lá no Passo 8, de adaptação).
+
+Busque com WebSearch:
 
 ```
 site:overleaf.com <universidade> tese OR dissertação OR TCC
@@ -104,19 +109,29 @@ Se a estrutura for diferente (ex: capítulos numa subpasta com nome diferente, t
 - Confirme que a ordem de inclusão dos capítulos no arquivo principal continua a mesma de antes — só os
   caminhos mudam, o documento renderizado tem que ficar idêntico ao original.
 
-Registre o que foi reorganizado (ou "já estava no formato esperado") pro resumo do Passo 9.
+Registre o que foi reorganizado (ou "já estava no formato esperado") pro resumo do Passo 9 — incluindo,
+se algum capítulo ficou com o nome original por falta de mapeamento confiável nos 5 slugs, a lista
+desses arquivos especificamente.
 
 ## Passo 8 — Adaptar com os dados do onboarding
 
-Leia `tcc-kit/config.md`. Se não existir, avise o aluno que não há dados de onboarding ainda e sugira
-rodar `configurar-projeto` primeiro — mas se ele preferir seguir sem isso, adapte só com o que tiver,
-deixando o resto como placeholder.
+Leia `tcc-kit/config.md` (se ainda não tiver lido no Passo 3). Se não existir — o que só deve acontecer
+nos caminhos que pulam o Passo 3 (padrão do curso, ou só readaptar) — trate como "sem dados": adapte só
+com o que tiver, deixando o resto como placeholder, sem bloquear.
 
 No(s) arquivo(s) principal(is) de `tcc/` (capa, folha de rosto — geralmente comandos como
-`\author{}`, `\title{}`, ou campos customizados da classe LaTeX usada), substitua:
+`\author{}`, `\title{}`, campos customizados da classe LaTeX usada, e o campo `Logo`), substitua:
 - Onde `config.md` tem dado real: substitua o valor real.
 - Onde `config.md` não tem dado (ex: banca "a definir"): insira um placeholder claro e visível, tipo
   `[BANCA A DEFINIR]` — nunca deixe em branco silenciosamente, nem invente um valor.
+
+`Logo`: se `config.md` tiver um caminho de arquivo em `Logo` (não "não informado"), copie o arquivo pra
+dentro de `tcc/` (numa subpasta de imagens/figuras que já exista no template, ou crie `tcc/figuras/` se
+não houver nenhuma). Antes de assumir `\includegraphics{}`, procure nos arquivos do template por um
+comando de logo específico da classe LaTeX usada (algo como `\logo{}` ou `\brasao{}`) e use esse se
+existir; senão, referencie a imagem via `\includegraphics{}` no local apropriado (capa e/ou folha de
+rosto). Se `Logo` estiver "não informado", pule esse campo sem erro — não é uma falha, só um dado que
+falta.
 
 Se não conseguir identificar com segurança onde inserir algum dado (a estrutura do template é atípica
 demais), não "chute" o lugar — avise o aluno que não conseguiu localizar automaticamente e peça pra
@@ -124,17 +139,33 @@ ele indicar o arquivo/linha.
 
 ## Passo 9 — Salvar e resumir
 
+O que entra em `Origem`, `Estrutura` e `Escolhido em` depende de qual caminho foi seguido:
+
+- **Buscou e escolheu um template do Overleaf (Passo 2 optou por buscar, levando ao Passo 3–7 — direto
+  ou depois de reescolher do zero na opção "a" do Passo 1):** `Origem` é "Overleaf: <nome/link>".
+  `Estrutura` vem do que o Passo 7 registrou: "reorganizada" ou "já estava no formato esperado".
+  `Escolhido em` é a data de hoje.
+- **Escolheu o padrão do curso (Passo 2 — direto ou depois de reescolher do zero na opção "a" do
+  Passo 1):** `Origem` é "Padrão abnTeX2 do curso". `Estrutura` é sempre "Padrão do curso, já no formato
+  esperado" — o Passo 7 não roda nesse caminho, então não há reestruturação real pra registrar.
+  `Escolhido em` é a data de hoje.
+- **Só readaptar (opção "b" do Passo 1):** o Passo 7 não roda nesse caminho. Antes de reescrever o
+  arquivo, leia `Origem`, `Estrutura` e `Escolhido em` do `tcc-kit/template.md` já existente e mantenha
+  os mesmos valores — não recalcule nem invente. Só `Campos preenchidos`, `Campos como placeholder` e
+  `Última adaptação` são atualizados de verdade nesse caminho.
+
 Salve `tcc-kit/template.md`:
 
 ```markdown
 # Template do Projeto
-**Origem:** <"Overleaf: <nome/link>" ou "Padrão abnTeX2 do curso">
-**Estrutura:** <"reorganizada" ou "já estava no formato esperado">
+**Origem:** <conforme o caminho seguido, ver acima>
+**Estrutura:** <conforme o caminho seguido, ver acima>
 **Campos preenchidos:** <lista>
 **Campos como placeholder:** <lista, ou "nenhum">
-Escolhido em: <data de hoje, AAAA-MM-DD>
+Escolhido em: <conforme o caminho seguido, ver acima>
 Última adaptação: <data de hoje, AAAA-MM-DD>
 ```
 
-Informe ao aluno, em 2-3 frases: origem do template, o que foi reorganizado (se algo foi), e quais
-campos ficaram como placeholder pra ele conferir depois.
+Informe ao aluno, em 2-3 frases: origem do template, o que foi reorganizado (se algo foi — e se algum
+capítulo ficou com o nome original por falta de mapeamento confiável no Passo 7, liste esses arquivos
+aqui explicitamente), e quais campos ficaram como placeholder pra ele conferir depois.

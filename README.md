@@ -53,17 +53,17 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
 > https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes, a skill
-> `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `escolher-tema`, `planejar-capitulo`)
-> não precisam disso.
+> `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
+> `escolher-template`, `escolher-tema`, `planejar-capitulo`) não precisam disso.
 
 ## O que tem no kit
 
 ### Por onde começar
 
 Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
-`iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: escolher tema, buscar
-referências, ou planejar um capítulo. Nenhuma dessas etapas fica presa a essa skill — você pode pedir
-qualquer uma delas direto, a qualquer momento.
+`iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: configurar o projeto,
+escolher um template, escolher tema, buscar referências, ou planejar um capítulo. Nenhuma dessas etapas
+fica presa a essa skill — você pode pedir qualquer uma delas direto, a qualquer momento.
 
 ### Configurar o projeto
 

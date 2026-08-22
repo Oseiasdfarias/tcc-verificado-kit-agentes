@@ -53,14 +53,16 @@ Se confirmado, continue seguindo o que a skill `configurar-projeto` orienta.
 > "Vi que seus dados estão configurados. Ainda não escolhemos um template LaTeX pro seu projeto. Quer
 > que eu ajude a encontrar um da sua universidade, ou prefere já usar o padrão do curso?"
 
-Se confirmado, continue seguindo o que a skill `escolher-template` orienta.
+Se confirmado, continue seguindo o que a skill `escolher-template` orienta — como o aluno já respondeu
+aqui se quer buscar um template da universidade ou usar o padrão do curso, leve essa resposta direto
+pro Passo 2 dela, sem repetir a pergunta lá.
 
 **3. Configuração atualizada depois da última adaptação do template:**
 > "Vi que você atualizou os dados do projeto depois da última vez que o template foi adaptado. Quer
 > que eu reaplique os dados atualizados no template agora?"
 
-Se confirmado, continue seguindo o que a skill `escolher-template` orienta (o Passo 8 dela cobre esse
-caso de readaptação).
+Se confirmado, continue seguindo o que a skill `escolher-template` orienta — a opção de só readaptar
+com os dados atuais (oferecida quando já existe um `tcc-kit/template.md`) cobre esse caso.
 
 **4. Sem tema:**
 > "Ainda não vejo um tema definido pro seu TCC. Quer que eu te ajude a escolher um agora?"

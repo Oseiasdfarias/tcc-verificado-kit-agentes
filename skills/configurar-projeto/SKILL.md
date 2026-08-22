@@ -9,7 +9,20 @@ Esta skill coleta os dados que identificam o projeto do aluno perante a universi
 por `escolher-template` pra adaptar a capa/folha de rosto. Não força resposta pra dado que ainda não
 existe (banca, por exemplo, normalmente só é definida mais tarde).
 
-## Passo 1 — Perguntar, um de cada vez
+## Passo 1 — Checar configuração existente
+
+Confira se `tcc-kit/config.md` já existe.
+
+- Se existir: mostre os dados atuais (os 8 campos) e pergunte o que o aluno quer fazer. Aceite tanto um
+  pedido específico ("atualiza a banca", "muda o orientador") quanto um pedido genérico ("quero revisar
+  tudo de novo"). Pra cada campo que ele indicar, faça a pergunta correspondente do Passo 2 (a mesma
+  pergunta, incluindo `Banca` — que o Passo 2 não cobre no fluxo do zero: se o aluno pedir pra atualizar
+  a banca aqui, pergunte os nomes dos membros diretamente). Não recolete campos que ele não pediu pra
+  mudar — mantenha os valores atuais deles como estão. Depois de coletar as respostas dos campos
+  indicados, pule direto pro Passo 4 (Salvar), atualizando só esses campos e preservando os demais.
+- Se não existir: siga pro Passo 2 (fluxo normal, do zero).
+
+## Passo 2 — Perguntar, um de cada vez
 
 Nesta ordem, uma pergunta por mensagem (não despeje todas de uma vez):
 
@@ -21,9 +34,10 @@ Nesta ordem, uma pergunta por mensagem (não despeje todas de uma vez):
 6. Ano previsto de conclusão.
 
 Banca fica de fora deste fluxo — normalmente ainda não existe nesse estágio inicial do projeto. Se o
-aluno mencionar a banca espontaneamente, registre; senão, deixe como "a definir" sem perguntar.
+aluno mencionar a banca espontaneamente, registre; senão, deixe como "a definir" sem perguntar. Quando a
+banca for definida, o aluno pode rodar esta skill de novo e pedir pra atualizar só esse campo (Passo 1).
 
-## Passo 2 — Logo da universidade
+## Passo 3 — Logo da universidade
 
 Pergunte se o aluno já tem o arquivo da logo/brasão da universidade salvo em algum lugar.
 - Se tiver: peça o caminho do arquivo.
@@ -33,16 +47,10 @@ Pergunte se o aluno já tem o arquivo da logo/brasão da universidade salvo em a
   visível e embaraçoso. Se o aluno não tiver o arquivo agora, registre "não informado" e siga em frente
   — ele pode voltar e rodar esta skill de novo depois.
 
-## Passo 3 — Checar configuração existente
-
-Confira se `tcc-kit/config.md` já existe.
-- Se existir: mostre os dados atuais, pergunte se o aluno quer atualizar (sobrescrever) ou manter como
-  está. Nunca sobrescreva sem essa confirmação explícita.
-- Se não existir: siga direto pro Passo 4.
-
 ## Passo 4 — Salvar
 
-Crie (ou sobrescreva, se confirmado no Passo 3) `tcc-kit/config.md`:
+Crie `tcc-kit/config.md` (na primeira vez) ou atualize, dentro do arquivo já existente, só os campos
+indicados no Passo 1 (numa atualização parcial), preservando os demais como estavam:
 
 ```markdown
 # Configuração do Projeto
@@ -57,11 +65,12 @@ Crie (ou sobrescreva, se confirmado no Passo 3) `tcc-kit/config.md`:
 Definido em: <data de hoje, AAAA-MM-DD>
 ```
 
-`Definido em` é sempre a data de hoje, mesmo numa atualização — não a data da primeira vez que o
+`Definido em` é sempre a data de hoje, mesmo numa atualização parcial — não a data da primeira vez que o
 arquivo foi criado.
 
 ## Passo 5 — Resumo final
 
-Confirme ao aluno o que foi salvo. Se algum campo ficou "a definir" ou "não informado", mencione isso
-explicitamente e avise que ele pode rodar esta skill de novo mais tarde pra completar (ex: quando a
-banca for definida).
+Confirme ao aluno o que foi salvo (ou, numa atualização parcial, o que mudou especificamente). Se algum
+campo ficou "a definir" ou "não informado", mencione isso explicitamente e avise que ele pode rodar esta
+skill de novo mais tarde pra completar só esse campo (ex: quando a banca for definida) — sem precisar
+refazer os outros.
