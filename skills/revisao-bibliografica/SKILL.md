@@ -39,6 +39,12 @@ A resposta é JSON com uma lista `data`, cada item com `title`, `authors` (lista
 `venue`, `externalIds` (contém `DOI` quando existe), `abstract`, e `openAccessPdf` (contém `url` quando
 existe PDF de acesso aberto — pode ser `null`).
 
+Se a chamada em si falhar (erro de rede, HTTP 429/5xx, timeout, ou qualquer resposta que não seja o JSON
+esperado), tente de novo no máximo 2 vezes, com um intervalo curto entre tentativas. Se ainda falhar
+depois disso, não insista mais — caia direto pro fallback de WebSearch abaixo, do mesmo jeito que se a
+API tivesse respondido vazia. A Semantic Scholar sem chave de API tem rate limit agressivo e pode ficar
+indisponível por vários minutos; insistir além dessas tentativas custa tempo do aluno sem necessidade.
+
 Se a resposta vier vazia, ou com menos de 3 resultados claramente relevantes ao termo buscado, faça uma
 busca de fallback com WebSearch focada em fontes brasileiras, por exemplo:
 `<termo> site:scielo.br` e `<termo> site:periodicos.capes.gov.br`. Extraia manualmente título, autores,
@@ -62,21 +68,32 @@ outro termo". Só os artigos confirmados seguem pro Passo 3 — os outros são d
 Antes de processar cada artigo confirmado, leia `tcc/referencias/index.yaml` (se existir) e confira se
 já existe uma entrada com o mesmo DOI (ou, se DOI ausente em algum dos dois lados, mesmo título
 normalizado — minúsculo, sem pontuação). Se já existir, pule esse artigo e avise o aluno que ele já
-está na base.
+está na base — isso vale também pra uma entrada com status `pendente-manual`: ela já está no índice
+desde o Passo 4 (mesmo sem PDF ainda), então uma busca repetida não deve tratá-la como candidato novo.
 
 ## Passo 4 — Download
 
 Pra cada artigo confirmado e não-duplicado: gere uma `chave` no padrão `sobrenomeAno` (mesmo padrão da
-Aula 2.11 do curso pro `.bib` — ex: `silva2021`; se colidir com uma chave já existente, acrescente
-`b`, `c`, etc: `silva2021b`).
+Aula 2.11 do curso pro `.bib` — ex: `silva2021`; se colidir com uma chave já existente no índice —
+`verificado`, `pendente-conversao` ou `pendente-manual` — acrescente `b`, `c`, etc: `silva2021b`).
 
 Se o artigo tem `openAccessPdf.url`: tente baixar com
-`curl -sL -o tcc/referencias/pdfs/<chave>.pdf "<url>"`. Confirme que o arquivo baixado é um PDF válido
-(comece checando que o arquivo existe e tem tamanho razoável, acima de alguns KB — um HTML de página de
-erro salvo com extensão `.pdf` é um sinal de falha disfarçada de sucesso).
+`curl -sL -o tcc/referencias/pdfs/<chave>.pdf "<url>"`. Confirme que o arquivo baixado é um PDF válido —
+não basta checar tamanho: um HTML de página de erro ou de desafio anti-bot (Cloudflare e afins) salvo
+com extensão `.pdf` é um sinal de falha disfarçada de sucesso, e uma página de desafio maior que "alguns
+KB" passaria despercebida por uma checagem só de tamanho. Confirme o conteúdo de verdade — rode
+`file tcc/referencias/pdfs/<chave>.pdf` e confira que o retorno começa com "PDF document" (ou leia os
+primeiros bytes do arquivo e confira que começam com `%PDF-`) — além de existir e ter tamanho razoável
+(acima de alguns KB).
 
-Se não tem `openAccessPdf.url`, ou o download falhar por qualquer motivo: não trate como erro fatal —
-acrescente uma entrada em `tcc/referencias/baixar-manualmente.md` nesse formato:
+Se o download deu certo e o PDF é válido, siga direto pro Passo 5 — não crie entrada em
+`baixar-manualmente.md` nem em `index.yaml` com `pendente-manual` pra esse artigo.
+
+Se não tem `openAccessPdf.url`, ou o download falhar por qualquer motivo (incluindo o caso de o arquivo
+baixado não passar na checagem de PDF válido acima): não trate como erro fatal. Faça as duas coisas
+abaixo pra esse artigo:
+
+1. Acrescente uma entrada em `tcc/referencias/baixar-manualmente.md` nesse formato:
 
 ```markdown
 ## <chave>
@@ -89,11 +106,20 @@ acrescente uma entrada em `tcc/referencias/baixar-manualmente.md` nesse formato:
 Baixe o PDF manualmente e salve como `tcc/referencias/pdfs/<chave>.pdf`.
 ```
 
+2. Adicione (ou crie, se `tcc/referencias/index.yaml` ainda não existir) uma entrada nesse arquivo pra
+   esse artigo, imediatamente, com `status: pendente-manual` — não espere o aluno baixar o PDF pra
+   indexar (formato completo no Passo 6). Omita (ou deixe `null`) `arquivo_pdf` e `arquivo_md`; pra
+   `resumo`, use o `abstract` da busca como resumo provisório se tiver disponível, deixando claro que
+   ainda não é baseado no texto completo — se não tiver abstract, omita `resumo` por enquanto. Isso é o
+   que permite o Passo 3 reconhecer esse artigo como já-tratado numa busca futura, mesmo antes do PDF
+   chegar.
+
 ## Passo 5 — Conversão
 
-Pra cada PDF presente em `tcc/referencias/pdfs/` que ainda não tem entrada `verificado` ou
-`pendente-conversao` no índice (isso cobre tanto os baixados automaticamente no Passo 4 quanto os que o
-aluno colocou manualmente depois de uma rodada anterior), rode:
+Pra cada PDF presente em `tcc/referencias/pdfs/` cuja `chave` correspondente ainda não tem status
+`verificado` nem `pendente-conversao` no índice — isso cobre os baixados automaticamente no Passo 4 e os
+que o aluno colocou manualmente depois de uma rodada anterior (nesse caso a entrada já existe no índice
+com status `pendente-manual`, criada no Passo 4) — rode:
 
 ```bash
 uv run --with marker-pdf <caminho do plugin>/scripts/pdf_to_md.py tcc/referencias/pdfs/<chave>.pdf tcc/referencias/md/<chave>.md
@@ -113,8 +139,13 @@ Leia o código de saída do comando:
 
 ## Passo 6 — Indexar
 
-Pra cada artigo processado (status `verificado` ou `pendente-conversao`), adicione (ou crie, se ainda
-não existir) uma entrada em `tcc/referencias/index.yaml`:
+Pra cada artigo processado no Passo 5 (status `verificado` ou `pendente-conversao`): se já existe uma
+entrada em `tcc/referencias/index.yaml` com essa `chave` — caso normal, criada no Passo 4 com status
+`pendente-manual` quando o download automático falhou — **atualize essa entrada no lugar** (troque o
+`status`, preencha `arquivo_pdf`/`arquivo_md`, e reescreva `resumo` a partir do conteúdo real de
+`md/<chave>.md` agora que ele existe). Só crie uma entrada nova se essa `chave` ainda não existir no
+índice (caso raro: o download automático do Passo 4 deu certo de primeira, sem nunca passar por
+`pendente-manual`).
 
 ```yaml
 referencias:
@@ -124,17 +155,22 @@ referencias:
     ano: <ano>
     veiculo: "<periódico/veículo>"
     doi: "<DOI ou omitir se não existir>"
-    status: verificado  # ou pendente-conversao
-    arquivo_pdf: pdfs/<chave>.pdf
-    arquivo_md: md/<chave>.md  # omitir/null se status for pendente-conversao e a conversao nao gerou arquivo usavel
-    resumo: "<2-4 linhas resumindo o achado/argumento principal, escritas por você a partir do conteúdo de md/<chave>.md>"
+    status: verificado  # ou pendente-conversao, ou pendente-manual (ver Passo 4)
+    arquivo_pdf: pdfs/<chave>.pdf  # omitir/null enquanto status for pendente-manual
+    arquivo_md: md/<chave>.md  # omitir/null se status for pendente-conversao ou pendente-manual e nao houver arquivo usavel
+    resumo: "<2-4 linhas resumindo o achado/argumento principal, escritas por você a partir do conteúdo de md/<chave>.md — enquanto status for pendente-manual, pode ser um resumo provisório a partir do abstract da busca>"
     tema_relacionado: "<o termo de busca ou a lacuna que originou essa busca>"
     adicionado_em: "<data de hoje, AAAA-MM-DD>"
 ```
 
-Artigos que foram pro `baixar-manualmente.md` (Passo 4) **não** entram no índice ainda — só entram
-depois que o aluno baixar o PDF manualmente e essa skill rodar de novo (o Passo 5 detecta o PDF novo na
-pasta na próxima execução).
+Artigos que foram pro `baixar-manualmente.md` (Passo 4) **já entram no índice imediatamente**, com
+status `pendente-manual` — é isso que permite o Passo 3 reconhecer, numa busca futura, que aquele
+artigo já está pendente e não deve virar candidato "novo" de novo. Quando o aluno baixa o PDF
+manualmente e essa skill roda de novo, o Passo 5 detecta o PDF novo na pasta, converte, e o Passo 6
+**atualiza essa mesma entrada** (mesma `chave`) pra `verificado` ou `pendente-conversao` — nunca cria
+uma segunda entrada pro mesmo artigo. Nesse momento, remova também a seção correspondente daquele
+artigo em `tcc/referencias/baixar-manualmente.md` — ela existe só pra rastrear o que ainda está
+aguardando download manual, e esse artigo não está mais nessa situação.
 
 ## Passo 7 — Resumo final
 
