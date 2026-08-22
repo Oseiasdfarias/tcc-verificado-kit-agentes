@@ -27,10 +27,19 @@ Se pedir `/reload-plugins`, rode esse comando também.
 | Agente | O que faz |
 |---|---|
 | `guardiao-dados` | Confere se números e afirmações do capítulo batem com os dados reais do seu projeto |
-| `revisor-citacoes` | Pesquisa cada citação na web e confirma se a referência existe de verdade |
+| `revisor-citacoes` | Pesquisa cada citação na web, confirma se a referência existe, e sugere buscas quando encontra lacuna |
 | `orientador-rigoroso` | Aponta afirmação sem sustentação e salto de lógica no argumento |
 | `banca-critica` | Simula perguntas difíceis de banca examinadora |
 | `revisor-forma` | Gramática, registro acadêmico ABNT, e tiques de escrita de IA |
+
+## Revisão bibliográfica
+
+Peça "busca referências sobre [seu tema]" a qualquer momento — a skill `revisao-bibliografica` busca
+artigos reais, mostra os candidatos pra você confirmar, baixa o PDF quando possível (ou te dá a lista
+de links pra baixar manualmente), converte pra Markdown, e mantém tudo indexado em
+`tcc/referencias/index.yaml`. Essa base é o que a escrita consulta pra nunca inventar referência — e
+ela cresce ao longo do processo: se faltar uma referência no meio da escrita, o `revisor-citacoes`
+sugere buscar mais, você confirma.
 
 ## Regra que vale pra todos
 
