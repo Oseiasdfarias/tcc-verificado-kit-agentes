@@ -3,6 +3,7 @@
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
   <img src="https://img.shields.io/badge/versão-1.1.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
 <p align="center">
@@ -89,6 +90,12 @@ a forma/português desse texto".
 
 Nenhum agente edita seu texto — só relata. A decisão sobre o que mudar, e sobre qual referência entra
 na base, é sempre sua (ver Aula 3.2 do curso: "raciocínio não se terceiriza").
+
+## Licença
+
+Uso livre para escrever seu próprio trabalho, incluindo em contexto acadêmico/institucional. Não é
+permitido vender este software nem incluí-lo em curso, mentoria ou produto educacional pago de
+terceiros. Ver [LICENSE.md](LICENSE.md).
 
 ## Atualizar
 
