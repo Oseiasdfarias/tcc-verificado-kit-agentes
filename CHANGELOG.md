@@ -8,6 +8,12 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.4.2 — 2026-08-22
+
+Correção: no tema escuro do GitHub, o Mermaid do README (`## Como funciona`) aplicava sua cor de texto
+padrão do dark theme (clara) por cima do preenchimento claro dos blocos coloridos — texto quase
+ilegível. Cada `classDef` agora fixa `color:#1e1e1e`, garantindo contraste em claro e escuro.
+
 ## 1.4.1 — 2026-08-22
 
 Correção: o diagrama Mermaid simplificado no README (`## Como funciona`) tinha ficado de fora do merge
