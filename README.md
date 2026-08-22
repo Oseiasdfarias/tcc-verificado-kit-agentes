@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.4.1-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.4.2-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -46,10 +46,10 @@ flowchart TD
     S6 --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
     Hub2 --> Agentes["5 agentes especialistas<br/>(dados, citações, argumento, forma)"]
 
-    classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px
-    classDef hub2 fill:#a5d8ff,stroke:#1971c2,stroke-width:2px
-    classDef skill fill:#b2f2bb,stroke:#2f9e44,stroke-width:2px
-    classDef agente fill:#eebefa,stroke:#9c36b5,stroke-width:2px
+    classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px,color:#1e1e1e
+    classDef hub2 fill:#a5d8ff,stroke:#1971c2,stroke-width:2px,color:#1e1e1e
+    classDef skill fill:#b2f2bb,stroke:#2f9e44,stroke-width:2px,color:#1e1e1e
+    classDef agente fill:#eebefa,stroke:#9c36b5,stroke-width:2px,color:#1e1e1e
 
     class Hub1 hub
     class Hub2 hub2
