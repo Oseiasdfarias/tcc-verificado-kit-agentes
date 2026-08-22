@@ -8,6 +8,20 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.3.0 — 2026-08-22
+
+Template LaTeX por universidade: coleta os dados institucionais do projeto e ajuda a encontrar/adaptar
+um template LaTeX da sua universidade (quando existir no Overleaf).
+
+- Skill nova: `configurar-projeto` (coleta universidade, curso, orientador, banca, dados do aluno —
+  salva `tcc-kit/config.md`)
+- Skill nova: `escolher-template` (busca no Overleaf via WebSearch, apresenta candidatos + link da
+  galeria geral, orienta o download manual — Overleaf não oferece download automático —, reorganiza
+  arquivo de template quando a estrutura vier diferente da convenção do kit, adapta capa/folha de
+  rosto com os dados do onboarding)
+- `iniciar-tcc` agora detecta configuração e template como os 2 primeiros estágios da cadeia, antes de
+  tema
+
 ## 1.2.1 — 2026-08-22
 
 Correção: `revisao-bibliografica` não travava mais a conversão inteira sem o binário `llama-server`

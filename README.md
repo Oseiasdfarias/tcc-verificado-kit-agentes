@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.2.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.3.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -64,6 +64,21 @@ Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar m
 `iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: escolher tema, buscar
 referências, ou planejar um capítulo. Nenhuma dessas etapas fica presa a essa skill — você pode pedir
 qualquer uma delas direto, a qualquer momento.
+
+### Configurar o projeto
+
+Primeira coisa a fazer num projeto novo: peça "configura meu projeto" — a skill `configurar-projeto`
+coleta universidade, curso, orientador e outros dados institucionais, e salva em
+`tcc-kit/config.md`. Você pode rodar de novo mais tarde pra completar dados que ainda não tinha (ex: a
+banca, quando for definida).
+
+### Escolher template
+
+Peça "acha um template LaTeX pra minha universidade" — a skill `escolher-template` pesquisa no
+Overleaf, te mostra as opções encontradas (mais o link da galeria geral, pra você pesquisar sozinho se
+preferir), orienta o download (sempre manual — o Overleaf não permite baixar automaticamente), e adapta
+a capa do template com os dados de `tcc-kit/config.md`, preenchendo com placeholder o que ainda não
+tiver definido.
 
 ### Escolher tema
 
