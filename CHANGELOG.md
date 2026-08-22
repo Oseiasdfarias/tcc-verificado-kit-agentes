@@ -8,6 +8,12 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.4.1 — 2026-08-22
+
+Correção: o diagrama Mermaid simplificado no README (`## Como funciona`) tinha ficado de fora do merge
+da PR #6 — o merge capturou a branch antes do commit de simplificação chegar ao remoto, então
+`develop` ainda mostrava a versão detalhada antiga. Sem mudança de comportamento do kit.
+
 ## 1.4.0 — 2026-08-22
 
 Escrita assistida de capítulo: transforma o plano aprovado em prosa real, em dois modos escolhíveis
