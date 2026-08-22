@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.3.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.4.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -148,6 +148,16 @@ Antes de escrever de verdade, peça "planeja o capítulo de [nome]" — a skill 
 uma estrutura de seções, o argumento de cada uma, e quais referências já validadas entram em cada
 seção. Você aprova ou pede ajuste antes do plano ser salvo em
 `tcc-kit/capitulos/<capítulo>/plano.md`.
+
+### Escrever um capítulo
+
+Depois do plano aprovado, peça "escreve minha introdução" (ou qualquer outro capítulo) — a skill
+`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo: `co-piloto` (ela
+pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade) ou `rápido` (escreve direto
+do plano, com o mínimo de perguntas) — sua escolha fica salva como padrão em `tcc-kit/config.md`, mas
+dá pra trocar pontualmente a qualquer momento ("escreve rápido dessa vez"). Nos dois modos, todo dado
+vem de `tcc/dados/resumo-real.md` e toda citação vem de referência já verificada — nunca inventa
+nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
 
 ### Os 5 agentes de revisão
 
