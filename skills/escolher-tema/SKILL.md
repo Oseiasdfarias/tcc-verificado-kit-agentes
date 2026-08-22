@@ -64,6 +64,12 @@ Definido em: <data de hoje, AAAA-MM-DD>
 
 ## Passo 5 — Resumo final
 
-Informe o aluno que o tema está salvo, e que o próximo passo natural é buscar referências reais sobre
-ele — pergunte se ele quer que você já rode a skill `revisao-bibliografica` agora, usando os termos de
-busca sugeridos como ponto de partida.
+**Se o Passo 4 salvou um tema novo (arquivo criado ou substituído):** informe o aluno que o tema está
+salvo, e que o próximo passo natural é buscar referências reais sobre ele — pergunte se ele quer que
+você já rode a skill `revisao-bibliografica` agora, usando os termos de busca sugeridos (do arquivo que
+acabou de salvar) como ponto de partida.
+
+**Se o aluno optou por manter o tema existente no Passo 4:** deixe claro que nada foi alterado e que o
+tema em uso continua sendo o que já estava salvo em `tcc-kit/tema.md` — não diga que "acabou de salvar".
+Em seguida, pergunte se ele quer buscar referências usando os termos de busca sugeridos já registrados
+nesse arquivo existente.

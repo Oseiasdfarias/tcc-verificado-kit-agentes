@@ -42,8 +42,14 @@ do aluno — não bloqueie.
 
 ## Passo 4 — Gerar proposta de estrutura
 
-Proponha uma estrutura de seções. Como ponto de partida (o aluno pode pedir qualquer outra
-organização), esses são os padrões mais comuns por tipo de capítulo:
+Se o aluno escolheu no Passo 2 ajustar o plano existente (em vez de recriar do zero), use o conteúdo
+atual de `tcc-kit/capitulos/<slug>/plano.md` como ponto de partida da proposta: mantenha as seções e
+argumentos já aprovados, e aplique só os ajustes que o aluno pedir. Não gere uma estrutura nova do zero
+nesse caso.
+
+Se o aluno escolheu recriar do zero (ou não havia plano anterior), proponha uma estrutura de seções.
+Como ponto de partida (o aluno pode pedir qualquer outra organização), esses são os padrões mais comuns
+por tipo de capítulo:
 
 - **introducao**: contexto do problema → problema de pesquisa → objetivos (geral e específicos) →
   justificativa.
@@ -56,10 +62,17 @@ organização), esses são os padrões mais comuns por tipo de capítulo:
   estudo → contribuições → considerações finais.
 
 Pra cada seção proposta, escreva 1-3 frases do argumento principal dela, e — se houver
-`tcc-kit/referencias/index.yaml` com entradas — sugira quais `chave`s parecem relevantes pra aquela
-seção (cruzando o assunto da seção com o `resumo` e `tema_relacionado` de cada referência). Se nenhuma
-referência da base parecer relevante pra uma seção específica, deixe essa seção sem referência sugerida
-— não force uma correspondência forçada só pra preencher o campo.
+`tcc-kit/referencias/index.yaml` com entradas de `status: verificado` — sugira quais `chave`s dessas
+entradas parecem relevantes pra aquela seção (cruzando o assunto da seção com o `resumo` e
+`tema_relacionado` de cada referência). Nunca sugira uma entrada com `status: pendente-manual` ou
+`pendente-conversao` — ela ainda não foi confirmada como referência utilizável, e sugeri-la como se
+fosse contradiria a promessa do kit de só entrar referência já validada. Se nenhuma referência
+verificada parecer relevante pra uma seção específica, deixe essa seção sem referência sugerida — não
+force uma correspondência forçada só pra preencher o campo.
+
+Se o aluno já respondeu no Passo 3 que quer seguir sem sugestão de referência (por não haver nenhuma
+verificada na base ainda), pule a sugestão de `chave`s nesta etapa — proponha só o argumento de cada
+seção.
 
 ## Passo 5 — Iterar
 

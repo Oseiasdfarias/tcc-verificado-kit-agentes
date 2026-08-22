@@ -20,6 +20,11 @@ sem forçar um roteiro fixo.
   `tcc-kit/capitulos/<capítulo>/plano.md`)
 - `tcc/referencias/` e `tcc/relatorios/` migraram pra `tcc-kit/referencias/` e `tcc-kit/relatorios/` —
   namespace novo dedicado a tudo que o kit gera, separado do conteúdo real do TCC (`tcc/`)
+- **Se você já tinha `tcc/referencias/` ou `tcc/relatorios/` de uma instalação 1.1.0 anterior**, a
+  atualização não move nada automaticamente: renomeie essas pastas manualmente pra
+  `tcc-kit/referencias/` e `tcc-kit/relatorios/` antes de continuar usando o kit. Sem esse passo, as
+  skills não vão mais achar sua base de referências existente, e o checador de duplicata da
+  `revisao-bibliografica` não vai reconhecer o que já foi baixado antes.
 
 ## 1.1.0 — 2026-08-22
 

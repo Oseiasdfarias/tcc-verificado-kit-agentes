@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.1.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.2.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -24,9 +24,10 @@
 
 ## Sobre
 
-Plugin do Claude Code com agentes especialistas e um motor de revisão bibliográfica, pra escrever e
-revisar um TCC sem dado inventado, citação falsa ou argumento fraco — parte do método ensinado no
-curso [TCC Verificado](https://tccverificado.com.br).
+Plugin do Claude Code com agentes especialistas, um motor de revisão bibliográfica e uma camada de
+orquestração adaptativa que sugere o próximo passo guiado, pra escrever e revisar um TCC sem dado
+inventado, citação falsa ou argumento fraco — parte do método ensinado no curso
+[TCC Verificado](https://tccverificado.com.br).
 
 ## Ferramentas
 
@@ -51,8 +52,9 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
-> https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes e a skill
-> `revisar-capitulo` não precisam disso.
+> https://docs.astral.sh/uv/getting-started/installation/. Os outros 5 agentes, a skill
+> `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `escolher-tema`, `planejar-capitulo`)
+> não precisam disso.
 
 ## O que tem no kit
 

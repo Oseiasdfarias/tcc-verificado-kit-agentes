@@ -14,6 +14,10 @@ decisão.
 Confira se `tcc-kit/tema.md` existe.
 - Se não existir: sem tema definido.
 - Se existir: leia o arquivo e extraia o valor do campo **Tema**.
+- Se o arquivo existir mas não for possível extrair um valor claro do campo **Tema** (arquivo
+  corrompido, editado manualmente fora do formato esperado, campo ausente): não trave nem invente um
+  valor. Avise o aluno explicitamente que `tcc-kit/tema.md` existe mas não conseguiu ler o tema dele, e
+  pergunte como prosseguir (corrigir o arquivo manualmente, ou rodar `escolher-tema` de novo).
 
 ## Passo 2 — Verificar referências
 

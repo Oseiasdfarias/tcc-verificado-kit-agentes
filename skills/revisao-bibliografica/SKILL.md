@@ -29,6 +29,12 @@ Determine o termo de busca: o tema que o aluno passou diretamente, ou a lacuna e
 quem te acionou (ex: "precisa de referência sobre custo de troca de operadora em contratos de
 assinatura").
 
+Se o aluno não especificou nenhum termo (ex: pediu só "busca referências sobre meu tema" direto, sem
+passar por `iniciar-tcc` ou `escolher-tema` na conversa) e `tcc-kit/tema.md` existir, leia esse arquivo
+e use os "Termos de busca sugeridos" de lá como ponto de partida — o mesmo termo que `iniciar-tcc` já
+passaria adiante, disponível também quando esta skill é invocada direto. Deixe claro ao aluno quais
+termos você está usando e que ele pode pedir outros.
+
 Busque primeiro na Semantic Scholar API via WebFetch:
 
 ```
