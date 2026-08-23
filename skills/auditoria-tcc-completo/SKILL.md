@@ -73,3 +73,70 @@ capítulo ficou de fora da auditoria por ainda não existir.
   `escrever-capitulo` primeiro — não gere um relatório vazio.
 - **Só alguns dos 5 capítulos existem**: rode normalmente com o que existir, listando explicitamente o
   que falta (Passo 4).
+
+## Passo 5 — Atualizar checklist e histórico
+
+Conte quantos achados a seção "Consistência entre capítulos (guardiao-consistencia)" do relatório que
+acabou de ser salvo (Passo 4) lista no total, somando as 3 categorias (Objetivos, Números,
+Terminologia).
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Auditoria completa do TCC" já
+  marcada (as demais seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [x] Rodada em <data de hoje, AAAA-MM-DD> (N achado(s) de consistência)
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: auditoria-tcc-completo
+```
+
+- **Se já existir**, edite só a seção "Auditoria completa do TCC" pra `- [x] Rodada em <data de hoje,
+  AAAA-MM-DD> (N achado(s) de consistência)` (preservando as demais seções como estão), e atualize a
+  linha final pra `Atualizado em: <data de hoje, AAAA-MM-DD>, por: auditoria-tcc-completo`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — auditoria-tcc-completo
+Auditoria completa rodada. N achado(s) de consistência (guardiao-consistencia). M de 5 capítulos
+avaliados. Relatório: tcc-kit/relatorios/auditoria-completa-<data>.md.
+```
+
+Preencha `M` com a contagem de capítulos listados na seção "Capítulos avaliados" do relatório (Passo 1
+da skill).
