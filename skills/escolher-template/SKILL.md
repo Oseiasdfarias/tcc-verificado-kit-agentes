@@ -169,3 +169,63 @@ Escolhido em: <conforme o caminho seguido, ver acima>
 Informe ao aluno, em 2-3 frases: origem do template, o que foi reorganizado (se algo foi — e se algum
 capítulo ficou com o nome original por falta de mapeamento confiável no Passo 7, liste esses arquivos
 aqui explicitamente), e quais campos ficaram como placeholder pra ele conferir depois.
+
+## Passo 10 — Atualizar checklist e histórico
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Template" já marcada (as
+  demais seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [x] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: escolher-template
+```
+
+- **Se já existir**, edite só a seção "Template" pra `- [x] Escolhido/adaptado (tcc-kit/template.md)`
+  (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em: <data de
+  hoje, AAAA-MM-DD>, por: escolher-template`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — escolher-template
+Template <origem — "encontrado no Overleaf: <nome/link>" ou "padrão abnTeX2 do curso"> escolhido e
+adaptado com os dados institucionais.
+```
