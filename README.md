@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.5.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.6.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -47,6 +47,9 @@ flowchart TD
     S7 --> Hub2["revisar-capitulo<br/>(auditoria completa)"]
     Hub2 --> Agentes["6 agentes especialistas<br/>(dados, citações, método, argumento, forma)"]
 
+    Hub2 --> S8["8. auditoria-tcc-completo"]
+    S8 --> S9["9. preparar-defesa"]
+
     classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px,color:#1e1e1e
     classDef hub2 fill:#a5d8ff,stroke:#1971c2,stroke-width:2px,color:#1e1e1e
     classDef skill fill:#b2f2bb,stroke:#2f9e44,stroke-width:2px,color:#1e1e1e
@@ -54,11 +57,11 @@ flowchart TD
 
     class Hub1 hub
     class Hub2 hub2
-    class S1,S2,S3,S4,S5,S6,S7 skill
+    class S1,S2,S3,S4,S5,S6,S7,S8,S9 skill
     class Agentes agente
 ```
 
-`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 7 skills numeradas
+`iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 9 skills numeradas
 fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
 direto. Cada skill salva o que produz em `tcc-kit/` (ou edita `tcc/`, no caso de
 `escolher-template`/`escrever-capitulo`) — detalhes na seção "O que tem no kit" abaixo.
@@ -86,10 +89,10 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
-> https://docs.astral.sh/uv/getting-started/installation/. Os outros 6 agentes, a skill
+> https://docs.astral.sh/uv/getting-started/installation/. Os outros 7 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
 > `escolher-template`, `escolher-tema`, `validar-metodologia`, `planejar-capitulo`,
-> `escrever-capitulo`) não precisam disso.
+> `escrever-capitulo`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
 
 ## O que tem no kit
 
@@ -97,8 +100,8 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 Não sabe por onde continuar? Peça "por onde eu continuo?" ou "vamos começar meu TCC" — a skill
 `iniciar-tcc` olha o que você já tem em `tcc-kit/` e sugere o próximo passo: configurar o projeto,
-escolher um template, escolher tema, buscar referências, validar a metodologia, ou planejar um
-capítulo, ou escrever um capítulo já planejado. Nenhuma dessas etapas
+escolher um template, escolher tema, buscar referências, validar a metodologia, planejar um capítulo,
+escrever um capítulo já planejado, auditar o TCC inteiro, ou preparar a defesa. Nenhuma dessas etapas
 fica presa a essa skill — você pode pedir qualquer uma delas direto, a qualquer momento.
 
 ### Configurar o projeto
@@ -172,6 +175,21 @@ nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar 
 Peça "audita esse capítulo antes de eu considerar pronto" — a skill `revisar-capitulo` roda os 6
 agentes na ordem certa (dado e citação primeiro, são bloqueantes; argumento e forma depois) e
 consolida tudo num relatório único, incluindo qualquer lacuna de referência encontrada.
+
+### Auditoria do TCC completo
+
+Depois que todos os capítulos estiverem escritos, peça "confere meu TCC inteiro antes de eu entregar"
+— a skill `auditoria-tcc-completo` lê todos os capítulos de uma vez (não um por um) e confere o que
+nenhum dos 6 agentes de `revisar-capitulo` consegue ver isoladamente: se todo objetivo da Introdução foi
+respondido na Discussão, se números que você mesmo relata batem entre capítulos, e se a terminologia se
+mantém estável. Inclui também um lembrete de itens que variam por instituição (ficha catalográfica,
+folha de aprovação) e o curso não padroniza.
+
+### Preparar apresentação de defesa
+
+Com o TCC pronto, peça "me ajuda a preparar a defesa" — a skill `preparar-defesa` gera uma apresentação
+em Beamer a partir dos capítulos já aprovados (nunca inventa conteúdo novo pro slide) e um material de
+perguntas prováveis da banca, reaproveitando o `banca-critica` sobre o TCC inteiro.
 
 ### Usar um agente específico
 

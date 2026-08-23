@@ -8,6 +8,23 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.6.0 — 2026-08-22
+
+Consolidação, auditoria cross-capítulo e preparação de defesa: fecha o ciclo de escrita com uma etapa
+que lê o TCC inteiro, não capítulo a capítulo.
+
+- Skill nova: `auditoria-tcc-completo` — lê todos os capítulos de uma vez, confere se objetivos da
+  Introdução foram respondidos na Discussão, se números que o aluno relata batem entre capítulos, e se
+  a terminologia se mantém estável. Inclui lembrete de checklist institucional (Aula 3.1).
+- Agente novo: `guardiao-consistencia` (7º da linhagem de revisão) — só é despachado por
+  `auditoria-tcc-completo`, nunca por `revisar-capitulo` (que continua com os mesmos 6 agentes de
+  sempre, por capítulo).
+- Skill nova: `preparar-defesa` — gera apresentação Beamer a partir dos capítulos aprovados (nunca
+  inventa conteúdo novo pro slide) e reaproveita o `banca-critica` já existente sobre o TCC completo pra
+  gerar prep de perguntas da banca.
+- `iniciar-tcc` ganha 2 ramificações de sugestão novas (a 5ª extensão da skill): todos os capítulos
+  escritos sem auditoria completa, e auditoria feita sem apresentação de defesa.
+
 ## 1.5.0 — 2026-08-22
 
 Validação metodológica: fecha o gap identificado na análise completa de estrutura de agentes — a Aula
