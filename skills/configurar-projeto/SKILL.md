@@ -82,3 +82,66 @@ Confirme ao aluno o que foi salvo (ou, numa atualização parcial, o que mudou e
 campo ficou "a definir" ou "não informado", mencione isso explicitamente e avise que ele pode rodar esta
 skill de novo mais tarde pra completar só esse campo (ex: quando a banca for definida) — sem precisar
 refazer os outros.
+
+## Passo 6 — Atualizar checklist e histórico
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Configuração institucional" já
+  marcada (as demais seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [x] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: configurar-projeto
+```
+
+- **Se já existir**, edite só a seção "Configuração institucional" pra `- [x] Configurado
+  (tcc-kit/config.md)` (preservando as demais seções como estão), e atualize a linha final pra
+  `Atualizado em: <data de hoje, AAAA-MM-DD>, por: configurar-projeto`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — configurar-projeto
+Dados institucionais coletados/atualizados em tcc-kit/config.md.
+```
+
+Se a execução foi uma atualização parcial (Passo 1 do fluxo original — só alguns campos mudaram), ajuste
+a frase pra refletir isso, ex: "Dados institucionais atualizados em tcc-kit/config.md (campos: banca,
+orientador)."
