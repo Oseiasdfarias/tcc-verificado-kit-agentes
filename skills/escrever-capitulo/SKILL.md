@@ -124,3 +124,82 @@ foi feita no Passo 2, antes da entrevista — não repita essa pergunta aqui.
 Informe ao aluno quantas seções foram escritas, e se alguma ficou pendente por falta de dado ou
 referência (Passo 4). **Sempre** sugira rodar a skill `revisar-capitulo` antes de considerar o capítulo
 pronto — em nenhum dos dois modos esta skill se apresenta como aprovação final, só como rascunho.
+
+## Passo 7 — Atualizar checklist e histórico
+
+Recalcule o estado do capítulo `<slug>` do zero — não presuma qual era o estado anterior no checklist —
+nesta ordem:
+
+1. `tcc-kit/capitulos/<slug>/plano.md` não existe → estado é "Não iniciado".
+2. `plano.md` existe, mas `tcc/capitulos/<slug>.tex` não existe ou não tem conteúdo real (mesmo
+   critério de julgamento de leitura que `revisor-forma`/`iniciar-tcc` já usam — não é limite fixo de
+   caracteres, é conferir se há texto real, não só o placeholder do template) → estado é "Planejado".
+3. `tcc/capitulos/<slug>.tex` tem conteúdo real, mas não existe nenhum arquivo
+   `tcc-kit/relatorios/<slug>-*.md` → estado é "Escrito, ainda não revisado".
+4. Existe pelo menos um `tcc-kit/relatorios/<slug>-*.md` → leia o mais recente (maior data no nome do
+   arquivo) e confira a seção "Achados bloqueantes": se disser "nenhum achado bloqueante", estado é
+   "Revisado, sem achados bloqueantes"; caso contrário (pelo menos um achado listado), estado é
+   "Revisado, com achados bloqueantes pendentes".
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a linha do capítulo `<slug>` já
+  refletindo o estado recalculado acima (as demais linhas e seções ficam no estado inicial, como no
+  esqueleto — use o nome do capítulo por extenso na tabela):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo
+```
+
+(edite a linha do capítulo correspondente na tabela antes de salvar, com o estado recalculado).
+
+- **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
+  acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
+  em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — escrever-capitulo (<nome do capítulo>)
+Capítulo <nome do capítulo> escrito, modo <co-piloto | rápido>. Arquivo: tcc/capitulos/<slug>.tex.
+```
+
+Esta entrada é registrada uma única vez ao final da execução (Passo 7), não uma vez por seção salva
+incrementalmente no Passo 5 original.
