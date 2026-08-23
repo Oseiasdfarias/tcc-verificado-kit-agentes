@@ -49,7 +49,7 @@ execução`), o registro já existe e cobre o gap que esta etapa detecta.
 ## Passo 6 — Verificar plano e escrita de capítulo
 
 Se o aluno já indicou (ou você já souber de uma interação anterior nesta conversa) qual capítulo está
-em foco, confira, pra esse capítulo, e registre os dois sinais separadamente — o Passo 7 usa a
+em foco, confira, pra esse capítulo, e registre os dois sinais separadamente — o Passo 8 usa a
 combinação dos dois pra escolher entre a ramificação 8 e a 9:
 - **Plano aprovado?** `tcc-kit/capitulos/<slug>/plano.md` existe?
 - **Conteúdo real escrito?** `tcc/capitulos/<slug>.tex` existe e tem conteúdo real escrito? Critério:
@@ -59,7 +59,20 @@ combinação dos dois pra escolher entre a ramificação 8 e a 9:
 Se o aluno ainda não indicou nenhum capítulo específico, pule este passo — as ramificações 8 e 9 abaixo
 só se aplicam quando já se sabe qual capítulo está em jogo.
 
-## Passo 7 — Apresentar o estado e perguntar
+## Passo 7 — Verificar consolidação e defesa
+
+Confira, pra cada um dos 5 slugs fixos (`introducao`, `referencial-teorico`, `metodologia`, `resultados`,
+`discussao-consideracoes-finais`), se `tcc/capitulos/<slug>.tex` existe e tem conteúdo real (mesmo
+critério de julgamento de leitura do Passo 6). Conte quantos dos 5 têm conteúdo real.
+
+Confira também se existe algum arquivo `tcc-kit/relatorios/auditoria-completa-*.md`, e se
+`tcc/apresentacao-defesa.tex` existe.
+
+Critério exato: os 5 capítulos só contam como "completos" se todos os 5 tiverem conteúdo real — 4 de 5
+não é suficiente pra esta etapa. Auditoria e apresentação contam como "existe" ou "não existe" (sem
+checagem de desatualização).
+
+## Passo 8 — Apresentar o estado e perguntar
 
 Os passos acima detectam várias coisas ao mesmo tempo, mas você só apresenta **uma** sugestão por vez
 — a do estágio mais cedo que ainda falta, nesta ordem de prioridade:
@@ -127,6 +140,18 @@ foco.
 
 Se confirmado, continue seguindo o que a skill `revisar-capitulo` orienta, já passando o capítulo em
 foco.
+
+**10. Todos os 5 capítulos com conteúdo real, nenhuma auditoria completa ainda:**
+> "Vi que todos os capítulos do seu TCC já têm conteúdo. Quer que eu rode uma auditoria completa,
+> conferindo consistência entre eles, antes de você seguir pra entrega ou defesa?"
+
+Se confirmado, continue seguindo o que a skill `auditoria-tcc-completo` orienta.
+
+**11. Auditoria completa já feita ao menos uma vez, sem apresentação de defesa:**
+> "Vi que você já rodou uma auditoria completa do seu TCC. Quer que eu prepare sua apresentação de
+> defesa agora?"
+
+Se confirmado, continue seguindo o que a skill `preparar-defesa` orienta.
 
 ## Nunca decida e execute no mesmo passo
 
