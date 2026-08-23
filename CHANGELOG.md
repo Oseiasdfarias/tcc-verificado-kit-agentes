@@ -8,6 +8,23 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.7.0 — 2026-08-23
+
+Checklist de progresso e histórico de rastreamento: dois artefatos novos que dão visibilidade contínua
+sobre o que já foi feito no TCC, sem precisar reconstruir esse estado inferindo a partir de uma dúzia de
+arquivos espalhados.
+
+- Artefato novo: `tcc-kit/checklist.md` — estado atual de cada estágio do ciclo de vida (configuração,
+  template, tema, referências, metodologia, um por um dos 5 capítulos, auditoria completa, apresentação
+  de defesa). Capítulos e metodologia têm estados intermediários (ex: "Escrito, ainda não revisado",
+  "Revisado, com achados bloqueantes pendentes") derivados dos próprios relatórios que as skills já
+  produzem — sem lógica de detecção nova.
+- Artefato novo: `tcc-kit/historico.md` — jornal de auditoria, uma entrada por skill concluída, em
+  ordem cronológica, apontando pro relatório detalhado de cada execução quando existir.
+- As 10 skills que produzem algo (todas exceto `iniciar-tcc`) ganham um passo final novo que mantém os
+  dois arquivos atualizados. `iniciar-tcc` não muda — continua com sua própria detecção ao vivo,
+  independente destes dois artefatos.
+
 ## 1.6.0 — 2026-08-22
 
 Consolidação, auditoria cross-capítulo e preparação de defesa: fecha o ciclo de escrita com uma etapa

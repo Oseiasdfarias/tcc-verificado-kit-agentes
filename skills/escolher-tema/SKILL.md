@@ -73,3 +73,71 @@ acabou de salvar) como ponto de partida.
 tema em uso continua sendo o que já estava salvo em `tcc-kit/tema.md` — não diga que "acabou de salvar".
 Em seguida, pergunte se ele quer buscar referências usando os termos de busca sugeridos já registrados
 nesse arquivo existente.
+
+## Passo 6 — Atualizar checklist e histórico
+
+**Se o Passo 4 não salvou nada novo** (aluno optou por manter o tema existente sem alteração), não
+atualize nem o checklist nem o histórico — nada mudou de fato, não há execução nova pra registrar.
+
+**Se o Passo 4 salvou um tema novo** (arquivo criado ou substituído), confira se `tcc-kit/checklist.md`
+existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Tema" já marcada (as demais
+  seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [x] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: escolher-tema
+```
+
+- **Se já existir**, edite só a seção "Tema" pra `- [x] Definido (tcc-kit/tema.md)` (preservando as
+  demais seções como estão), e atualize a linha final pra `Atualizado em: <data de hoje, AAAA-MM-DD>,
+  por: escolher-tema`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — escolher-tema
+Tema definido: "<tema confirmado>".
+```

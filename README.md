@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.6.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.7.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -95,6 +95,13 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > `escrever-capitulo`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
 
 ## O que tem no kit
+
+### Checklist e histórico
+
+Toda skill que produz algo mantém dois arquivos atualizados automaticamente, sem que você precise
+pedir: `tcc-kit/checklist.md` (estado atual de cada etapa — o que já está feito, o que ainda falta,
+capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou, em ordem cronológica).
+Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem precisar perguntar ao kit.
 
 ### Por onde começar
 

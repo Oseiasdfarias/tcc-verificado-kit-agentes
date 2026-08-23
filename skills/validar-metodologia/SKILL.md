@@ -212,3 +212,77 @@ existia `plano.md` ou capítulo de Metodologia/Resultados escrito antes desta sk
   (Passo 1).
 - **Paradigma misto com só um componente detalhado**: pergunta explicitamente se falta detalhar o
   outro.
+
+## Passo 7 — Atualizar checklist e histórico
+
+**Se o Passo 1 encerrou a execução** (aluno optou por manter `tcc-kit/metodologia.md` como está, sem
+alteração), não atualize nem o checklist nem o histórico.
+
+**Se o Passo 5 salvou/atualizou `tcc-kit/metodologia.md`**, leia o campo `Status` desse arquivo e
+traduza pro estado do checklist:
+- `Pendente de execução` → **"Definida, pendente de execução"**
+- `Executado (ver tcc/dados/resumo-real.md)` → **"Definida e executada"**
+- `Não se aplica (bibliográfico/teórico)` → **"Definida (não se aplica execução — bibliográfico/teórico)"**
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Metodologia" já marcada com o
+  estado traduzido acima (as demais seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** <estado traduzido acima>
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: validar-metodologia
+```
+
+- **Se já existir**, edite só a seção "Metodologia" pra `**Estado:** <estado traduzido acima>`
+  (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em: <data de
+  hoje, AAAA-MM-DD>, por: validar-metodologia`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — validar-metodologia
+Metodologia definida: <paradigma>, <método escolhido>. Como foi definido: <aluno decidiu diretamente |
+IA analisou e propôs, aluno confirmou>.
+```
