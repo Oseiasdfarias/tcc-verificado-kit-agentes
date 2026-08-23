@@ -226,3 +226,75 @@ manual. Se algum PDF órfão foi indexado nesta rodada (Passo 6), avise também 
 os metadados inferidos daquela entrada. Se alguma conversão saiu no código 3 (Passo 5) — sem
 reconhecimento de fórmula por falta do `llama-server` —, avise quais referências caíram nesse caso e
 que fórmulas/equações delas podem precisar de conferência manual.
+
+## Passo 8 — Atualizar checklist e histórico
+
+Conte quantas entradas em `tcc-kit/referencias/index.yaml` têm `status: verificado` (a contagem total
+no índice, não só as adicionadas nesta execução).
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Referências" já marcada
+  (`[x]` se a contagem for 1 ou mais, `[ ]` se for zero; as demais seções ficam no estado inicial, como
+  no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [x] Pelo menos 1 referência verificada (N verificada(s))
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: revisao-bibliografica
+```
+
+(substitua `N` pela contagem real; se a contagem for zero, use `- [ ] Pelo menos 1 referência
+verificada` sem o número, igual ao esqueleto original).
+
+- **Se já existir**, edite só a seção "Referências" pra `- [x] Pelo menos 1 referência verificada (N
+  verificada(s))` (ou `- [ ] Pelo menos 1 referência verificada` se a contagem for zero), preservando as
+  demais seções como estão, e atualize a linha final pra `Atualizado em: <data de hoje, AAAA-MM-DD>,
+  por: revisao-bibliografica`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — revisao-bibliografica
+Busca rodada pro termo "<termo usado>". N referência(s) nova(s) verificada(s), M pendente(s) de
+conversão ou download manual.
+```
+
+Preencha `N` e `M` com os números reais desta execução (não a contagem total do índice, que já foi
+usada acima pro checklist) — se nenhuma referência nova foi confirmada pelo aluno, ainda assim
+acrescente a entrada, registrando que a busca aconteceu sem resultado confirmado.
