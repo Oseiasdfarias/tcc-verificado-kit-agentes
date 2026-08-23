@@ -107,3 +107,81 @@ essa linha (isso marcaria incorretamente um rascunho como aprovado).
 Informe o aluno que o plano foi salvo, o caminho do arquivo, e que ele já pode pedir pra escrever esse
 capítulo — a skill `escrever-capitulo` transforma esse plano em prosa de verdade, em dois modos
 (co-piloto ou rápido).
+
+## Passo 8 — Atualizar checklist e histórico
+
+Recalcule o estado do capítulo `<slug>` do zero — não presuma qual era o estado anterior no checklist —
+nesta ordem:
+
+1. `tcc-kit/capitulos/<slug>/plano.md` não existe → estado é "Não iniciado".
+2. `plano.md` existe, mas `tcc/capitulos/<slug>.tex` não existe ou não tem conteúdo real (mesmo
+   critério de julgamento de leitura que `revisor-forma`/`iniciar-tcc` já usam — não é limite fixo de
+   caracteres, é conferir se há texto real, não só o placeholder do template) → estado é "Planejado".
+3. `tcc/capitulos/<slug>.tex` tem conteúdo real, mas não existe nenhum arquivo
+   `tcc-kit/relatorios/<slug>-*.md` → estado é "Escrito, ainda não revisado".
+4. Existe pelo menos um `tcc-kit/relatorios/<slug>-*.md` → leia o mais recente (maior data no nome do
+   arquivo) e confira a seção "Achados bloqueantes": se disser "nenhum achado bloqueante", estado é
+   "Revisado, sem achados bloqueantes"; caso contrário (pelo menos um achado listado), estado é
+   "Revisado, com achados bloqueantes pendentes".
+
+Confira se `tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a linha do capítulo `<slug>` já
+  refletindo o estado recalculado acima (as demais linhas e seções ficam no estado inicial, como no
+  esqueleto — use o nome do capítulo por extenso na tabela: Introdução, Referencial teórico,
+  Metodologia, Resultados, ou Discussão/Considerações finais, conforme o slug):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [ ] Nunca gerada
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: planejar-capitulo
+```
+
+(edite a linha do capítulo correspondente na tabela antes de salvar, com o estado recalculado — o
+esqueleto acima mostra o estado inicial de todas as linhas só como ponto de partida).
+
+- **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
+  acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
+  em: <data de hoje, AAAA-MM-DD>, por: planejar-capitulo`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — planejar-capitulo (<nome do capítulo>)
+Plano do capítulo <nome do capítulo> aprovado. Arquivo: tcc-kit/capitulos/<slug>/plano.md.
+```
