@@ -8,6 +8,21 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.5.0 — 2026-08-22
+
+Validação metodológica: fecha o gap identificado na análise completa de estrutura de agentes — a Aula
+2.3 ensinava só uma regra de bolso pra interpretar teste estatístico, sem nenhuma validação de rigor.
+
+- Skill nova: `validar-metodologia` — dois modos (`aluno decide` ou `IA analisa e propõe`), cobrindo
+  quatro paradigmas de pesquisa como cidadãos de primeira classe: quantitativo, qualitativo,
+  bibliográfico/teórico, misto. Não fica preso ao exemplo de dataset do curso. Salva
+  `tcc-kit/metodologia.md`.
+- Agente novo: `guardiao-metodo` (6º da linhagem de revisão) — confere coerência entre o método
+  descrito no capítulo e o que foi validado, e aponta conclusão que extrapola o que o método permite
+  (ex: tratar correlação como causalidade). Integrado ao `revisar-capitulo`.
+- `iniciar-tcc` agora detecta um 9º estágio: tema e referências definidos, mas metodologia ainda não
+  validada.
+
 ## 1.4.2 — 2026-08-22
 
 Correção: no tema escuro do GitHub, o Mermaid do README (`## Como funciona`) aplicava sua cor de texto
