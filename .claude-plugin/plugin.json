@@ -1,7 +1,7 @@
 {
   "name": "tcc-kit",
-  "version": "1.6.0",
-  "description": "Kit de agentes anti-alucinação do TCC Verificado: orquestração adaptativa (skills iniciar-tcc, configurar-projeto, escolher-template, escolher-tema, validar-metodologia, planejar-capitulo, escrever-capitulo, auditoria-tcc-completo, preparar-defesa), 7 agentes especialistas (integridade de dados, verificação de citações, integridade metodológica, consistência entre capítulos, orientador rigoroso, banca crítica, forma/português), skill revisar-capitulo que roda 6 deles em sequência por capítulo, skill auditoria-tcc-completo que roda o 7º sobre o TCC inteiro, skill preparar-defesa que gera apresentação Beamer e prep de perguntas, e skill revisao-bibliografica que busca, confirma, baixa e indexa referências acadêmicas reais.",
+  "version": "1.7.0",
+  "description": "Kit de agentes anti-alucinação do TCC Verificado: orquestração adaptativa (skills iniciar-tcc, configurar-projeto, escolher-template, escolher-tema, validar-metodologia, planejar-capitulo, escrever-capitulo, auditoria-tcc-completo, preparar-defesa), 7 agentes especialistas (integridade de dados, verificação de citações, integridade metodológica, consistência entre capítulos, orientador rigoroso, banca crítica, forma/português), skill revisar-capitulo que roda 6 deles em sequência por capítulo, skill auditoria-tcc-completo que roda o 7º sobre o TCC inteiro, skill preparar-defesa que gera apresentação Beamer e prep de perguntas, skill revisao-bibliografica que busca, confirma, baixa e indexa referências acadêmicas reais, e um checklist de progresso (tcc-kit/checklist.md) + histórico de rastreamento (tcc-kit/historico.md) mantidos automaticamente por todas as skills que produzem algo.",
   "author": {
     "name": "TCC Verificado"
   }
