@@ -73,3 +73,67 @@ próprias palavras antes da defesa de verdade.
 - **Alguns capítulos faltando**: gere a apresentação com as seções correspondentes marcadas como
   pendentes (Passo 2) — nunca invente conteúdo de preenchimento.
 - **Sem auditoria prévia**: avisa e pergunta (Passo 1), segue se o aluno confirmar.
+
+## Passo 5 — Atualizar checklist e histórico
+
+**Se o Passo 2 recusou gerar a apresentação** (caso de zero capítulos com conteúdo real, ver
+"Tratamento de erro"), não atualize nem o checklist nem o histórico — nada foi produzido.
+
+**Se `tcc/apresentacao-defesa.tex` foi gerado** (Passo 2 e Passo 4 concluídos), confira se
+`tcc-kit/checklist.md` existe.
+
+- **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Apresentação de defesa" já
+  marcada (as demais seções ficam no estado inicial, como no esqueleto):
+
+```markdown
+# Checklist de progresso — TCC
+
+## Configuração institucional
+- [ ] Configurado (tcc-kit/config.md)
+
+## Template
+- [ ] Escolhido/adaptado (tcc-kit/template.md)
+
+## Tema
+- [ ] Definido (tcc-kit/tema.md)
+
+## Referências
+- [ ] Pelo menos 1 referência verificada
+
+## Metodologia
+**Estado:** Não iniciado
+
+## Capítulos
+| Capítulo | Estado |
+|---|---|
+| Introdução | Não iniciado |
+| Referencial teórico | Não iniciado |
+| Metodologia | Não iniciado |
+| Resultados | Não iniciado |
+| Discussão/Considerações finais | Não iniciado |
+
+## Auditoria completa do TCC
+- [ ] Nunca rodada
+
+## Apresentação de defesa
+- [x] Gerada em <data de hoje, AAAA-MM-DD>
+
+---
+Atualizado em: <data de hoje, AAAA-MM-DD>, por: preparar-defesa
+```
+
+- **Se já existir**, edite só a seção "Apresentação de defesa" pra `- [x] Gerada em <data de hoje,
+  AAAA-MM-DD>` (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em:
+  <data de hoje, AAAA-MM-DD>, por: preparar-defesa`.
+
+Confira se `tcc-kit/historico.md` existe.
+
+- **Se não existir**, crie com o cabeçalho `# Histórico — TCC`.
+- Acrescente, sempre no final do arquivo (nunca edite uma entrada antiga):
+
+```markdown
+
+## <data e hora de agora, AAAA-MM-DD HH:MM> — preparar-defesa
+Apresentação de defesa gerada (tcc/apresentacao-defesa.tex) e prep de perguntas salvo
+(tcc-kit/relatorios/prep-perguntas-defesa-<data>.md).
+```
