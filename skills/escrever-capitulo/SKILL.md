@@ -145,7 +145,8 @@ Confira se `tcc-kit/checklist.md` existe.
 
 - **Se não existir**, crie com o esqueleto completo abaixo, com a linha do capítulo `<slug>` já
   refletindo o estado recalculado acima (as demais linhas e seções ficam no estado inicial, como no
-  esqueleto — use o nome do capítulo por extenso na tabela):
+  esqueleto — use o nome do capítulo por extenso na tabela: Introdução, Referencial teórico,
+  Metodologia, Resultados, ou Discussão/Considerações finais, conforme o slug):
 
 ```markdown
 # Checklist de progresso — TCC
@@ -189,6 +190,11 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo
 - **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
   acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
   em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
 
 Confira se `tcc-kit/historico.md` existe.
 

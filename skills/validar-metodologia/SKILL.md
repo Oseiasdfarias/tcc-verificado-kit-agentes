@@ -269,6 +269,11 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: validar-metodologia
 - **Se já existir**, edite só a seção "Metodologia" pra `**Estado:** <estado traduzido acima>`
   (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em: <data de
   hoje, AAAA-MM-DD>, por: validar-metodologia`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
 
 Confira se `tcc-kit/historico.md` existe.
 

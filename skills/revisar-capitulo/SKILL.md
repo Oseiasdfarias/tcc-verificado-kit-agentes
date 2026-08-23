@@ -15,6 +15,21 @@ completa". Peça o caminho do capítulo se não foi informado, o caminho do resu
 (normalmente `tcc/dados/resumo-real.md`) se o capítulo fizer qualquer afirmação sobre
 dados/resultados, e o caminho de `tcc-kit/metodologia.md` se existir (usado pelo `guardiao-metodo`).
 
+## Identificar o slug do capítulo
+
+Mapeie o capítulo pedido pro slug correspondente:
+
+| Aluno diz (exemplos) | Slug |
+|---|---|
+| introdução | `introducao` |
+| referencial teórico, fundamentação teórica, revisão de literatura | `referencial-teorico` |
+| metodologia, método | `metodologia` |
+| resultados | `resultados` |
+| discussão, considerações finais, conclusão | `discussao-consideracoes-finais` |
+
+Se o aluno pedir um capítulo fora desses 5 (ex: um TCC com estrutura diferente), slugifique livre
+(minúsculo, hífen, sem acento) — não force um dos 5 slugs fixos onde não se aplica.
+
 ## Ordem de disparo — importa
 
 Revisar argumento e forma de um capítulo que ainda tem dado inventado ou citação falsa é desperdício
@@ -38,7 +53,7 @@ consolidar.
 
 ## Consolidando o relatório final
 
-Salve em `tcc-kit/relatorios/<nome-do-capitulo>-<data>.md`, nesta estrutura:
+Salve em `tcc-kit/relatorios/<slug>-<data>.md`, nesta estrutura:
 
 ```markdown
 # Auditoria — [nome do capítulo] — [data]
@@ -102,7 +117,8 @@ Confira se `tcc-kit/checklist.md` existe.
 
 - **Se não existir**, crie com o esqueleto completo abaixo, com a linha do capítulo `<slug>` já
   refletindo o estado recalculado acima (as demais linhas e seções ficam no estado inicial, como no
-  esqueleto — use o nome do capítulo por extenso na tabela):
+  esqueleto — use o nome do capítulo por extenso na tabela: Introdução, Referencial teórico,
+  Metodologia, Resultados, ou Discussão/Considerações finais, conforme o slug):
 
 ```markdown
 # Checklist de progresso — TCC
@@ -146,6 +162,11 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: revisar-capitulo
 - **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
   acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
   em: <data de hoje, AAAA-MM-DD>, por: revisar-capitulo`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
 
 Confira se `tcc-kit/historico.md` existe.
 
@@ -155,7 +176,7 @@ Confira se `tcc-kit/historico.md` existe.
 ```markdown
 
 ## <data e hora de agora, AAAA-MM-DD HH:MM> — revisar-capitulo (<nome do capítulo>)
-Auditoria completa rodada pro capítulo <nome do capítulo>. N achados bloqueantes. Relatório:
+Auditoria rodada pro capítulo <nome do capítulo>. N achados bloqueantes. Relatório:
 tcc-kit/relatorios/<slug>-<data>.md.
 ```
 

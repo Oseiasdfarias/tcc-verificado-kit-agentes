@@ -76,6 +76,10 @@ capítulo ficou de fora da auditoria por ainda não existir.
 
 ## Passo 5 — Atualizar checklist e histórico
 
+**Se o Passo 1 não encontrou nenhum capítulo com conteúdo real** (caso descrito em "Tratamento de
+erro" — a skill recusou gerar o relatório), não atualize nem o checklist nem o histórico — nada foi
+produzido.
+
 Conte quantos achados a seção "Consistência entre capítulos (guardiao-consistencia)" do relatório que
 acabou de ser salvo (Passo 4) lista no total, somando as 3 categorias (Objetivos, Números,
 Terminologia).
@@ -125,6 +129,11 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: auditoria-tcc-completo
 - **Se já existir**, edite só a seção "Auditoria completa do TCC" pra `- [x] Rodada em <data de hoje,
   AAAA-MM-DD> (N achado(s) de consistência)` (preservando as demais seções como estão), e atualize a
   linha final pra `Atualizado em: <data de hoje, AAAA-MM-DD>, por: auditoria-tcc-completo`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
 
 Confira se `tcc-kit/historico.md` existe.
 

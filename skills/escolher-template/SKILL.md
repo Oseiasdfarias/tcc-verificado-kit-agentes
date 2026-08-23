@@ -172,6 +172,9 @@ aqui explicitamente), e quais campos ficaram como placeholder pra ele conferir d
 
 ## Passo 10 — Atualizar checklist e histórico
 
+**Se o Passo 1 encerrou a execução** (aluno optou por manter o template como está, opção (c)), não
+atualize nem o checklist nem o histórico — nada mudou.
+
 Confira se `tcc-kit/checklist.md` existe.
 
 - **Se não existir**, crie com o esqueleto completo abaixo, com a seção "Template" já marcada (as
@@ -217,6 +220,11 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escolher-template
 - **Se já existir**, edite só a seção "Template" pra `- [x] Escolhido/adaptado (tcc-kit/template.md)`
   (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em: <data de
   hoje, AAAA-MM-DD>, por: escolher-template`.
+- **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
+  reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
+  existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
+  o que foi editado manualmente) ou se prefere corrigir o arquivo manualmente antes de continuar — mesmo
+  padrão que `iniciar-tcc` já usa pra `tcc-kit/tema.md` corrompido.
 
 Confira se `tcc-kit/historico.md` existe.
 
