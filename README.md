@@ -176,7 +176,7 @@ Peça "audita esse capítulo antes de eu considerar pronto" — a skill `revisar
 agentes na ordem certa (dado e citação primeiro, são bloqueantes; argumento e forma depois) e
 consolida tudo num relatório único, incluindo qualquer lacuna de referência encontrada.
 
-### Auditoria do TCC completo
+### Auditoria do TCC inteiro
 
 Depois que todos os capítulos estiverem escritos, peça "confere meu TCC inteiro antes de eu entregar"
 — a skill `auditoria-tcc-completo` lê todos os capítulos de uma vez (não um por um) e confere o que

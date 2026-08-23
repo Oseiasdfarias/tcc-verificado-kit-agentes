@@ -119,7 +119,8 @@ outros termos.
 Se confirmado, continue seguindo o que a skill `validar-metodologia` orienta.
 
 **7. Com tema, referências e metodologia, sem plano pro capítulo em foco (ou nenhum capítulo em foco
-ainda):**
+ainda) (não se aplica se todos os 5 capítulos já tiverem conteúdo real — nesse caso, vá direto pra
+ramificação 10):**
 > "Vi que seu tema é '<tema>' e você já tem <N> referência(s) verificada(s). Quer planejar algum
 > capítulo agora? (introdução, referencial teórico, metodologia, resultados, ou
 > discussão/considerações finais)"
@@ -147,9 +148,10 @@ foco.
 
 Se confirmado, continue seguindo o que a skill `auditoria-tcc-completo` orienta.
 
-**11. Auditoria completa já feita ao menos uma vez, sem apresentação de defesa:**
-> "Vi que você já rodou uma auditoria completa do seu TCC. Quer que eu prepare sua apresentação de
-> defesa agora?"
+**11. Todos os 5 capítulos com conteúdo real, auditoria completa já feita ao menos uma vez, sem
+apresentação de defesa:**
+> "Vi que todos os capítulos do seu TCC já têm conteúdo e você já rodou uma auditoria completa. Quer
+> que eu prepare sua apresentação de defesa agora?"
 
 Se confirmado, continue seguindo o que a skill `preparar-defesa` orienta.
 

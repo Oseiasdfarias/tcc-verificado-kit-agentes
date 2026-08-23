@@ -16,7 +16,7 @@ siga direto pra geração se ele preferir. Isso é sugestão, não bloqueio, mes
 
 ## Passo 2 — Gerar a apresentação
 
-**COMPORTAMENTO CRÍTICO — SE DESCOBRIR CAPÍTULOS FALTANDO, GERE A APRESENTAÇÃO DIRETO COM SEÇÕES PENDENTES MARCADAS. NÃO PERGUNTE AO ALUNO SE QUER PROSSEGUIR OU PREENCHER CAPÍTULOS PRIMEIRO. A ÚNICA PERGUNTA PERMITIDA NESTE FLUXO É A DO PASSO 1 (AUDITORIA). PROSSIGA DIRETO PARA GERAÇÃO SEM NENHUMA PERGUNTA ADICIONAL.**
+**COMPORTAMENTO CRÍTICO — SE DESCOBRIR CAPÍTULOS FALTANDO, GERE A APRESENTAÇÃO DIRETO COM SEÇÕES PENDENTES MARCADAS. NÃO PERGUNTE AO ALUNO SE QUER PROSSEGUIR OU PREENCHER CAPÍTULOS PRIMEIRO. A ÚNICA PERGUNTA PERMITIDA NESTE FLUXO É A DO PASSO 1 (AUDITORIA). PROSSIGA DIRETO PARA GERAÇÃO SEM NENHUMA PERGUNTA ADICIONAL — EXCETO SE NENHUM CAPÍTULO TIVER CONTEÚDO REAL. NESSE CASO (ZERO CAPÍTULOS), NÃO GERE NADA: SIGA A REGRA DE "TRATAMENTO DE ERRO" ABAIXO E RECUSE, SUGERINDO `escrever-capitulo`. ESTA EXCEÇÃO SÓ VALE PRA ZERO CAPÍTULOS — COM PELO MENOS UM CAPÍTULO COM CONTEÚDO REAL, A REGRA DE PROSSEGUIR DIRETO SEM PERGUNTAR CONTINUA VALENDO INTEGRALMENTE.**
 
 Leia os capítulos com conteúdo real disponíveis em `tcc/capitulos/`. Gere `tcc/apresentacao-defesa.tex`
 em Beamer, com esta estrutura:
@@ -30,8 +30,17 @@ em Beamer, com esta estrutura:
    paradigma/método).
 5. **Resultados** — os achados principais do capítulo `resultados`. Se `tcc/capitulos/resultados.tex`
    tiver algum gráfico TikZ (Aula 2.8), reaproveite o código do gráfico no slide correspondente, em vez
-   de recriar do zero.
+   de recriar do zero. `tcc/apresentacao-defesa.tex` é um arquivo novo e separado, com preâmbulo
+   próprio — ele precisa compilar sozinho, sem depender do preâmbulo do template principal do TCC. Se o
+   código TikZ reaproveitado precisar de pacotes (`tikz`, `pgfplots`, etc.) ou de uma declaração
+   `\pgfplotsset{compat=...}`, inclua tudo isso no preâmbulo da apresentação também.
 6. **Discussão/Considerações finais** — síntese do capítulo `discussao-consideracoes-finais`.
+
+**Extensão da apresentação**: mire em algo em torno de 12-18 slides de conteúdo no total — uma faixa
+razoável pra uma defesa de 15-20 minutos, duração comum desse tipo de banca. Introdução e Resultados
+tendem a merecer relativamente mais slides que Referencial teórico ou Metodologia, que devem ficar
+enxutos (mesmo espírito da instrução acima de "só os 2-3 conceitos mais centrais"). Isso é orientação
+de proporção, não uma regra fixa pra contar e forçar mecanicamente.
 
 **Grounding (igual ao `escrever-capitulo`)**: toda afirmação de qualquer slide precisa rastrear pra algo
 já escrito em algum capítulo aprovado — nunca invente dado, número, ou conclusão nova só pro slide. Se
@@ -43,7 +52,9 @@ Resultados ainda não escrito"), em vez de inventar conteúdo de preenchimento.
 
 Use a ferramenta Task pra despachar o agente `banca-critica` (já existente, sem nenhuma mudança
 necessária — ele já aceita "um resumo do TCC completo" como entrada), passando o conteúdo de todos os
-capítulos disponíveis lidos no Passo 2.
+capítulos disponíveis lidos no Passo 2. Peça explicitamente um número maior de perguntas — o dobro do
+padrão que ele normalmente geraria pra um capítulo — já que aqui ele está analisando o TCC inteiro, não
+um capítulo isolado.
 
 ## Passo 4 — Salvar e resumir
 

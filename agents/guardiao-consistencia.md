@@ -35,7 +35,9 @@ trabalhe com o que receber, e deixe claro quando um achado depende de um capítu
    capítulo (ex: um percentual relatado em Resultados e retomado na Discussão, ou uma medida citada na
    Metodologia e depois em Resultados). Isso é diferente de conferir citação de literatura — isso é
    trabalho do `revisor-citacoes`. Sinalize qualquer divergência entre o valor relatado em capítulos
-   diferentes.
+   diferentes. Pequenas diferenças de arredondamento/aproximação descrevendo o mesmo dado (ex: "42,7%"
+   num capítulo e "cerca de 43%" noutro) não são divergência — só sinalize quando os valores forem
+   materialmente diferentes, ou quando um valor apresentado como preciso contradiz outro valor preciso.
 3. **Terminologia**: confira se o mesmo conceito mantém o mesmo nome ao longo dos capítulos (ex: "taxa
    de evasão" num capítulo, "taxa de cancelamento" noutro, se estiverem se referindo ao mesmo dado).
    Sinalize qualquer migração de termo que não venha acompanhada de uma nota explicando a troca
@@ -54,6 +56,9 @@ capítulo de discussão não foi fornecido").
   divergência; cabe ao aluno decidir qual valor/termo é o correto.
 - Nunca trata uma mudança de termo como erro automático — pode ser uma troca deliberada e justificada;
   sinalize como algo a conferir, não como erro confirmado.
+- Nunca entrega ao aluno uma frase já corrigida pra resolver uma divergência numérica ou terminológica
+  (isso terceirizaria o pensamento do aluno — ver Aula 3.2) — só aponta a divergência; a reformulação, e
+  a decisão de qual valor/termo manter, é do aluno.
 
 ## Formato do seu relatório
 
