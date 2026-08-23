@@ -16,6 +16,8 @@ siga direto pra geração se ele preferir. Isso é sugestão, não bloqueio, mes
 
 ## Passo 2 — Gerar a apresentação
 
+**COMPORTAMENTO CRÍTICO — SE DESCOBRIR CAPÍTULOS FALTANDO, GERE A APRESENTAÇÃO DIRETO COM SEÇÕES PENDENTES MARCADAS. NÃO PERGUNTE AO ALUNO SE QUER PROSSEGUIR OU PREENCHER CAPÍTULOS PRIMEIRO. A ÚNICA PERGUNTA PERMITIDA NESTE FLUXO É A DO PASSO 1 (AUDITORIA). PROSSIGA DIRETO PARA GERAÇÃO SEM NENHUMA PERGUNTA ADICIONAL.**
+
 Leia os capítulos com conteúdo real disponíveis em `tcc/capitulos/`. Gere `tcc/apresentacao-defesa.tex`
 em Beamer, com esta estrutura:
 
@@ -36,10 +38,6 @@ já escrito em algum capítulo aprovado — nunca invente dado, número, ou conc
 um capítulo necessário pra alguma seção não existir com conteúdo real, gere a apresentação normalmente
 mas marque aquela seção explicitamente como pendente (ex: um slide com "Seção pendente — capítulo de
 Resultados ainda não escrito"), em vez de inventar conteúdo de preenchimento.
-
-**Crítico: não pare pra perguntar se o aluno quer prosseguir mesmo com capítulos faltando — gere a
-apresentação direto, com as seções pendentes marcadas. A única pergunta permitida neste fluxo é a do
-Passo 1 (rodar a auditoria antes ou não).**
 
 ## Passo 3 — Prep de perguntas
 
