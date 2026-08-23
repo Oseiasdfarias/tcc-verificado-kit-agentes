@@ -37,6 +37,10 @@ um capítulo necessário pra alguma seção não existir com conteúdo real, ger
 mas marque aquela seção explicitamente como pendente (ex: um slide com "Seção pendente — capítulo de
 Resultados ainda não escrito"), em vez de inventar conteúdo de preenchimento.
 
+**Crítico: não pare pra perguntar se o aluno quer prosseguir mesmo com capítulos faltando — gere a
+apresentação direto, com as seções pendentes marcadas. A única pergunta permitida neste fluxo é a do
+Passo 1 (rodar a auditoria antes ou não).**
+
 ## Passo 3 — Prep de perguntas
 
 Use a ferramenta Task pra despachar o agente `banca-critica` (já existente, sem nenhuma mudança
