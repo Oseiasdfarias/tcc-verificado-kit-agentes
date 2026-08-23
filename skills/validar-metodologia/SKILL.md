@@ -35,23 +35,31 @@ Pergunte qual dessas descreve melhor a pesquisa do aluno:
 1. **Quantitativo** (dataset, pesquisa de campo com números)
 2. **Qualitativo** (entrevistas, observação, documentos, sem número como foco central)
 3. **Bibliográfico/teórico** (revisão de literatura é o método central, sem coleta de dado primário)
-4. **Misto** (combina quantitativo e qualitativo)
+4. **Misto** (combina dois ou mais dos paradigmas acima — tipicamente quantitativo + qualitativo, mas
+   pode ser outra combinação)
 
 ### Se quantitativo
 
 Pergunte que tipo de relação/pergunta o aluno quer responder, e recomenda:
 
 - **Associação entre duas variáveis categóricas?** → teste qui-quadrado. Pressuposto: frequência
-  esperada de pelo menos 5 em pelo menos 80% das células da tabela (regra de Cochran) — se não
-  atendido, sugira o teste exato de Fisher no lugar.
+  esperada de pelo menos 5 em pelo menos 80% das células da tabela, e nenhuma célula com frequência
+  esperada abaixo de 1 (regra de Cochran) — se não atendido, sugira o teste exato de Fisher no lugar
+  (para tabelas 2x2; para tabelas maiores, a generalização é o teste de Fisher-Freeman-Halton).
 - **Diferença de média/medida numérica entre 2 grupos?** → teste t de Student. Pressuposto:
-  distribuição aproximadamente normal em cada grupo — se a amostra for pequena e a normalidade
-  duvidosa, sugira o teste não-paramétrico Mann-Whitney U.
+  distribuição aproximadamente normal em cada grupo e variâncias homogêneas entre os grupos — se as
+  variâncias forem muito diferentes, use o teste t de Welch em vez do teste t de Student clássico; se
+  a amostra for pequena e a normalidade duvidosa, sugira o teste não-paramétrico Mann-Whitney U.
 - **Diferença entre 3 ou mais grupos?** → ANOVA de um fator. Pressupostos: normalidade em cada grupo e
-  homogeneidade de variância (teste de Levene) — se algum pressuposto falhar, sugira Kruskal-Wallis.
+  homogeneidade de variância (teste de Levene) — se algum pressuposto falhar, sugira Kruskal-Wallis. Um
+  resultado significativo só diz que pelo menos um grupo difere, não qual — siga com um teste post-hoc
+  (Tukey HSD depois de ANOVA, ou teste de Dunn depois de Kruskal-Wallis) pra identificar quais grupos
+  específicos diferem.
 - **Relação entre duas variáveis numéricas contínuas?** → correlação de Pearson (pressuposto: relação
-  linear e normalidade bivariada) ou, se a relação não for claramente linear ou os dados forem
-  ordinais, correlação de Spearman.
+  linear e normalidade bivariada) ou, se a relação for monotônica mas não necessariamente linear, ou os
+  dados forem ordinais, correlação de Spearman (correlação sobre os postos, não sobre os valores).
+  Atenção: uma relação não-monotônica (ex: em forma de U) não é bem capturada nem por Pearson nem por
+  Spearman.
 
 Em qualquer teste escolhido, sempre lembre:
 - Significância (p-valor) não é o mesmo que relevância prática — peça que o aluno também calcule e
@@ -71,8 +79,8 @@ que o aluno pretende fazer com ela:
   definição e nomeação, produção do relatório. Avise que pular fases (ir direto pra "temas" sem
   codificação sistemática) é a falha mais comum apontada em banca.
 - **Categorizar sistematicamente a frequência/presença de elementos específicos?** → análise de
-  conteúdo. Precisa de um esquema de categorização definido a priori ou emergente, idealmente com
-  verificação de consistência (mais de um codificador, ou o próprio aluno recodificando uma amostra
+  conteúdo (Bardin). Precisa de um esquema de categorização definido a priori ou emergente, idealmente
+  com verificação de consistência (mais de um codificador, ou o próprio aluno recodificando uma amostra
   depois de um tempo).
 - **Analisar como a linguagem constrói significado/poder/ideologia no texto?** → análise de discurso.
   Exige um referencial teórico explícito (ex: Análise de Discurso Crítica de Fairclough, ou a linha
@@ -82,15 +90,20 @@ que o aluno pretende fazer com ela:
   caso. Exige delimitação clara do que conta como "o caso" e triangulação de mais de uma fonte de dado
   (ex: entrevista + documento + observação) pra sustentar as conclusões.
 
-Lembre sempre dos critérios de rigor equivalentes ao "p<0,05" do quantitativo (Lincoln & Guba):
+Lembre sempre dos critérios de rigor equivalentes ao "p<0,05" do quantitativo. Os quatro critérios de
+confiabilidade de Lincoln & Guba (1985):
 - **Credibilidade** — os achados representam de verdade a realidade estudada (ex: via triangulação ou
   checagem com os participantes).
-- **Confirmabilidade** — outro pesquisador, olhando os mesmos dados, chegaria numa interpretação
-  similar (ex: mantendo um diário de decisões analíticas).
 - **Transferabilidade** — descrição densa o suficiente do contexto pra outro leitor avaliar se os
   achados se aplicam a outro contexto.
-- **Saturação** — nas entrevistas, o ponto em que novas entrevistas param de trazer informação nova,
-  dando sustentação ao tamanho da amostra.
+- **Confiabilidade (dependability)** — o processo de pesquisa é consistente e replicável em princípio,
+  mesmo que os resultados não precisem se repetir identicamente (ex: protocolo de coleta documentado).
+- **Confirmabilidade** — outro pesquisador, olhando os mesmos dados, chegaria numa interpretação
+  similar (ex: mantendo um diário de decisões analíticas).
+
+Separadamente, se a coleta for por entrevista, lembre também do critério de **saturação teórica**
+(Glaser & Strauss, análise de conteúdo grounded theory) — o ponto em que novas entrevistas param de
+trazer informação nova, dando sustentação ao tamanho da amostra.
 
 ### Se bibliográfico/teórico
 

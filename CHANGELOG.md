@@ -20,8 +20,8 @@ Validação metodológica: fecha o gap identificado na análise completa de estr
 - Agente novo: `guardiao-metodo` (6º da linhagem de revisão) — confere coerência entre o método
   descrito no capítulo e o que foi validado, e aponta conclusão que extrapola o que o método permite
   (ex: tratar correlação como causalidade). Integrado ao `revisar-capitulo`.
-- `iniciar-tcc` agora detecta um 9º estágio: tema e referências definidos, mas metodologia ainda não
-  validada.
+- `iniciar-tcc` ganha uma nova ramificação de sugestão (a 4ª extensão da skill): tema e referências
+  definidos, mas metodologia ainda não validada.
 
 ## 1.4.2 — 2026-08-22
 
