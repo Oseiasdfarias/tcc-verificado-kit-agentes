@@ -8,6 +8,38 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.6.0 — 2026-08-22
+
+Consolidação, auditoria cross-capítulo e preparação de defesa: fecha o ciclo de escrita com uma etapa
+que lê o TCC inteiro, não capítulo a capítulo.
+
+- Skill nova: `auditoria-tcc-completo` — lê todos os capítulos de uma vez, confere se objetivos da
+  Introdução foram respondidos na Discussão, se números que o aluno relata batem entre capítulos, e se
+  a terminologia se mantém estável. Inclui lembrete de checklist institucional (Aula 3.1).
+- Agente novo: `guardiao-consistencia` (7º da linhagem de revisão) — só é despachado por
+  `auditoria-tcc-completo`, nunca por `revisar-capitulo` (que continua com os mesmos 6 agentes de
+  sempre, por capítulo).
+- Skill nova: `preparar-defesa` — gera apresentação Beamer a partir dos capítulos aprovados (nunca
+  inventa conteúdo novo pro slide) e reaproveita o `banca-critica` já existente sobre o TCC completo pra
+  gerar prep de perguntas da banca.
+- `iniciar-tcc` ganha 2 ramificações de sugestão novas (a 5ª extensão da skill): todos os capítulos
+  escritos sem auditoria completa, e auditoria feita sem apresentação de defesa.
+
+## 1.5.0 — 2026-08-22
+
+Validação metodológica: fecha o gap identificado na análise completa de estrutura de agentes — a Aula
+2.3 ensinava só uma regra de bolso pra interpretar teste estatístico, sem nenhuma validação de rigor.
+
+- Skill nova: `validar-metodologia` — dois modos (`aluno decide` ou `IA analisa e propõe`), cobrindo
+  quatro paradigmas de pesquisa como cidadãos de primeira classe: quantitativo, qualitativo,
+  bibliográfico/teórico, misto. Não fica preso ao exemplo de dataset do curso. Salva
+  `tcc-kit/metodologia.md`.
+- Agente novo: `guardiao-metodo` (6º da linhagem de revisão) — confere coerência entre o método
+  descrito no capítulo e o que foi validado, e aponta conclusão que extrapola o que o método permite
+  (ex: tratar correlação como causalidade). Integrado ao `revisar-capitulo`.
+- `iniciar-tcc` ganha uma nova ramificação de sugestão (a 4ª extensão da skill): tema e referências
+  definidos, mas metodologia ainda não validada.
+
 ## 1.4.2 — 2026-08-22
 
 Correção: no tema escuro do GitHub, o Mermaid do README (`## Como funciona`) aplicava sua cor de texto

@@ -1,19 +1,19 @@
 ---
 name: revisar-capitulo
-description: Use quando o aluno quiser uma auditoria completa de um capítulo do TCC antes de considerar ele pronto -- roda, em sequência, verificação de dados, verificação de citações, e as 3 personas de revisão (orientador, banca, forma/português), e produz um relatório único.
+description: Use quando o aluno quiser uma auditoria completa de um capítulo do TCC antes de considerar ele pronto -- roda, em sequência, verificação de dados, verificação de citações, verificação de metodologia, e as 3 personas de revisão (orientador, banca, forma/português), e produz um relatório único.
 ---
 
 # Revisar Capítulo — auditoria completa do TCC Verificado
 
-Esta skill roda os 5 agentes especialistas do kit, na ordem certa, contra um capítulo do TCC, e
+Esta skill roda os 6 agentes especialistas do kit, na ordem certa, contra um capítulo do TCC, e
 consolida tudo em um relatório único.
 
 ## Quando usar
 
 O aluno pede algo como "audita esse capítulo antes de eu considerar pronto" ou "roda a revisão
-completa". Peça o caminho do capítulo se não foi informado, e o caminho do resumo de dados real
+completa". Peça o caminho do capítulo se não foi informado, o caminho do resumo de dados real
 (normalmente `tcc/dados/resumo-real.md`) se o capítulo fizer qualquer afirmação sobre
-dados/resultados.
+dados/resultados, e o caminho de `tcc-kit/metodologia.md` se existir (usado pelo `guardiao-metodo`).
 
 ## Ordem de disparo — importa
 
@@ -24,15 +24,17 @@ de tempo. Por isso, sempre nessa ordem:
    próximos agentes (é o relatório final que decide a prioridade, não você) — mas garanta que o achado
    dele apareça em destaque no topo do relatório final.
 2. **revisor-citacoes** — segundo, mesmo motivo (é factual, bloqueante).
-3. **orientador-rigoroso**, **banca-critica**, **revisor-forma** — nessa ordem, depois. Esses três são
-   independentes entre si e podem ser despachados em qualquer ordem entre eles, mas sempre depois dos
-   dois primeiros.
+3. **guardiao-metodo**, **orientador-rigoroso**, **banca-critica**, **revisor-forma** — nessa ordem,
+   depois. Esses quatro são independentes entre si e podem ser despachados em qualquer ordem entre
+   eles, mas sempre depois dos dois primeiros (são julgamento interpretativo, não checagem factual
+   bloqueante contra uma fonte única).
 
 ## Como despachar cada agente
 
-Use a ferramenta Task pra cada um dos 5 agentes, passando o caminho do capítulo (e, pro
-guardiao-dados, também o caminho do resumo de dados). Espere cada um terminar e devolver seu relatório
-antes de consolidar.
+Use a ferramenta Task pra cada um dos 6 agentes, passando o caminho do capítulo (e, pro guardiao-dados,
+também o caminho do resumo de dados; e, pro guardiao-metodo, também o caminho de
+`tcc-kit/metodologia.md` quando existir). Espere cada um terminar e devolver seu relatório antes de
+consolidar.
 
 ## Consolidando o relatório final
 
@@ -59,6 +61,9 @@ separada, logo abaixo, pra não ficar aninhada como um H2 dentro de outro H2]
 nesse caso copie o conteúdo dela aqui. Se o relatório do revisor-citacoes não tiver essa seção, omita
 esta seção inteira (não escreva "nenhuma lacuna encontrada" -- só omita).]
 
+## Metodologia (guardiao-metodo)
+[relatório completo do agente]
+
 ## Argumento — orientador (orientador-rigoroso)
 [relatório completo do agente]
 
@@ -74,5 +79,5 @@ Revisado por IA — a decisão final sobre cada capítulo é sua (TCC Verificado
 
 Depois de salvar, informe ao aluno o caminho do relatório e um resumo de 2-3 frases: quantos achados
 bloqueantes, se o revisor-citacoes encontrou alguma lacuna (afirmação sem citação, ou citação NÃO
-ENCONTRADA que valeria buscar referência nova), e o tom geral dos outros 3 agentes (sólido / precisa de
+ENCONTRADA que valeria buscar referência nova), e o tom geral dos outros 4 agentes (sólido / precisa de
 ajuste / muitos apontamentos).
