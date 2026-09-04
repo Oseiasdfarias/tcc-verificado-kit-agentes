@@ -48,6 +48,7 @@ flowchart TD
     Hub2 --> Agentes["6 agentes especialistas<br/>(dados, citações, método, argumento, forma)"]
 
     Hub2 --> S8["8. auditoria-tcc-completo"]
+    S8 --> AgenteAuditoria["guardiao-consistencia<br/>(consistência global)"]
     S8 --> S9["9. preparar-defesa"]
 
     classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px,color:#1e1e1e
@@ -58,7 +59,7 @@ flowchart TD
     class Hub1 hub
     class Hub2 hub2
     class S1,S2,S3,S4,S5,S6,S7,S8,S9 skill
-    class Agentes agente
+    class Agentes,AgenteAuditoria agente
 ```
 
 `iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 9 skills numeradas
@@ -186,11 +187,12 @@ consolida tudo num relatório único, incluindo qualquer lacuna de referência e
 ### Auditoria do TCC inteiro
 
 Depois que todos os capítulos estiverem escritos, peça "confere meu TCC inteiro antes de eu entregar"
-— a skill `auditoria-tcc-completo` lê todos os capítulos de uma vez (não um por um) e confere o que
-nenhum dos 6 agentes de `revisar-capitulo` consegue ver isoladamente: se todo objetivo da Introdução foi
-respondido na Discussão, se números que você mesmo relata batem entre capítulos, e se a terminologia se
-mantém estável. Inclui também um lembrete de itens que variam por instituição (ficha catalográfica,
-folha de aprovação) e o curso não padroniza.
+— a skill `auditoria-tcc-completo` despacha o `guardiao-consistencia`, o 7º agente do kit (os outros 6
+só revisam capítulo por capítulo, ver tabela acima). Ele lê todos os capítulos de uma vez (não um por
+um) e confere o que nenhum dos 6 agentes de `revisar-capitulo` consegue ver isoladamente: se todo
+objetivo da Introdução foi respondido na Discussão, se números que você mesmo relata batem entre
+capítulos, e se a terminologia se mantém estável. Inclui também um lembrete de itens que variam por
+instituição (ficha catalográfica, folha de aprovação) e o curso não padroniza.
 
 ### Preparar apresentação de defesa
 
