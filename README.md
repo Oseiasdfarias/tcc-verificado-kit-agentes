@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.7.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.8.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -93,7 +93,7 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > https://docs.astral.sh/uv/getting-started/installation/. Os outros 7 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
 > `escolher-template`, `escolher-tema`, `validar-metodologia`, `planejar-capitulo`,
-> `escrever-capitulo`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
+> `escrever-capitulo`, `gerar-diagrama`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
 
 ## O que tem no kit
 
@@ -166,6 +166,15 @@ do plano, com o mínimo de perguntas) — sua escolha fica salva como padrão em
 dá pra trocar pontualmente a qualquer momento ("escreve rápido dessa vez"). Nos dois modos, todo dado
 vem de `tcc/dados/resumo-real.md` e toda citação vem de referência já verificada — nunca inventa
 nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
+
+### Gerar diagrama
+
+Quer ilustrar um conceito, fluxo ou framework do seu capítulo (não gráfico de dado — isso ainda não é
+coberto)? Peça "preciso de um diagrama da minha metodologia" ou "quero ilustrar esse conceito" — a
+skill `gerar-diagrama` conversa sobre o que desenhar, gera o TikZ certo com legenda numerada (convenção
+ABNT), salva em `tcc/diagramas/<nome>.tex`, e ajuda a incluir no capítulo certo. Separa ajuste de
+conteúdo de ajuste de aparência, pra nenhuma mudança visual arriscar alterar o que o diagrama
+representa.
 
 ### Os 6 agentes de revisão
 

@@ -8,6 +8,15 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.8.0 — 2026-09-04
+
+Skill nova: `gerar-diagrama`, pra diagramas e ilustrações conceituais em TikZ (fluxograma de
+metodologia, framework conceitual, mapa de relacionamento) — sem agente companheiro, sem cobrir gráfico
+de dado real (fica pra uma frente futura, ainda sem dono). Diagrama salvo em `tcc/diagramas/<nome>.tex`,
+incluído no capítulo via `\input`. Só registra em `tcc-kit/historico.md`; não edita
+`tcc-kit/checklist.md` -- diagrama é ação opcional e repetível, diferente dos estágios de ocorrência
+única que o checklist já modela.
+
 ## 1.7.0 — 2026-08-23
 
 Checklist de progresso e histórico de rastreamento: dois artefatos novos que dão visibilidade contínua
