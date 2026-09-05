@@ -22,10 +22,16 @@ Pergunte:
 Se o pedido soar como gráfico de dado real (números, percentuais, barras, séries), avise o aluno que
 essa skill não cobre isso ainda e não prossiga -- não tente gerar de qualquer jeito.
 
-## Passo 2 — Conferir o pacote TikZ no preâmbulo
+## Passo 2 — Conferir os pacotes que o diagrama exige no preâmbulo
 
-Confira se `\usepackage{tikz}` já está no preâmbulo do documento (mesmo arquivo/local onde outros
-pacotes do template já estão declarados). Se não estiver, adicione.
+Confira se os itens abaixo já estão no preâmbulo do documento (mesmo arquivo/local onde outros
+pacotes do template já estão declarados). Se algum não estiver, adicione:
+
+- `\usepackage{tikz}` -- necessário pra qualquer diagrama TikZ.
+- `\usepackage{float}` -- necessário pro `[H]` usado no Passo 3 (o `abntex2` não carrega `float` por
+  padrão; sem ele, o `[H]` quebra a compilação).
+- `\usetikzlibrary{positioning}` -- necessário pra sintaxe de posicionamento relativo (ex:
+  `right=of a`), comum em diagramas de fluxo.
 
 ## Passo 3 — Gerar o código do diagrama
 

@@ -65,7 +65,8 @@ flowchart TD
 `iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 9 skills numeradas
 fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
 direto. Cada skill salva o que produz em `tcc-kit/` (ou edita `tcc/`, no caso de
-`escolher-template`/`escrever-capitulo`) — detalhes na seção "O que tem no kit" abaixo.
+`escolher-template`/`escrever-capitulo`/`gerar-diagrama`) — detalhes na seção "O que tem no kit"
+abaixo.
 
 ## Ferramentas
 
@@ -101,8 +102,10 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 Toda skill que produz algo mantém dois arquivos atualizados automaticamente, sem que você precise
 pedir: `tcc-kit/checklist.md` (estado atual de cada etapa — o que já está feito, o que ainda falta,
-capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou, em ordem cronológica).
-Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem precisar perguntar ao kit.
+capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou, em ordem cronológica)
+(exceto `gerar-diagrama`, que só registra no histórico — diagrama é ação opcional e repetível, não um
+estágio do ciclo de vida). Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem
+precisar perguntar ao kit.
 
 ### Por onde começar
 
