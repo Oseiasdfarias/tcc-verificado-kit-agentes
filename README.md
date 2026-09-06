@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.8.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.9.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -74,7 +74,7 @@ abaixo.
 |---|---|
 | [Claude Code](https://claude.com/claude-code) | Ambiente onde o plugin roda — agentes, skills, subagentes |
 | [Semantic Scholar API](https://api.semanticscholar.org/) | Busca estruturada de artigos acadêmicos reais (metadado + link de acesso aberto) |
-| [marker](https://github.com/datalab-to/marker) | Conversão de PDF pra Markdown, com reconhecimento de fórmula/equação em LaTeX |
+| [pdfplumber](https://github.com/jsvine/pdfplumber) | Conversão de PDF pra texto/Markdown, sem binário externo — funciona igual em qualquer sistema operacional |
 | [uv](https://docs.astral.sh/uv/) | Executa o script de conversão sem instalação manual de dependência Python |
 | YAML | Formato do índice de referências (`tcc-kit/referencias/index.yaml`) |
 

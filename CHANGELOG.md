@@ -8,6 +8,17 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.9.0 — 2026-09-06
+
+`revisao-bibliografica` troca `marker` (biblioteca pesada, carrega modelos de ML e dependia de um
+binário externo opcional, `llama-server` do `llama.cpp`, pra reconhecimento de fórmula/OCR) por
+`pdfplumber` (extração de texto pura Python, sem binário nenhum, mesmo comportamento em qualquer
+sistema operacional). Quando a extração automática sai curta/vazia demais (PDF escaneado, ou página com
+fórmula/tabela complexa), a skill não pede mais pra instalar nada — o próprio agente lê o PDF original
+diretamente (a mesma capacidade de visão que já processa qualquer PDF numa conversa) e escreve o
+Markdown a mão. Reduz drasticamente o peso de dependências e elimina qualquer aviso técnico pro aluno
+nesse fluxo, sem perder qualidade no caso difícil.
+
 ## 1.8.0 — 2026-09-04
 
 Skill nova: `gerar-diagrama`, pra diagramas e ilustrações conceituais em TikZ (fluxograma de
