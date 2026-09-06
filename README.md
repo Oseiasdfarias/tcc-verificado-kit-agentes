@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.9.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.9.1-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -95,6 +95,10 @@ Se pedir `/reload-plugins`, rode esse comando também.
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
 > `escolher-template`, `escolher-tema`, `validar-metodologia`, `planejar-capitulo`,
 > `escrever-capitulo`, `gerar-diagrama`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
+>
+> `gerar-diagrama` tenta compilar o diagrama com `latexmk` pra conferir o resultado, mas isso é
+> opcional: se você trabalha só pelo Overleaf (sem LaTeX instalado localmente), a skill detecta isso e
+> só salva o código, sem travar — a conferência visual acontece direto no Overleaf.
 
 ## O que tem no kit
 

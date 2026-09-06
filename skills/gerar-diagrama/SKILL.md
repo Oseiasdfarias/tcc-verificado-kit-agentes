@@ -65,11 +65,25 @@ que menciona o que o diagrama ilustra).
 
 ## Passo 5 — Compilar e conferir
 
-Rode `latexmk -pdf` e confira visualmente com o aluno: o diagrama está legível, as setas/conexões
-fazem sentido, a legenda está clara. Se algo precisar de ajuste, pergunte se é ajuste de **conteúdo**
-(muda o que o diagrama representa) ou de **aparência** (cor, espaçamento, tamanho) -- trate um de cada
-vez, nunca misture os dois no mesmo pedido de ajuste (evita mudança de conteúdo acontecer sem querer
-junto de um ajuste estético).
+Tente rodar `latexmk -pdf`. Nem todo aluno tem LaTeX instalado localmente -- muita gente do curso
+trabalha só pelo Overleaf (ver skill `escolher-template`) -- então trate os dois resultados possíveis
+de forma diferente:
+
+- **Comando não encontrado** (`latexmk` não existe nesse ambiente): não é um erro no diagrama, é
+  ambiente sem LaTeX local. Avise o aluno, sem soar como se algo tivesse dado errado: "não tenho como
+  compilar aqui porque não achei o LaTeX instalado -- o código do diagrama já foi salvo em
+  `tcc/diagramas/<nome>.tex`, é só compilar normalmente no Overleaf (ou no seu ambiente local) e
+  conferir lá se ficou como esperado." Trate como concluído -- não bloqueia o Passo 6.
+- **`latexmk` roda mas a compilação falha**: aí sim é sinal real de problema no código TikZ (sintaxe
+  errada, pacote faltando no preâmbulo). Mostre o erro do log pro aluno e corrija o diagrama antes de
+  seguir.
+- **Compilação ok**: confira visualmente com o aluno -- o diagrama está legível, as setas/conexões
+  fazem sentido, a legenda está clara.
+
+Se algo precisar de ajuste (em qualquer um dos casos acima, depois que o aluno conferir por conta
+própria ou junto com você), pergunte se é ajuste de **conteúdo** (muda o que o diagrama representa) ou
+de **aparência** (cor, espaçamento, tamanho) -- trate um de cada vez, nunca misture os dois no mesmo
+pedido de ajuste (evita mudança de conteúdo acontecer sem querer junto de um ajuste estético).
 
 ## Passo 6 — Atualizar histórico
 

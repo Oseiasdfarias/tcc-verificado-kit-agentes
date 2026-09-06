@@ -8,6 +8,15 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.9.1 — 2026-09-06
+
+`gerar-diagrama` não trava mais quando o aluno não tem LaTeX instalado localmente (fluxo comum pra
+quem usa só Overleaf, já suportado pela skill `escolher-template`). Antes, o Passo 5 rodava
+`latexmk -pdf` sem prever esse caso; agora, se o comando não existir no ambiente, a skill avisa que o
+código do diagrama já foi salvo e orienta compilar no Overleaf, em vez de tratar como erro. Compilação
+que roda mas falha de verdade (sintaxe TikZ errada) continua sendo tratada como sinal de problema real
+no diagrama.
+
 ## 1.9.0 — 2026-09-06
 
 `revisao-bibliografica` troca `marker` (biblioteca pesada, carrega modelos de ML e dependia de um
