@@ -8,6 +8,15 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.9.2 — 2026-09-16
+
+`escrever-capitulo` deixa mais visível que os modos `co-piloto`/`rápido` são duas escolhas igualmente
+válidas, não uma "certa" e uma "atalho" — reconhecendo que parte dos alunos (e orientadores) trata o
+TCC como um requisito a cumprir, não como um projeto de vida, e isso é legítimo. Documenta também o
+ciclo de revisão pontual esperado nos dois modos: compilar o capítulo, ler o resultado no PDF, e colar
+de volta na conversa qualquer parágrafo que precisar de ajuste, sem precisar editar o `.tex` a mão nem
+rodar a skill de novo do zero. `README.md` atualizado com a mesma linguagem.
+
 ## 1.9.1 — 2026-09-06
 
 `gerar-diagrama` não trava mais quando o aluno não tem LaTeX instalado localmente (fluxo comum pra

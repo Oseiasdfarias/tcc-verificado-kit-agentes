@@ -15,10 +15,14 @@ dos dois modos abaixo.
 Leia o campo `Modo de escrita` de `tcc-kit/config.md`.
 
 - **Se `tcc-kit/config.md` não existir, ou existir sem esse campo** (config de uma versão anterior a
-  este subprojeto): pergunte ao aluno qual modo ele quer:
+  este subprojeto): pergunte ao aluno qual modo ele quer, deixando claro que não existe escolha
+  "certa" aqui, só um jeito diferente de trabalhar:
   - **`co-piloto`**: eu faço algumas perguntas antes de escrever cada seção, pra usar seu raciocínio de
-    verdade.
-  - **`rápido`**: eu escrevo direto a partir do plano, com o mínimo de perguntas.
+    verdade. Combina com quem quer participar de perto do argumento.
+  - **`rápido`**: eu escrevo direto a partir do plano, com o mínimo de perguntas, e você revisa o
+    resultado depois. Combina com quem quer entregar o capítulo o mais rápido possível e prefere gastar
+    o tempo dele revisando em vez de sendo entrevistado seção por seção — legítimo, principalmente pra
+    quem já trata o TCC como um requisito a cumprir, não como um projeto de vida.
 
   Se `tcc-kit/config.md` existir, pergunte também se ele quer salvar essa escolha como padrão pras
   próximas vezes. Se confirmar, adicione (ou atualize) o campo `Modo de escrita` no arquivo,
@@ -124,6 +128,12 @@ foi feita no Passo 2, antes da entrevista — não repita essa pergunta aqui.
 Informe ao aluno quantas seções foram escritas, e se alguma ficou pendente por falta de dado ou
 referência (Passo 4). **Sempre** sugira rodar a skill `revisar-capitulo` antes de considerar o capítulo
 pronto — em nenhum dos dois modos esta skill se apresenta como aprovação final, só como rascunho.
+
+Sugira também o jeito mais direto de ajustar qualquer trecho específico, sem precisar editar o `.tex`
+a mão nem rodar a skill de novo do zero: compilar o capítulo (`latexmk -pdf`), ler o resultado no PDF
+como um leitor normal leria, e — pra qualquer parágrafo que não ficou bom — copiar aquele trecho e
+colar de volta na conversa, pedindo a reescrita. Isso funciona a qualquer momento, em qualquer um dos
+dois modos, e é o fluxo esperado de revisão pontual entre uma rodada de `revisar-capitulo` e outra.
 
 ## Passo 7 — Atualizar checklist e histórico
 

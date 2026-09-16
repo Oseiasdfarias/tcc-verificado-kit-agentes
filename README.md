@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.9.1-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.9.2-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -167,12 +167,18 @@ seção. Você aprova ou pede ajuste antes do plano ser salvo em
 ### Escrever um capítulo
 
 Depois do plano aprovado, peça "escreve minha introdução" (ou qualquer outro capítulo) — a skill
-`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo: `co-piloto` (ela
-pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade) ou `rápido` (escreve direto
-do plano, com o mínimo de perguntas) — sua escolha fica salva como padrão em `tcc-kit/config.md`, mas
-dá pra trocar pontualmente a qualquer momento ("escreve rápido dessa vez"). Nos dois modos, todo dado
-vem de `tcc/dados/resumo-real.md` e toda citação vem de referência já verificada — nunca inventa
-nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
+`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo, sem certo ou errado:
+`co-piloto` (ela pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade — pra quem
+quer participar de perto do argumento) ou `rápido` (escreve direto do plano, com o mínimo de perguntas,
+e você revisa o resultado depois — pra quem quer entregar rápido e prefere gastar o tempo revisando).
+Sua escolha fica salva como padrão em `tcc-kit/config.md`, mas dá pra trocar pontualmente a qualquer
+momento ("escreve rápido dessa vez"). Nos dois modos, todo dado vem de `tcc/dados/resumo-real.md` e
+toda citação vem de referência já verificada — nunca inventa nenhum dos dois.
+
+Pra ajustar qualquer trecho depois de escrito, não precisa editar o `.tex` a mão: compila
+(`latexmk -pdf`), lê o resultado no PDF, e pra qualquer parágrafo que não ficou bom, copia o trecho e
+cola de volta na conversa pedindo a reescrita. Funciona a qualquer momento, nos dois modos. Sempre
+sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
 
 ### Gerar diagrama
 
