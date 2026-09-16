@@ -1,0 +1,14 @@
+{
+  "skill": "configurar-projeto",
+  "title": "fluxo do zero preenche os campos certos e deixa Banca/Modo de escrita de fora",
+  "query": "configura meu projeto: estudo na Universidade Federal de Exemplo (UFEX), curso de Administração, meu nome é Ana Souza, moro em Exemplolândia, previsão de conclusão 2027. Orientador ainda não tenho definido.",
+  "fixtures": {},
+  "expected_behavior": [
+    "Cria tcc-kit/config.md com Universidade, Curso/Programa, Aluno, Cidade e Ano previsto preenchidos com os dados dados",
+    "Orientador(a) fica registrado como 'a definir', não inventado",
+    "Banca fica como 'a definir' sem ser perguntada (fica de fora do fluxo do zero, por design)",
+    "Modo de escrita não é perguntado neste fluxo (só existe via escrever-capitulo ou pedido explícito)",
+    "Cria tcc-kit/checklist.md com a seção 'Configuração institucional' marcada como feita",
+    "Acrescenta uma entrada em tcc-kit/historico.md"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "skill": "planejar-capitulo",
+  "title": "propõe estrutura direto (sem entrevista) e só sugere referência verificada",
+  "turns": [
+    "planeja o capítulo de referencial teórico",
+    "aprovado, pode salvar assim"
+  ],
+  "fixtures": {
+    "tcc-kit/tema.md": "# Tema do TCC\n\n**Tema:** Fatores associados ao churn de clientes em empresas de assinatura\n**Área/curso:** Administração\n**Justificativa:** Tema validado.\n**Termos de busca sugeridos:** churn, retenção de clientes\n\nDefinido em: 2026-01-05\n",
+    "tcc-kit/referencias/index.yaml": "referencias:\n  - chave: silva2021\n    titulo: \"Retenção de clientes em modelos de assinatura\"\n    autores: [\"Silva, J.\"]\n    ano: 2021\n    veiculo: \"Revista de Administração de Empresas\"\n    status: verificado\n    arquivo_pdf: pdfs/silva2021.pdf\n    arquivo_md: md/silva2021.md\n    resumo: \"Discute fatores de retenção em contratos de assinatura.\"\n    tema_relacionado: \"churn, retenção de clientes\"\n    adicionado_em: \"2026-01-06\"\n  - chave: costa2020\n    titulo: \"Métodos qualitativos em pesquisa organizacional\"\n    autores: [\"Costa, R.\"]\n    ano: 2020\n    veiculo: \"Revista de Metodologia\"\n    status: pendente-manual\n    resumo: \"Ainda aguardando download manual do PDF.\"\n    tema_relacionado: \"métodos qualitativos\"\n    adicionado_em: \"2026-01-06\"\n"
+  },
+  "expected_behavior": [
+    "Propõe uma estrutura completa de seções direto (sem perguntas socráticas nesta etapa -- isso só existe em escrever-capitulo, modo co-piloto)",
+    "Sugere a chave 'silva2021' (status verificado) como referência relevante pra alguma seção",
+    "Nunca sugere a chave 'costa2020' (status pendente-manual) como se já estivesse disponível",
+    "Só salva tcc-kit/capitulos/referencial-teorico/plano.md depois da aprovação explícita do aluno, com a linha 'Aprovado em' presente"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "skill": "revisar-capitulo",
+  "title": "capítulo consistente com os dados reais não gera achado bloqueante falso",
+  "query": "roda a revisão completa do capítulo de introdução",
+  "fixtures": {
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base de clientes analisada (7043 registros, dataset Telco Customer Churn).\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\n\\section{Contexto do problema}\n\\label{sec:introducao-contexto}\n\nEmpresas que operam no modelo de assinatura dependem da permanência de seus clientes para sustentar a receita. No conjunto de dados analisado neste trabalho, a taxa de churn observada foi de 26,5\\% sobre uma base de 7.043 registros, o que evidencia a relevância de investigar os fatores associados a esse comportamento.\n"
+  },
+  "expected_behavior": [
+    "guardiao-dados não encontra nenhuma divergência (o único número, 26,5% sobre 7.043, bate com resumo-real.md)",
+    "A seção 'Achados bloqueantes' do relatório final diz 'nenhum achado bloqueante'",
+    "tcc-kit/checklist.md marca a linha Introdução como 'Revisado, sem achados bloqueantes'",
+    "Não trava nem se recusa a revisar por o capítulo estar curto (é só uma seção)"
+  ]
+}

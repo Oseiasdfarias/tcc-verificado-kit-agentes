@@ -1,0 +1,17 @@
+{
+  "skill": "escolher-tema",
+  "title": "tema já existente não é sobrescrito sem confirmação explícita",
+  "turns": [
+    "quero repensar o tema do meu TCC",
+    "não, pensei melhor, deixa o tema atual mesmo"
+  ],
+  "fixtures": {
+    "tcc-kit/tema.md": "# Tema do TCC\n\n**Tema:** Fatores associados ao churn de clientes em empresas de assinatura de telecomunicações\n**Área/curso:** Administração\n**Justificativa:** Tema já validado com o orientador.\n**Termos de busca sugeridos:** churn, retenção de clientes, telecomunicações\n\nDefinido em: 2026-01-05\n"
+  },
+  "expected_behavior": [
+    "Avisa que já existe um tema salvo e pergunta se o aluno quer substituir ou manter",
+    "Quando o aluno opta por manter, não sobrescreve tcc-kit/tema.md",
+    "Deixa claro que nada foi alterado, em vez de dizer que 'acabou de salvar' algo novo",
+    "Não atualiza checklist.md nem historico.md quando nada muda de fato"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "skill": "revisao-bibliografica",
+  "title": "PDF colocado manualmente na pasta (órfão, sem entrada no índice) é detectado e indexado",
+  "query": "confere se tem algum PDF pendente de indexação na pasta de referências antes de eu continuar",
+  "fixtures": {},
+  "setup_script": "mkdir -p tcc-kit/referencias/pdfs tcc-kit/referencias/md && uv run --with reportlab python3 -c \"\nfrom reportlab.pdfgen import canvas\nc = canvas.Canvas('tcc-kit/referencias/pdfs/exemplo2024.pdf')\nc.drawString(100, 750, 'Fatores associados ao churn em empresas de assinatura')\nc.drawString(100, 730, 'Autores: J. Exemplo, M. Teste (2024)')\nc.drawString(100, 700, 'Resumo: este artigo de exemplo discute retencao de clientes')\nc.drawString(100, 680, 'em contratos de assinatura, com foco em fatores comportamentais')\nc.drawString(100, 660, 'associados ao cancelamento do servico.')\nc.save()\n\"",
+  "expected_behavior": [
+    "Detecta o PDF em tcc-kit/referencias/pdfs/exemplo2024.pdf sem entrada correspondente em tcc-kit/referencias/index.yaml",
+    "Converte com pdfplumber (ou, se a extração ficar curta, lê o PDF diretamente) e cria tcc-kit/referencias/md/exemplo2024.md com o conteúdo real do PDF",
+    "Cria uma entrada em tcc-kit/referencias/index.yaml pra esse PDF, com status verificado ou pendente-conversao",
+    "O campo resumo dessa entrada deixa explícito que os metadados foram inferidos automaticamente e pede pro aluno conferir (já que não vieram de uma busca confirmada)",
+    "Não inventa nenhum DOI, autor ou dado que não apareça no conteúdo real do PDF gerado"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "skill": "iniciar-tcc",
+  "title": "detecta plano aprovado sem capítulo escrito e sugere a ramificação certa (8, não uma anterior já satisfeita)",
+  "query": "o que falta no meu TCC? tô focado na introdução agora",
+  "fixtures": {
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** UFEX\n**Curso/Programa:** Administração\n**Orientador(a):** a definir\n**Banca:** a definir\n**Aluno:** Ana Souza\n**Cidade:** Exemplolândia\n**Ano previsto de conclusão:** 2027\n**Logo:** não informado\n**Modo de escrita:** não definido\nDefinido em: 2026-01-05\n",
+    "tcc-kit/template.md": "# Template do Projeto\n**Origem:** Padrão abnTeX2 do curso\n**Estrutura:** Padrão do curso, já no formato esperado\n**Campos preenchidos:** Universidade, Curso, Aluno\n**Campos como placeholder:** Banca\nEscolhido em: 2026-01-05\nÚltima adaptação: 2026-01-05\n",
+    "tcc-kit/tema.md": "# Tema do TCC\n\n**Tema:** Fatores associados ao churn de clientes em empresas de assinatura\n**Área/curso:** Administração\n**Justificativa:** Tema validado.\n**Termos de busca sugeridos:** churn, retenção\n\nDefinido em: 2026-01-05\n",
+    "tcc-kit/referencias/index.yaml": "referencias:\n  - chave: silva2021\n    titulo: \"Retenção de clientes em modelos de assinatura\"\n    autores: [\"Silva, J.\"]\n    ano: 2021\n    veiculo: \"Revista de Administração de Empresas\"\n    status: verificado\n    arquivo_pdf: pdfs/silva2021.pdf\n    arquivo_md: md/silva2021.md\n    resumo: \"Discute fatores de retenção em contratos de assinatura.\"\n    tema_relacionado: \"churn\"\n    adicionado_em: \"2026-01-06\"\n",
+    "tcc-kit/metodologia.md": "# Metodologia — Quantitativo\n\n**Paradigma:** Quantitativo\n**Método escolhido:** teste qui-quadrado\n**Como foi definido:** Aluno decidiu diretamente\n\n## Justificativa\nTeste apropriado pra associação entre variáveis categóricas.\n\n## Pressupostos e critérios de rigor a verificar\n- [ ] Frequência esperada mínima (regra de Cochran)\n\n## Status\nPendente de execução\n\nDefinido em: 2026-01-06\n",
+    "tcc-kit/capitulos/introducao/plano.md": "# Plano: Introdução\n\n## Seção 1: Contexto do problema\n**Argumento:** Empresas de assinatura perdem receita com churn.\n**Referências:** silva2021\n\n---\nAprovado em: 2026-01-07\n"
+  },
+  "expected_behavior": [
+    "Detecta que config, template, tema, referência (silva2021 verificado) e metodologia já existem",
+    "Detecta que a introdução tem plano aprovado (tcc-kit/capitulos/introducao/plano.md) mas tcc/capitulos/introducao.tex ainda não existe/não tem conteúdo real",
+    "Sugere a ramificação 8 (escrever-capitulo pra introdução), não repete uma sugestão de etapa anterior já satisfeita",
+    "Apresenta só UMA sugestão por vez, não várias ao mesmo tempo",
+    "Espera a resposta do aluno antes de continuar -- não chama escrever-capitulo sozinho"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "skill": "preparar-defesa",
+  "title": "zero capítulos com conteúdo real é a única situação que bloqueia a geração",
+  "query": "gera minha apresentação de defesa",
+  "fixtures": {},
+  "expected_behavior": [
+    "Recusa gerar a apresentação (zero capítulos com conteúdo real é a única exceção que bloqueia, segundo a própria skill)",
+    "Sugere escrever-capitulo primeiro",
+    "Não cria tcc/apresentacao-defesa.tex",
+    "Não atualiza tcc-kit/checklist.md nem tcc-kit/historico.md (nada foi produzido)"
+  ]
+}
