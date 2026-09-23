@@ -97,3 +97,60 @@ def test_saida_formatada_lista_alterados(projeto, capsys):
     assert saida[0].split() == ["etapa", "data", "estado", "alterados"]
     assert saida[1].split() == ["revisao:resultados", "2026-09-21", "desatualizada",
                                 "tcc/capitulos/resultados.tex"]
+
+
+FOTO = "tcc-kit/relatorios/_brutos/resultados-2026-09-23/.foto.json"
+
+
+def test_foto_sem_mudanca(projeto):
+    ep.foto(projeto, FOTO, ["tcc", "tcc-kit"])
+    assert ep.comparar(projeto, FOTO, ["tcc", "tcc-kit"]) == []
+
+
+def test_foto_detecta_alterado_novo_removido(projeto):
+    (projeto / "tcc/capitulos/introducao.tex").write_text("intro\n")
+    ep.foto(projeto, FOTO, ["tcc", "tcc-kit"])
+    (projeto / "tcc/capitulos/resultados.tex").write_text("editado por agente\n")
+    (projeto / "tcc/capitulos/introducao.tex").unlink()
+    (projeto / "tcc/intruso.tex").write_text("x\n")
+    assert ep.comparar(projeto, FOTO, ["tcc", "tcc-kit"]) == [
+        ("removido", "tcc/capitulos/introducao.tex"),
+        ("alterado", "tcc/capitulos/resultados.tex"),
+        ("novo", "tcc/intruso.tex"),
+    ]
+
+
+def test_foto_ignora_relatorios_e_versoes(projeto):
+    ep.foto(projeto, FOTO, ["tcc", "tcc-kit"])
+    bruto = projeto / "tcc-kit/relatorios/_brutos/resultados-2026-09-23/guardiao-dados.md"
+    bruto.write_text("relatório\n")
+    (projeto / "tcc-kit/versoes/x").mkdir(parents=True)
+    (projeto / "tcc-kit/versoes/x/a.tex").write_text("a\n")
+    assert ep.comparar(projeto, FOTO, ["tcc", "tcc-kit"]) == []
+
+
+def test_comparar_sem_foto_sai_com_2(projeto, capsys):
+    assert ep.main(["--raiz", str(projeto), "comparar", FOTO, "tcc"]) == 2
+
+
+def test_comparar_imprime_sem_alteracoes(projeto, capsys):
+    ep.main(["--raiz", str(projeto), "foto", "--saida", FOTO, "tcc"])
+    capsys.readouterr()
+    assert ep.main(["--raiz", str(projeto), "comparar", FOTO, "tcc"]) == 0
+    assert capsys.readouterr().out.strip() == "sem alterações"
+
+
+def test_backup_de_arquivo_e_pasta_preserva_caminho(projeto):
+    (projeto / "tcc/main.tex").write_text("preambulo\n")
+    (projeto / "tcc/vazio.tex").write_text("")
+    pasta, copiados = ep.backup(projeto, ["tcc", "nao-existe.tex"], momento="2026-09-23-101500")
+    assert pasta == "tcc-kit/versoes/2026-09-23-101500"
+    assert copiados == ["tcc/capitulos/resultados.tex", "tcc/main.tex"]
+    copia = projeto / pasta / "tcc/capitulos/resultados.tex"
+    assert copia.read_text() == "texto original\n"
+
+
+def test_backup_sem_nada_para_copiar(projeto, capsys):
+    assert ep.backup(projeto, ["nao-existe.tex"]) == (None, [])
+    assert ep.main(["--raiz", str(projeto), "backup", "nao-existe.tex"]) == 0
+    assert capsys.readouterr().out.strip() == "nada para copiar"
