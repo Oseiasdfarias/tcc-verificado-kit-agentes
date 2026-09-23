@@ -56,7 +56,9 @@ python3 evals/run_eval.py evals/
 
 Cada cenário roda num diretório temporário isolado (nunca no repositório do plugin, nunca em um
 projeto de TCC real), com `claude -p --plugin-dir <este repo> --dangerously-skip-permissions`.
-No final, o script imprime a resposta de cada turno, a árvore de arquivos resultante, e a lista de
+Cada turno imprime também o custo (`[custo do turno] US$ … · entrada … · saída … · cache lido …`), e o
+fim da execução imprime o total, pra dar pra acompanhar quanto uma rodada da suíte gasta. No final, o
+script imprime a resposta de cada turno, a árvore de arquivos resultante, e a lista de
 `expected_behavior` como checklist — a conferência de cada item é manual (ler a resposta e os
 arquivos gerados contra o que a lista descreve). Use `--keep` pra manter o diretório temporário e
 inspecionar os arquivos depois que o script terminar.

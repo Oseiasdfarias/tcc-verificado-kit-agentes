@@ -26,6 +26,7 @@ import uuid
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+CUSTOS: list[float] = []
 
 
 def write_fixtures(cwd: Path, fixtures: dict) -> None:
@@ -40,6 +41,7 @@ def run_claude(query: str, cwd: Path, session_id: str, resume: bool, timeout: in
         "claude", "-p", query,
         "--plugin-dir", str(REPO_ROOT),
         "--dangerously-skip-permissions",
+        "--output-format", "json",
     ]
     cmd += ["--resume", session_id] if resume else ["--session-id", session_id]
     try:
@@ -50,7 +52,20 @@ def run_claude(query: str, cwd: Path, session_id: str, resume: bool, timeout: in
         print(f"[aviso] claude saiu com código {result.returncode}", file=sys.stderr)
         if result.stderr.strip():
             print(result.stderr, file=sys.stderr)
-    return result.stdout.strip()
+    try:
+        dados = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return result.stdout.strip()
+    uso = dados.get("usage", {})
+    CUSTOS.append(dados.get("total_cost_usd") or 0.0)
+    print(
+        f"[custo do turno] US$ {dados.get('total_cost_usd') or 0:.4f} · "
+        f"entrada {uso.get('input_tokens', 0)} · saída {uso.get('output_tokens', 0)} · "
+        f"cache lido {uso.get('cache_read_input_tokens', 0)} · "
+        f"cache criado {uso.get('cache_creation_input_tokens', 0)} · "
+        f"turnos internos {dados.get('num_turns', '?')}"
+    )
+    return (dados.get("result") or "").strip()
 
 
 def run_scenario(scenario_path: Path, keep: bool, timeout: int) -> None:
@@ -80,7 +95,7 @@ def run_scenario(scenario_path: Path, keep: bool, timeout: int) -> None:
             response = run_claude(turn, tmpdir, session_id, resume=(i > 0), timeout=timeout)
             print(response)
 
-        print("\n--- Árvore de arquivos após a execução ---")
+        print("\n--- Árvore de arquivos após a execução ---", flush=True)
         subprocess.run(
             ["find", ".", "-type", "f", "-not", "-path", "./.claude/*"],
             cwd=tmpdir,
@@ -117,6 +132,9 @@ def main() -> None:
 
     for path in scenarios:
         run_scenario(path, keep=args.keep, timeout=args.timeout)
+
+    if CUSTOS:
+        print(f"\n[custo total] US$ {sum(CUSTOS):.4f} em {len(CUSTOS)} turno(s)")
 
 
 if __name__ == "__main__":
