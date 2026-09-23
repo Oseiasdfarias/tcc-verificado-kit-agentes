@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.12.1-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.12.2-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 

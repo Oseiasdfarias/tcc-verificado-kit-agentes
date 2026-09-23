@@ -11,7 +11,7 @@
       "name": "tcc-kit",
       "source": "./",
       "description": "Kit de agentes do curso TCC Verificado: ajuda a escrever e revisar um TCC com dado real, referência que existe de verdade e argumento que se sustenta.",
-      "version": "1.12.1"
+      "version": "1.12.2"
     }
   ]
 }
