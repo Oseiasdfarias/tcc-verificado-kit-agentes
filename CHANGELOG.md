@@ -8,6 +8,26 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.12.0 — 2026-09-23
+
+Skill nova `reproduzir-dados`: o `tcc/dados/resumo-real.md`, que o kit inteiro usa como fonte de
+verdade, deixa de ser montado à mão.
+
+- **`reproduzir-dados`**: inventaria dados e scripts, confirma com o aluno quais importam, perfila
+  CSV/TSV sem ler o arquivo inteiro, lê o código com perguntas dirigidas (fonte dos dados, parâmetros,
+  unidades, divisão dos dados, semente, e o que o código faz de diferente do que o nome diz), executa só
+  os scripts Python que já existem (`uv run`, com foto e backup dos dados antes) e grava o resumo com a
+  procedência de cada número e a seção "O que não existe como dado". Análise nova só com confirmação,
+  sempre em arquivo novo em `tcc/dados/analises/`. MATLAB, R, C/C++ e firmware são só lidos.
+- Registros novos: `tcc-kit/dados/reproducao.md` (comando, código de saída, hashes, commit de cada
+  execução) e `tcc-kit/dados/materiais.yaml` (resumo de uma linha e sha256 de cada arquivo). Na
+  segunda execução, só o que mudou é relido e reexecutado.
+- Scripts: `perfil_dados.py` novo; `estado_projeto.py` ganha `hash` e passa a ignorar `.git`,
+  ambientes virtuais e `node_modules` na foto.
+- `guardiao-dados`: afirmação sobre algo listado em "O que não existe como dado" é BLOQUEANTE.
+- `estado-tcc`: linha "Resumo de dados" e aviso quando dados ou scripts mudam depois da reprodução.
+- `escrever-capitulo` e `validar-metodologia` passam a sugerir a skill nova quando falta o resumo.
+
 ## 1.11.0 — 2026-09-23
 
 Revisão mais rigorosa e mais barata, a partir do benchmark com um artigo IEEE
