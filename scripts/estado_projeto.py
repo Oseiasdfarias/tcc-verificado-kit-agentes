@@ -1,7 +1,9 @@
-"""Registro de versões (sha256) dos artefatos do tcc-kit.
+"""Registro de versões (sha256), trava de integridade e backup do tcc-kit.
 
 registrar: grava o hash das entradas usadas por uma etapa (ex: revisao:resultados).
 verificar: compara os hashes gravados com os arquivos atuais e imprime uma tabela curta.
+foto/comparar: detecta arquivos alterados enquanto agentes rodavam.
+backup: copia arquivos para tcc-kit/versoes/<momento>/ antes de uma skill sobrescrevê-los.
 
 Só biblioteca padrão. Nunca executa git.
 """
@@ -10,6 +12,7 @@ import argparse
 import datetime
 import hashlib
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -91,6 +94,69 @@ def verificar(raiz):
     return linhas
 
 
+IGNORAR_NA_FOTO = ("tcc-kit/relatorios/", "tcc-kit/versoes/")
+
+
+def arquivos_sob(raiz, pastas):
+    for pasta in pastas:
+        base = raiz / pasta
+        candidatos = [base] if base.is_file() else sorted(p for p in base.rglob("*") if p.is_file())
+        for caminho in candidatos:
+            yield caminho.relative_to(raiz).as_posix()
+
+
+def tirar_foto(raiz, pastas):
+    return {
+        rel: hash_arquivo(raiz / rel)
+        for rel in arquivos_sob(raiz, pastas)
+        if not rel.startswith(IGNORAR_NA_FOTO)
+    }
+
+
+def foto(raiz, saida, pastas):
+    arquivo = raiz / saida
+    arquivo.parent.mkdir(parents=True, exist_ok=True)
+    texto = json.dumps(tirar_foto(raiz, pastas), indent=2, sort_keys=True) + "\n"
+    arquivo.write_text(texto, encoding="utf-8", newline="\n")
+
+
+def comparar(raiz, arquivo_foto, pastas):
+    caminho = raiz / arquivo_foto
+    if not caminho.is_file():
+        raise EstadoIlegivel(f"foto não encontrada: {arquivo_foto}")
+    try:
+        antes = json.loads(caminho.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError) as erro:
+        raise EstadoIlegivel(str(erro)) from erro
+    depois = tirar_foto(raiz, pastas)
+    mudancas = []
+    for rel in sorted(set(antes) | set(depois)):
+        if rel not in depois:
+            mudancas.append(("removido", rel))
+        elif rel not in antes:
+            mudancas.append(("novo", rel))
+        elif antes[rel] != depois[rel]:
+            mudancas.append(("alterado", rel))
+    return mudancas
+
+
+def backup(raiz, caminhos, momento=None):
+    momento = momento or datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
+    destino = raiz / "tcc-kit/versoes" / momento
+    copiados = []
+    for rel in arquivos_sob(raiz, [c for c in caminhos if (raiz / c).exists()]):
+        if rel.startswith(IGNORAR_NA_FOTO):
+            continue
+        origem = raiz / rel
+        if origem.stat().st_size == 0:
+            continue
+        alvo = destino / rel
+        alvo.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(origem, alvo)
+        copiados.append(rel)
+    return (destino.relative_to(raiz).as_posix() if copiados else None), copiados
+
+
 def formatar(linhas):
     if not linhas:
         return "sem registros"
@@ -112,6 +178,14 @@ def main(argv=None):
     reg.add_argument("--saida", required=True)
     reg.add_argument("--entradas", nargs="+", required=True)
     sub.add_parser("verificar")
+    fot = sub.add_parser("foto")
+    fot.add_argument("--saida", required=True)
+    fot.add_argument("pastas", nargs="+")
+    com = sub.add_parser("comparar")
+    com.add_argument("foto")
+    com.add_argument("pastas", nargs="+")
+    bkp = sub.add_parser("backup")
+    bkp.add_argument("caminhos", nargs="+")
     args = parser.parse_args(argv)
     raiz = Path(args.raiz)
 
@@ -119,8 +193,17 @@ def main(argv=None):
         if args.comando == "registrar":
             registrar(raiz, args.etapa, args.saida, args.entradas)
             print(f"registrado: {args.etapa}")
-        else:
+        elif args.comando == "verificar":
             print(formatar(verificar(raiz)))
+        elif args.comando == "foto":
+            foto(raiz, args.saida, args.pastas)
+            print(f"foto: {args.saida}")
+        elif args.comando == "comparar":
+            mudancas = comparar(raiz, args.foto, args.pastas)
+            print("\n".join(f"{tipo}  {rel}" for tipo, rel in mudancas) or "sem alterações")
+        else:
+            pasta, copiados = backup(raiz, args.caminhos)
+            print(f"backup: {pasta} ({len(copiados)} arquivo(s))" if pasta else "nada para copiar")
     except EstadoIlegivel as erro:
         print(f"tcc-kit/.estado.json ilegível ({erro}); nada foi alterado", file=sys.stderr)
         return 2

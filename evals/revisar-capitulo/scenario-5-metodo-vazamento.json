@@ -1,0 +1,15 @@
+{
+  "skill": "revisar-capitulo (agente guardiao-metodo chamado direto)",
+  "title": "escolha do atraso no conjunto de validação e baseline sem ajuste",
+  "query": "confere a metodologia do capítulo tcc/capitulos/resultados.tex",
+  "fixtures": {
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\nO atraso de entrada $n_k$ foi varrido de 0 a 20 amostras, e o valor com o melhor ajuste no segmento de validação (79,42\\%) foi mantido. Esse ajuste de validação é reportado como a acurácia do modelo identificado. O modelo ARX proposto supera o baseline de primeira ordem, que foi usado com os parâmetros padrão.\n"
+  },
+  "expected_behavior": [
+    "Aponta que o atraso foi escolhido no segmento de validação e o mesmo número foi reportado como acurácia (escolha no conjunto de avaliação / vazamento)",
+    "Aponta comparação injusta: baseline com parâmetros padrão contra modelo proposto ajustado",
+    "Aponta a ausência de tcc-kit/metodologia.md como lacuna, sem tratar como erro bloqueante",
+    "Não reescreve a frase pronta; no máximo descreve o tipo de reformulação (separar janela de seleção, ou declarar o número como descritivo)",
+    "Nenhum arquivo é gravado (agente chamado sem caminho de relatório)"
+  ]
+}

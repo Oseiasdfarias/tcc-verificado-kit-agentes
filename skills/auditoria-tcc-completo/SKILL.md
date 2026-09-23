@@ -21,9 +21,28 @@ anote quais — a auditoria segue com o que existir, mas alguns achados do `guar
 
 ## Passo 2 — Despachar o guardiao-consistencia
 
-Use a ferramenta Task para despachar o agente `guardiao-consistencia` **uma única vez**, passando o
-conteúdo de TODOS os capítulos lidos no Passo 1 juntos (não um despacho por capítulo — este agente
-precisa ver tudo simultaneamente pra comparar entre capítulos). Espere o relatório antes de continuar.
+Antes do despacho, tire a foto do projeto (trava: o agente pode gravar só o próprio relatório):
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" foto --saida tcc-kit/relatorios/_brutos/auditoria-completa-<data>/.foto.json tcc tcc-kit
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Se o comando falhar, siga sem a trava e registre
+no relatório que a conferência de integridade não rodou.
+
+Use a ferramenta Task para despachar o agente `guardiao-consistencia` **uma única vez**, passando os
+**caminhos** de TODOS os capítulos com conteúdo real do Passo 1 (não o conteúdo: ele lê os arquivos
+sozinho, e colar o texto na instrução dobraria o custo) e o caminho do relatório
+`tcc-kit/relatorios/_brutos/auditoria-completa-<data>/guardiao-consistencia.md`, dizendo que ele deve
+gravar ali e devolver só as 3 linhas. Um despacho só, não um por capítulo: este agente precisa ver tudo
+junto pra comparar entre capítulos.
+
+Depois que ele terminar, rode `estado_projeto.py comparar
+tcc-kit/relatorios/_brutos/auditoria-completa-<data>/.foto.json tcc tcc-kit`. Se listar qualquer
+arquivo, avise o aluno antes de qualquer outra coisa, com a lista, e sugira conferir e restaurar esses
+arquivos; o mesmo aviso vai no topo do relatório. Se o agente devolveu o relatório inteiro na resposta
+em vez de gravar, grave você mesmo no caminho do bruto.
 
 ## Passo 3 — Montar o checklist institucional
 
@@ -54,7 +73,10 @@ consideracoes-finais: ausente -- não foi possível conferir se os objetivos da 
 respondidos".]
 
 ## Consistência entre capítulos (guardiao-consistencia)
-[relatório completo do agente, do Passo 2]
+[Só as linhas de achado do agente, pegas com Grep no bruto pelo padrão `^- \*\*CONS-[0-9]+\*\*`, na
+ordem em que aparecem (não abra o bruto inteiro). Se não houver nenhuma: "nenhuma inconsistência
+encontrada entre os capítulos avaliados". Termine com o link pro relatório completo:
+`_brutos/auditoria-completa-<data>/guardiao-consistencia.md`.]
 
 ## Checklist institucional (lembrete — Aula 3.1)
 [bloco do Passo 3]
