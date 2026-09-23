@@ -28,9 +28,10 @@ o modo artigo já existe; o modo artigo em si (Fases 2 e 3) está adiado.
 | Não estava na proposta | v1.10 | Registro de versões por hash (`tcc-kit/.estado.json`) e skill `estado-tcc`: sabe, sem reler o texto, quando revisão, auditoria, slides ou resumo de dados ficaram desatualizados |
 
 **Números do benchmark que ainda valem como referência de custo:** 450 a 750 mil tokens por rodada
-completa com os agentes devolvendo relatórios inteiros. A v1.11 muda essa conta (a conversa principal
-não carrega mais os relatórios), mas **a economia não foi medida**. Medir antes de retomar a Fase 2, com
-o eval `evals/revisar-capitulo/scenario-3-rodada-2-delta.json` e `claude -p --output-format json`.
+completa com os agentes devolvendo relatórios inteiros. Medição da v1.11 contra a v1.10 num capítulo
+mínimo (`docs/benchmarks/2026-09-23-custo-revisao-v110-v111.md`): conversa principal 18% mais barata
+(saída −36%), custo total −10%, agentes +31%. O ganho deve crescer com relatórios longos; a maior parte do
+custo que sobra é contexto fixo da conversa principal (~650 mil tokens de cache lido).
 
 **O que a Fase 2 ainda precisa, dado o que já existe:**
 
@@ -304,8 +305,8 @@ Outros cenários, em uma linha cada:
    problema de grounding.
 5. **Rodadas.** Qual o limite padrão (2? 3?) antes de parar e devolver para o autor?
 6. **Custo.** Vale oferecer uma rodada "econômica" (dados + citações + método) para alunos com
-   limite de uso, deixando argumento, forma e periódico para a rodada final? A v1.11 já reduziu o custo
-   da conversa principal; decidir depois de medir (seção 0).
+   limite de uso, deixando argumento, forma e periódico para a rodada final? A v1.11 reduziu o custo da
+   conversa principal em 18% num capítulo mínimo (seção 0); o custo fixo de contexto é o que mais pesa.
 
 ## 11. Ferramentas e plugins usados no benchmark (e como incorporar)
 
