@@ -19,6 +19,13 @@ Leia o conteúdo de todos os que existirem com conteúdo real. Se algum dos 5 es
 anote quais — a auditoria segue com o que existir, mas alguns achados do `guardiao-consistencia` (como
 "objetivo respondido na Discussão") dependem de capítulos específicos existirem pra fazer sentido.
 
+**Capítulo curto é conteúdo real.** Um parágrafo, ou mesmo uma frase de texto do aluno (e não o
+placeholder do template), conta. Com **pelo menos 1 capítulo** com conteúdo real, a auditoria roda e o
+relatório é salvo, mesmo que o TCC pareça cedo demais pra uma auditoria completa: não cabe a você
+decidir que "não vale a pena". Se achar o TCC incipiente, diga isso no resumo ao aluno, depois de
+salvar o relatório. A única situação que dispensa o relatório é zero capítulos com conteúdo real (ver
+"Tratamento de erro").
+
 ## Passo 2 — Despachar o guardiao-consistencia
 
 Antes do despacho, tire a foto do projeto (trava: o agente pode gravar só o próprio relatório):

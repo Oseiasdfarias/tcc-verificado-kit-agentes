@@ -8,6 +8,16 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.12.1 — 2026-09-23
+
+- `auditoria-tcc-completo` não recusa mais a auditoria quando os capítulos são curtos: uma frase de texto
+  do aluno já conta como conteúdo real, e com pelo menos 1 capítulo o relatório é sempre salvo (a skill
+  pode dizer ao aluno que o TCC está incipiente, mas depois de salvar). Encontrado ao rodar de novo os
+  evals antigos depois da 1.11.
+- `evals/run_eval.py` roda `claude -p --output-format json` e imprime custo em dólar, tokens e turnos
+  internos de cada turno, mais o total no fim; a árvore de arquivos passa a sair depois da resposta,
+  não no topo do log.
+
 ## 1.12.0 — 2026-09-23
 
 Skill nova `reproduzir-dados`: o `tcc/dados/resumo-real.md`, que o kit inteiro usa como fonte de
