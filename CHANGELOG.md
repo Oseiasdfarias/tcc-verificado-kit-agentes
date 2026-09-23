@@ -8,6 +8,27 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.10.0 — 2026-09-23
+
+Registro de versões por hash e skill nova `estado-tcc`: o kit passa a saber quando um artefato ficou
+desatualizado depois de uma edição, sem reler o texto pra descobrir.
+
+- Script novo: `scripts/estado_projeto.py` (só biblioteca padrão, roda com `uv run`). `registrar` grava
+  o sha256 dos arquivos que uma etapa usou em `tcc-kit/.estado.json`; `verificar` compara com os
+  arquivos atuais e imprime uma tabela curta (`atual` / `desatualizada` / `entrada-removida`). O hash é
+  calculado fora do modelo: nenhuma skill ou agente carrega o arquivo de estado no contexto.
+- `escrever-capitulo`, `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` ganham um passo
+  que registra a versão das entradas antes de atualizar checklist e histórico. Se o `uv` não estiver
+  disponível, avisam em uma linha e seguem.
+- Skill nova: `estado-tcc` — panorama completo do projeto (etapas, capítulos, pontos bloqueantes,
+  atividade recente, pendências) montado só a partir de checklist, fim do histórico, seção de achados
+  bloqueantes dos relatórios e saída de `verificar`, sem abrir os capítulos. Salva em
+  `tcc-kit/estado/estado-<data>.md`, em linguagem legível pelo orientador. Aponta capítulo alterado
+  depois da revisão, capítulo escrito com dados que mudaram depois, e auditoria/slides desatualizados.
+  Só lê: não edita checklist, histórico nem o registro, e nunca grava hash retroativo.
+- Projetos anteriores continuam funcionando: sem `tcc-kit/.estado.json`, `verificar` responde
+  `sem registros` e a `estado-tcc` mostra as datas das revisões sem afirmar se estão atuais.
+
 ## 1.9.2 — 2026-09-16
 
 `escrever-capitulo` deixa mais visível que os modos `co-piloto`/`rápido` são duas escolhas igualmente

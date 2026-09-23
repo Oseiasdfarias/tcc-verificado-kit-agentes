@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.9.2-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.10.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -91,7 +91,9 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
-> https://docs.astral.sh/uv/getting-started/installation/. Os outros 7 agentes, a skill
+> https://docs.astral.sh/uv/getting-started/installation/. O `uv` também é usado pelo registro de
+> versões (ver "Estado do TCC" abaixo), mas ali é opcional: sem ele, as skills só avisam que o registro
+> não foi gravado e seguem normalmente. Os outros 7 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
 > `escolher-template`, `escolher-tema`, `validar-metodologia`, `planejar-capitulo`,
 > `escrever-capitulo`, `gerar-diagrama`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
@@ -110,6 +112,22 @@ capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou,
 (exceto `gerar-diagrama`, que só registra no histórico — diagrama é ação opcional e repetível, não um
 estágio do ciclo de vida). Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem
 precisar perguntar ao kit.
+
+### Estado do TCC
+
+Peça "como está meu TCC?" ou "gera um relatório do andamento pro meu orientador" — a skill
+`estado-tcc` monta um panorama completo (etapas, capítulos, pontos bloqueantes em aberto, atividade
+recente, pendências) e salva em `tcc-kit/estado/estado-<data>.md`, escrito pra você e pro seu
+orientador lerem. Ela não relê o texto dos capítulos: usa só os registros que o kit já mantém, então é
+rápida e barata mesmo com o TCC inteiro escrito.
+
+Ela também avisa quando algo ficou desatualizado depois de uma edição sua: capítulo alterado depois da
+última revisão, capítulo escrito com dados que mudaram depois (confira os números), auditoria completa
+ou slides de defesa que não correspondem mais à versão atual dos capítulos. Isso funciona porque
+`escrever-capitulo`, `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` gravam, ao
+terminar, uma impressão digital (hash) dos arquivos que usaram em `tcc-kit/.estado.json` — você não
+precisa abrir nem editar esse arquivo. Revisões feitas antes da versão 1.10 não têm esse registro;
+pra passar a acompanhar um capítulo antigo, rode a revisão dele de novo.
 
 ### Por onde começar
 
