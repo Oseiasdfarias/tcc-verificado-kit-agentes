@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import pdf_to_md
-from pdf_to_md import convert, is_missing_llama_server_error, is_output_too_short
+from pdf_to_md import convert, is_output_too_short
 
 
 def test_short_text_is_too_short():
@@ -33,118 +33,86 @@ def test_convert_raises_when_input_missing(tmp_path):
         convert(entrada_inexistente, saida)
 
 
-def test_is_missing_llama_server_error_detects_real_message():
-    exc = RuntimeError(
-        "llama-server binary not found. Install with:\n"
-        "  macOS:  brew install llama.cpp"
-    )
-    assert is_missing_llama_server_error(exc) is True
+def _install_fake_pdfplumber(monkeypatch, paginas_texto):
+    """Substitui o modulo pdfplumber que convert() importa, sem precisar do
+    pacote de verdade instalado -- simula um PDF com as paginas de texto
+    dadas (uma string por pagina; None simula pagina sem texto extraivel,
+    ex: escaneada ou so com formula/imagem)."""
+
+    class FakePage:
+        def __init__(self, texto):
+            self._texto = texto
+
+        def extract_text(self):
+            return self._texto
+
+    class FakePdf:
+        def __init__(self, paginas):
+            self.pages = [FakePage(t) for t in paginas]
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    fake_pdfplumber = types.ModuleType("pdfplumber")
+    fake_pdfplumber.open = lambda path: FakePdf(paginas_texto)
+    monkeypatch.setitem(sys.modules, "pdfplumber", fake_pdfplumber)
 
 
-def test_is_missing_llama_server_error_ignores_unrelated_exception():
-    assert is_missing_llama_server_error(ValueError("PDF corrompido")) is False
-
-
-def _install_fake_marker_modules(monkeypatch, first_call_raises):
-    """Substitui os modulos marker.* que convert() importa, sem precisar do
-    pacote de verdade instalado -- simula a 1a chamada falhando com o erro
-    real do llama-server, e a 2a chamada (apos fallback --disable_ocr)
-    tendo sucesso."""
-    calls = []
-
-    class FakeRendered:
-        pass
-
-    class FakePdfConverter:
-        def __init__(self, artifact_dict=None, config=None, processor_list=None,
-                     renderer=None, llm_service=None):
-            calls.append(config)
-
-        def __call__(self, path):
-            if len(calls) == 1 and first_call_raises:
-                raise RuntimeError("llama-server binary not found. Install with: ...")
-            return FakeRendered()
-
-    class FakeConfigParser:
-        def __init__(self, config):
-            self._config = config
-
-        def generate_config_dict(self):
-            return self._config
-
-        def get_processors(self):
-            return None
-
-        def get_renderer(self):
-            return None
-
-        def get_llm_service(self):
-            return None
-
-    marker_converters_pdf = types.ModuleType("marker.converters.pdf")
-    marker_converters_pdf.PdfConverter = FakePdfConverter
-    marker_models = types.ModuleType("marker.models")
-    marker_models.create_model_dict = lambda: {}
-    marker_output = types.ModuleType("marker.output")
-    marker_output.text_from_rendered = lambda rendered: ("texto convertido " * 50, None, None)
-    marker_config_parser = types.ModuleType("marker.config.parser")
-    marker_config_parser.ConfigParser = FakeConfigParser
-
-    monkeypatch.setitem(sys.modules, "marker.converters.pdf", marker_converters_pdf)
-    monkeypatch.setitem(sys.modules, "marker.models", marker_models)
-    monkeypatch.setitem(sys.modules, "marker.output", marker_output)
-    monkeypatch.setitem(sys.modules, "marker.config.parser", marker_config_parser)
-    return calls
-
-
-def test_convert_falls_back_to_disable_ocr_when_llama_server_missing(tmp_path, monkeypatch):
-    calls = _install_fake_marker_modules(monkeypatch, first_call_raises=True)
+def test_convert_extracts_text_from_all_pages(tmp_path, monkeypatch):
+    _install_fake_pdfplumber(monkeypatch, ["Pagina um. " * 20, "Pagina dois. " * 20])
 
     entrada = tmp_path / "entrada.pdf"
     entrada.write_bytes(b"%PDF-1.4 fake")
     saida = tmp_path / "saida.md"
 
-    markdown_text, used_fallback = convert(entrada, saida)
+    markdown_text = convert(entrada, saida)
 
-    assert used_fallback is True
-    assert markdown_text.strip() != ""
+    assert "Pagina um." in markdown_text
+    assert "Pagina dois." in markdown_text
     assert saida.read_text(encoding="utf-8") == markdown_text
-    assert len(calls) == 2
-    assert calls[0] is None  # 1a tentativa: sem config especial
-    assert calls[1] == {"disable_ocr": True, "output_format": "markdown"}  # 2a tentativa: fallback
 
 
-def test_convert_succeeds_without_fallback_when_no_llama_server_error(tmp_path, monkeypatch):
-    calls = _install_fake_marker_modules(monkeypatch, first_call_raises=False)
+def test_convert_skips_pages_without_extractable_text(tmp_path, monkeypatch):
+    _install_fake_pdfplumber(monkeypatch, ["Pagina com texto. " * 20, None])
 
     entrada = tmp_path / "entrada.pdf"
     entrada.write_bytes(b"%PDF-1.4 fake")
     saida = tmp_path / "saida.md"
 
-    markdown_text, used_fallback = convert(entrada, saida)
+    markdown_text = convert(entrada, saida)
 
-    assert used_fallback is False
-    assert len(calls) == 1
+    assert "Pagina com texto." in markdown_text
 
 
-def test_convert_reraises_unrelated_exception_without_fallback(tmp_path, monkeypatch):
-    class FakePdfConverter:
-        def __init__(self, **kwargs):
-            pass
+def test_convert_returns_short_text_when_no_page_has_extractable_text(tmp_path, monkeypatch):
+    """PDF escaneado / so com formula-imagem: nenhuma pagina extrai texto --
+    convert() nao falha, so devolve texto curto/vazio pra quem chama decidir
+    (via is_output_too_short) que precisa do fallback de leitura direta."""
+    _install_fake_pdfplumber(monkeypatch, [None, None])
 
-        def __call__(self, path):
+    entrada = tmp_path / "entrada.pdf"
+    entrada.write_bytes(b"%PDF-1.4 fake")
+    saida = tmp_path / "saida.md"
+
+    markdown_text = convert(entrada, saida)
+
+    assert is_output_too_short(markdown_text) is True
+
+
+def test_convert_reraises_unrelated_exception(tmp_path, monkeypatch):
+    class FakePdf:
+        def __enter__(self):
             raise ValueError("PDF corrompido, nao e possivel ler")
 
-    marker_converters_pdf = types.ModuleType("marker.converters.pdf")
-    marker_converters_pdf.PdfConverter = FakePdfConverter
-    marker_models = types.ModuleType("marker.models")
-    marker_models.create_model_dict = lambda: {}
-    marker_output = types.ModuleType("marker.output")
-    marker_output.text_from_rendered = lambda rendered: ("", None, None)
+        def __exit__(self, *args):
+            return False
 
-    monkeypatch.setitem(sys.modules, "marker.converters.pdf", marker_converters_pdf)
-    monkeypatch.setitem(sys.modules, "marker.models", marker_models)
-    monkeypatch.setitem(sys.modules, "marker.output", marker_output)
+    fake_pdfplumber = types.ModuleType("pdfplumber")
+    fake_pdfplumber.open = lambda path: FakePdf()
+    monkeypatch.setitem(sys.modules, "pdfplumber", fake_pdfplumber)
 
     entrada = tmp_path / "entrada.pdf"
     entrada.write_bytes(b"%PDF-1.4 fake")
@@ -155,12 +123,8 @@ def test_convert_reraises_unrelated_exception_without_fallback(tmp_path, monkeyp
 
 
 def test_main_returns_2_when_convert_raises_unexpected_exception(tmp_path, monkeypatch):
-    """Qualquer falha de convert() que nao seja FileNotFoundError (ex.: uma
-    dependencia de runtime do marker/surya ausente, como o llama-server) deve
-    degradar para o codigo de saida 2, nunca vazar como traceback nao tratado."""
-
     def fake_convert(input_path, output_path):
-        raise RuntimeError("llama-server binary not found")
+        raise RuntimeError("erro de extracao qualquer")
 
     monkeypatch.setattr(pdf_to_md, "convert", fake_convert)
 
@@ -176,7 +140,7 @@ def test_main_returns_0_on_success(tmp_path, monkeypatch):
 
     def fake_convert(input_path, output_path):
         output_path.write_text(texto_longo, encoding="utf-8")
-        return texto_longo, False
+        return texto_longo
 
     monkeypatch.setattr(pdf_to_md, "convert", fake_convert)
 
@@ -188,12 +152,12 @@ def test_main_returns_0_on_success(tmp_path, monkeypatch):
     assert saida.read_text(encoding="utf-8") == texto_longo
 
 
-def test_main_returns_3_when_convert_used_fallback(tmp_path, monkeypatch):
-    texto_longo = "palavra " * 100
+def test_main_returns_3_when_output_too_short(tmp_path, monkeypatch):
+    texto_curto = "abc"
 
     def fake_convert(input_path, output_path):
-        output_path.write_text(texto_longo, encoding="utf-8")
-        return texto_longo, True
+        output_path.write_text(texto_curto, encoding="utf-8")
+        return texto_curto
 
     monkeypatch.setattr(pdf_to_md, "convert", fake_convert)
 
@@ -202,4 +166,16 @@ def test_main_returns_3_when_convert_used_fallback(tmp_path, monkeypatch):
     codigo = pdf_to_md.main(["pdf_to_md.py", str(entrada), str(saida)])
 
     assert codigo == 3
-    assert saida.read_text(encoding="utf-8") == texto_longo
+    assert saida.read_text(encoding="utf-8") == texto_curto
+
+
+def test_main_returns_1_on_wrong_argument_count():
+    codigo = pdf_to_md.main(["pdf_to_md.py", "so-um-arg.pdf"])
+    assert codigo == 1
+
+
+def test_main_returns_1_when_input_missing(tmp_path):
+    entrada = tmp_path / "nao-existe.pdf"
+    saida = tmp_path / "saida.md"
+    codigo = pdf_to_md.main(["pdf_to_md.py", str(entrada), str(saida)])
+    assert codigo == 1

@@ -1,0 +1,17 @@
+{
+  "skill": "gerar-diagrama",
+  "title": "gera diagrama conceitual em TikZ; se não houver LaTeX local, avisa sem travar (v1.9.1)",
+  "turns": [
+    "gera um diagrama da minha metodologia com 3 etapas: coleta de dados, pré-processamento, análise estatística",
+    "pode combinar do jeito que você achar melhor, só precisa mostrar a sequência das 3 etapas"
+  ],
+  "fixtures": {},
+  "expected_behavior": [
+    "Gera o código TikZ dentro de um ambiente figure, com \\centering e \\caption{} numerada, salvo em tcc/diagramas/<nome>.tex",
+    "Confere/adiciona no preâmbulo os pacotes necessários (tikz, float, positioning) se ainda não estiverem lá",
+    "Tenta rodar latexmk -pdf pra conferir a compilação",
+    "Se latexmk não estiver disponível no ambiente, avisa que não conseguiu compilar (ambiente sem LaTeX local) SEM tratar isso como erro, e orienta compilar no Overleaf -- comportamento da v1.9.1, não deve pedir pro aluno instalar nada",
+    "Acrescenta uma entrada em tcc-kit/historico.md",
+    "NÃO atualiza tcc-kit/checklist.md (exceção documentada: gerar-diagrama só registra no histórico)"
+  ]
+}

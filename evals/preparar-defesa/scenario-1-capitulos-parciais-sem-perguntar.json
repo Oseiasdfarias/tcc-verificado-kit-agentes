@@ -1,0 +1,21 @@
+{
+  "skill": "preparar-defesa",
+  "title": "com capítulo faltando, gera direto marcando seção pendente -- nunca pergunta se deve prosseguir",
+  "query": "transforma meu TCC numa apresentação de defesa",
+  "fixtures": {
+    "tcc-kit/tema.md": "# Tema do TCC\n\n**Tema:** Fatores associados ao churn de clientes em empresas de assinatura\n**Área/curso:** Administração\n**Justificativa:** Tema validado.\n**Termos de busca sugeridos:** churn, retenção\n\nDefinido em: 2026-01-05\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\nEste trabalho investiga fatores associados ao churn de clientes em empresas de assinatura.\n",
+    "tcc/capitulos/metodologia.tex": "\\chapter{Metodologia}\n\\label{cap:metodologia}\n\nFoi aplicado o teste qui-quadrado sobre a base Telco Customer Churn, com 7.043 registros.\n",
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\\label{cap:resultados}\n\nA taxa de churn observada foi de 26,5\\% sobre 7.043 registros.\n"
+  },
+  "expected_behavior": [
+    "NÃO pergunta se deve prosseguir com capítulos faltando -- gera a apresentação direto (comportamento crítico documentado na skill)",
+    "A única pergunta feita (se houver) é sobre rodar auditoria-tcc-completo antes (Passo 1), nunca sobre prosseguir com capítulo faltando",
+    "Marca as seções de Referencial teórico e Discussão/Considerações finais como pendentes no Beamer, em vez de inventar conteúdo",
+    "Gera tcc/apresentacao-defesa.tex com capa, introdução, metodologia e resultados baseados nos capítulos reais",
+    "Despacha banca-critica pedindo o dobro de perguntas do padrão de um capítulo isolado",
+    "Salva tcc-kit/relatorios/prep-perguntas-defesa-<data>.md",
+    "tcc-kit/checklist.md marca Apresentação de defesa como gerada",
+    "tcc-kit/.estado.json contém a etapa 'defesa' com os 5 caminhos de capítulo (null nos que não existem)"
+  ]
+}

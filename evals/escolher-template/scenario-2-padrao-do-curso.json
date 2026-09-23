@@ -1,0 +1,16 @@
+{
+  "skill": "escolher-template",
+  "title": "escolher o padrão do curso pula a busca no Overleaf e adapta direto",
+  "query": "usa o template ABNT padrão do curso mesmo, não precisa buscar nada na minha universidade",
+  "fixtures": {
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** Universidade Federal de Exemplo (UFEX)\n**Curso/Programa:** Administração\n**Orientador(a):** a definir\n**Banca:** a definir\n**Aluno:** Ana Souza\n**Cidade:** Exemplolândia\n**Ano previsto de conclusão:** 2027\n**Logo:** não informado\n**Modo de escrita:** não definido\nDefinido em: 2026-01-10\n"
+  },
+  "expected_behavior": [
+    "Pula a busca no Overleaf (Passos 3-7) já que o aluno escolheu o padrão do curso",
+    "tcc-kit/template.md é criado com Origem = 'Padrão abnTeX2 do curso' e Estrutura = 'Padrão do curso, já no formato esperado'",
+    "Os dados de tcc-kit/config.md (universidade, aluno, cidade etc.) são usados pra adaptar a capa/folha de rosto",
+    "Campos sem dado real (ex: Orientador 'a definir') ficam como placeholder explícito, nunca em branco silenciosamente nem inventados",
+    "tcc-kit/checklist.md é criado ou atualizado com a seção Template marcada como feita",
+    "tcc-kit/historico.md recebe uma entrada mencionando 'padrão abnTeX2 do curso'"
+  ]
+}

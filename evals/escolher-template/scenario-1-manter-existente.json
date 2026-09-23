@@ -1,0 +1,16 @@
+{
+  "skill": "escolher-template",
+  "title": "opção (c) manter como está não altera nada nem atualiza checklist/histórico",
+  "query": "mantém o template do meu TCC como está, não precisa mudar nada agora",
+  "fixtures": {
+    "tcc-kit/template.md": "# Template do Projeto\n**Origem:** Padrão abnTeX2 do curso\n**Estrutura:** Padrão do curso, já no formato esperado\n**Campos preenchidos:** Universidade, Curso, Aluno\n**Campos como placeholder:** Banca\nEscolhido em: 2026-01-10\nÚltima adaptação: 2026-01-10\n",
+    "tcc-kit/checklist.md": "# Checklist de progresso — TCC\n\n## Configuração institucional\n- [x] Configurado (tcc-kit/config.md)\n\n## Template\n- [x] Escolhido/adaptado (tcc-kit/template.md)\n\n## Tema\n- [ ] Definido (tcc-kit/tema.md)\n\n## Referências\n- [ ] Pelo menos 1 referência verificada\n\n## Metodologia\n**Estado:** Não iniciado\n\n## Capítulos\n| Capítulo | Estado |\n|---|---|\n| Introdução | Não iniciado |\n| Referencial teórico | Não iniciado |\n| Metodologia | Não iniciado |\n| Resultados | Não iniciado |\n| Discussão/Considerações finais | Não iniciado |\n\n## Auditoria completa do TCC\n- [ ] Nunca rodada\n\n## Apresentação de defesa\n- [ ] Nunca gerada\n\n---\nAtualizado em: 2026-01-10, por: configurar-projeto\n"
+  },
+  "expected_behavior": [
+    "Mostra (ou reconhece) a origem do template atual antes de encerrar",
+    "Não sobrescreve tcc-kit/template.md",
+    "Não modifica nenhum arquivo em tcc/",
+    "NÃO atualiza tcc-kit/checklist.md (a linha 'Atualizado em' continua 2026-01-10, por configurar-projeto)",
+    "NÃO acrescenta nenhuma entrada nova em tcc-kit/historico.md"
+  ]
+}

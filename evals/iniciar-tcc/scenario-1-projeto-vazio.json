@@ -1,0 +1,11 @@
+{
+  "skill": "iniciar-tcc",
+  "title": "projeto vazio sugere configurar-projeto primeiro (ramificação de maior prioridade)",
+  "query": "por onde eu começo meu TCC?",
+  "fixtures": {},
+  "expected_behavior": [
+    "Detecta que tcc-kit/config.md não existe",
+    "Apresenta a sugestão de rodar configurar-projeto primeiro (ramificação 1, a de maior prioridade)",
+    "Não decide/executa configurar-projeto sozinho -- espera a resposta do aluno antes de continuar"
+  ]
+}

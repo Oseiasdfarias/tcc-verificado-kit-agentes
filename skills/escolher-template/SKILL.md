@@ -66,6 +66,18 @@ conta própria (nesse caso, pare aqui e espere ele voltar com uma escolha).
 
 ## Passo 5 — Orientar o download manual
 
+**Backup antes de sobrescrever** (antes de orientar a extração do zip, porque o aluno vai substituir os arquivos de `tcc/`): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
+
 Se o aluno escolheu um template do Overleaf: **não existe download direto de zip nas páginas de
 template do Overleaf** (só "Open as Template", que abre o editor deles, ou "View Source", só
 visualização) — oriente o passo manual:
@@ -89,6 +101,18 @@ que os arquivos foram atualizados.
 Se o aluno escolheu o padrão do curso (Passo 2), pule este passo — não há nada pra conferir.
 
 ## Passo 7 — Reestruturar se precisar
+
+**Backup antes de sobrescrever** (antes de mover, renomear ou editar qualquer arquivo nos Passos 7 e 8; uma vez só, cobre os dois passos): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
 
 Olhe os arquivos `.tex` presentes em `tcc/` (e subpastas, se houver). Identifique: qual é o arquivo
 principal (compila o documento inteiro, geralmente com `\documentclass` e vários `\input`/`\include`),

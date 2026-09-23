@@ -19,11 +19,37 @@ Leia o conteúdo de todos os que existirem com conteúdo real. Se algum dos 5 es
 anote quais — a auditoria segue com o que existir, mas alguns achados do `guardiao-consistencia` (como
 "objetivo respondido na Discussão") dependem de capítulos específicos existirem pra fazer sentido.
 
+**Capítulo curto é conteúdo real.** Um parágrafo, ou mesmo uma frase de texto do aluno (e não o
+placeholder do template), conta. Com **pelo menos 1 capítulo** com conteúdo real, a auditoria roda e o
+relatório é salvo, mesmo que o TCC pareça cedo demais pra uma auditoria completa: não cabe a você
+decidir que "não vale a pena". Se achar o TCC incipiente, diga isso no resumo ao aluno, depois de
+salvar o relatório. A única situação que dispensa o relatório é zero capítulos com conteúdo real (ver
+"Tratamento de erro").
+
 ## Passo 2 — Despachar o guardiao-consistencia
 
-Use a ferramenta Task para despachar o agente `guardiao-consistencia` **uma única vez**, passando o
-conteúdo de TODOS os capítulos lidos no Passo 1 juntos (não um despacho por capítulo — este agente
-precisa ver tudo simultaneamente pra comparar entre capítulos). Espere o relatório antes de continuar.
+Antes do despacho, tire a foto do projeto (trava: o agente pode gravar só o próprio relatório):
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" foto --saida tcc-kit/relatorios/_brutos/auditoria-completa-<data>/.foto.json tcc tcc-kit
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Se o comando falhar, siga sem a trava e registre
+no relatório que a conferência de integridade não rodou.
+
+Use a ferramenta Task para despachar o agente `guardiao-consistencia` **uma única vez**, passando os
+**caminhos** de TODOS os capítulos com conteúdo real do Passo 1 (não o conteúdo: ele lê os arquivos
+sozinho, e colar o texto na instrução dobraria o custo) e o caminho do relatório
+`tcc-kit/relatorios/_brutos/auditoria-completa-<data>/guardiao-consistencia.md`, dizendo que ele deve
+gravar ali e devolver só as 3 linhas. Um despacho só, não um por capítulo: este agente precisa ver tudo
+junto pra comparar entre capítulos.
+
+Depois que ele terminar, rode `estado_projeto.py comparar
+tcc-kit/relatorios/_brutos/auditoria-completa-<data>/.foto.json tcc tcc-kit`. Se listar qualquer
+arquivo, avise o aluno antes de qualquer outra coisa, com a lista, e sugira conferir e restaurar esses
+arquivos; o mesmo aviso vai no topo do relatório. Se o agente devolveu o relatório inteiro na resposta
+em vez de gravar, grave você mesmo no caminho do bruto.
 
 ## Passo 3 — Montar o checklist institucional
 
@@ -54,7 +80,10 @@ consideracoes-finais: ausente -- não foi possível conferir se os objetivos da 
 respondidos".]
 
 ## Consistência entre capítulos (guardiao-consistencia)
-[relatório completo do agente, do Passo 2]
+[Só as linhas de achado do agente, pegas com Grep no bruto pelo padrão `^- \*\*CONS-[0-9]+\*\*`, na
+ordem em que aparecem (não abra o bruto inteiro). Se não houver nenhuma: "nenhuma inconsistência
+encontrada entre os capítulos avaliados". Termine com o link pro relatório completo:
+`_brutos/auditoria-completa-<data>/guardiao-consistencia.md`.]
 
 ## Checklist institucional (lembrete — Aula 3.1)
 [bloco do Passo 3]
@@ -73,6 +102,29 @@ capítulo ficou de fora da auditoria por ainda não existir.
   `escrever-capitulo` primeiro — não gere um relatório vazio.
 - **Só alguns dos 5 capítulos existem**: rode normalmente com o que existir, listando explicitamente o
   que falta (Passo 4).
+
+## Passo 4b — Registrar a versão das entradas
+
+Só se o relatório foi salvo no Passo 4. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa auditoria-completa --saida tcc-kit/relatorios/auditoria-completa-<data>.md --entradas tcc/capitulos/introducao.tex tcc/capitulos/referencial-teorico.tex tcc/capitulos/metodologia.tex tcc/capitulos/resultados.tex tcc/capitulos/discussao-consideracoes-finais.tex
+```
+
+Passe sempre os 5 caminhos, mesmo os que não existem: o script registra a ausência, e se um capítulo
+que faltava passar a existir, a auditoria aparece como desatualizada (ela não cobriu esse capítulo).
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure
+`scripts/estado_projeto.py` relativo à raiz deste plugin, e não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata dos capítulos auditados, pra skill `estado-tcc`
+conseguir avisar depois que algum capítulo mudou desde a auditoria. Não leia `tcc-kit/.estado.json` nem
+mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 5. O relatório já está salvo.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 5
+  em qualquer caso.
 
 ## Passo 5 — Atualizar checklist e histórico
 

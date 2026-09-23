@@ -1,0 +1,20 @@
+{
+  "skill": "auditoria-tcc-completo",
+  "title": "guardiao-consistencia pega objetivo da Introdução nunca respondido na Discussão",
+  "query": "confere meu TCC inteiro antes de eu entregar, os capítulos estão consistentes entre si?",
+  "fixtures": {
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\nEste trabalho tem como objetivo identificar os principais fatores associados ao churn de clientes em empresas de assinatura, com base em dados reais de uma operadora de telecomunicações.\n",
+    "tcc/capitulos/referencial-teorico.tex": "\\chapter{Referencial teórico}\n\\label{cap:referencial-teorico}\n\nO conceito de churn é amplamente discutido na literatura de marketing de relacionamento, associado à perda de clientes ao longo do tempo.\n",
+    "tcc/capitulos/metodologia.tex": "\\chapter{Metodologia}\n\\label{cap:metodologia}\n\nFoi aplicado o teste qui-quadrado sobre a base Telco Customer Churn, com 7.043 registros, buscando associação entre variáveis categóricas e o cancelamento do serviço.\n",
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\\label{cap:resultados}\n\nA taxa de churn observada foi de 26,5\\% sobre 7.043 registros. O teste qui-quadrado indicou associação significativa entre tipo de contrato e cancelamento.\n",
+    "tcc/capitulos/discussao-consideracoes-finais.tex": "\\chapter{Discussão e Considerações Finais}\n\\label{cap:discussao}\n\nOs resultados confirmam que o tipo de contrato está associado ao cancelamento, o que reforça a literatura sobre retenção de clientes. Estudos futuros podem investigar outras variáveis.\n"
+  },
+  "expected_behavior": [
+    "Lê os 5 capítulos de uma vez (não capítulo a capítulo) e despacha guardiao-consistencia uma única vez com todos juntos",
+    "guardiao-consistencia identifica que o objetivo declarado na Introdução ('identificar os principais fatores associados ao churn') não foi realmente respondido na Discussão -- a Discussão só confirma UM fator (tipo de contrato), não fala de 'fatores' no plural nem sintetiza os demais",
+    "Inclui o checklist institucional fixo (ficha catalográfica, folha de aprovação, limite de páginas etc.)",
+    "Salva tcc-kit/relatorios/auditoria-completa-<data>.md",
+    "tcc-kit/checklist.md marca a Auditoria completa do TCC como rodada, com a contagem de achados de consistência",
+    "tcc-kit/.estado.json contém a etapa 'auditoria-completa' com os 5 caminhos de capítulo (null nos que não existem)"
+  ]
+}

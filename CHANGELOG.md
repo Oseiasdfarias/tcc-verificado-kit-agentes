@@ -8,6 +8,125 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.12.1 — 2026-09-23
+
+- `auditoria-tcc-completo` não recusa mais a auditoria quando os capítulos são curtos: uma frase de texto
+  do aluno já conta como conteúdo real, e com pelo menos 1 capítulo o relatório é sempre salvo (a skill
+  pode dizer ao aluno que o TCC está incipiente, mas depois de salvar). Encontrado ao rodar de novo os
+  evals antigos depois da 1.11.
+- `evals/run_eval.py` roda `claude -p --output-format json` e imprime custo em dólar, tokens e turnos
+  internos de cada turno, mais o total no fim; a árvore de arquivos passa a sair depois da resposta,
+  não no topo do log.
+
+## 1.12.0 — 2026-09-23
+
+Skill nova `reproduzir-dados`: o `tcc/dados/resumo-real.md`, que o kit inteiro usa como fonte de
+verdade, deixa de ser montado à mão.
+
+- **`reproduzir-dados`**: inventaria dados e scripts, confirma com o aluno quais importam, perfila
+  CSV/TSV sem ler o arquivo inteiro, lê o código com perguntas dirigidas (fonte dos dados, parâmetros,
+  unidades, divisão dos dados, semente, e o que o código faz de diferente do que o nome diz), executa só
+  os scripts Python que já existem (`uv run`, com foto e backup dos dados antes) e grava o resumo com a
+  procedência de cada número e a seção "O que não existe como dado". Análise nova só com confirmação,
+  sempre em arquivo novo em `tcc/dados/analises/`. MATLAB, R, C/C++ e firmware são só lidos.
+- Registros novos: `tcc-kit/dados/reproducao.md` (comando, código de saída, hashes, commit de cada
+  execução) e `tcc-kit/dados/materiais.yaml` (resumo de uma linha e sha256 de cada arquivo). Na
+  segunda execução, só o que mudou é relido e reexecutado.
+- Scripts: `perfil_dados.py` novo; `estado_projeto.py` ganha `hash` e passa a ignorar `.git`,
+  ambientes virtuais e `node_modules` na foto.
+- `guardiao-dados`: afirmação sobre algo listado em "O que não existe como dado" é BLOQUEANTE.
+- `estado-tcc`: linha "Resumo de dados" e aviso quando dados ou scripts mudam depois da reprodução.
+- `escrever-capitulo` e `validar-metodologia` passam a sugerir a skill nova quando falta o resumo.
+
+## 1.11.0 — 2026-09-23
+
+Revisão mais rigorosa e mais barata, a partir do benchmark com um artigo IEEE
+(`docs/benchmarks/2026-09-17-artigo-ieee-latam.md`).
+
+- **Agentes gravam o próprio relatório.** Os 7 agentes ganham a ferramenta Write, só pra gravar o
+  relatório no caminho que a skill passou, e devolvem 3 linhas. A skill monta o consolidado com Grep
+  nas linhas de achado, sem carregar nem reescrever os relatórios inteiros. Chamados direto pelo aluno
+  (sem caminho), continuam respondendo com o relatório completo e sem gravar nada.
+- **Trava por hash**: `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` tiram uma foto
+  do projeto antes do despacho e conferem depois (`estado_projeto.py foto`/`comparar`). Se um agente
+  mexer em qualquer arquivo além do relatório, o aluno é avisado com a lista.
+- **Linha de achado com ID estável** (`DADOS`, `CIT`, `LAC`, `MET`, `ORI`, `BANCA`, `FORMA`, `CONS`).
+- **`revisar-capitulo`**: os 6 agentes rodam em paralelo (a prioridade dado → citação → resto vale só
+  na consolidação); rodada N com seção Delta (RESOLVIDO / PARCIAL / PENDENTE por ID); achados repetidos
+  entre agentes viram uma linha só; relatórios completos em `tcc-kit/relatorios/_brutos/<slug>-<data>/`.
+- **`revisor-citacoes`**: confere primeiro o Markdown local de `revisao-bibliografica`, depois o DOI na
+  Crossref (com `doi.org` pra Zenodo/DataCite), e só então busca na web; aponta DOI disponível, tipo de
+  entrada BibTeX errado e fonte que não sustenta a frase (só quando leu o texto da fonte).
+- **`guardiao-metodo`**: checklist para estudos com modelagem (vazamento, escolha no conjunto de
+  avaliação, comparação justa, testes múltiplos, diagnósticos, reprodutibilidade) e leitura do script
+  que gerou um número quando ele estiver indicado.
+- **`guardiao-dados`**: seção Cobertura com o que foi conferido e bateu.
+- **Todos os agentes**: log, PDF ou saída de script só contam como evidência se forem da execução atual.
+- **Backup** (`estado_projeto.py backup`) em `tcc-kit/versoes/<momento>/` antes de sobrescrever arquivo
+  do aluno em `escrever-capitulo`, `escolher-template`, `gerar-diagrama` e `preparar-defesa`. Git, só
+  leitura e nunca encadeado.
+- `auditoria-tcc-completo` e `preparar-defesa` passam caminhos dos capítulos ao agente em vez de colar o
+  conteúdo na instrução.
+
+## 1.10.0 — 2026-09-23
+
+Registro de versões por hash e skill nova `estado-tcc`: o kit passa a saber quando um artefato ficou
+desatualizado depois de uma edição, sem reler o texto pra descobrir.
+
+- Script novo: `scripts/estado_projeto.py` (só biblioteca padrão, roda com `uv run`). `registrar` grava
+  o sha256 dos arquivos que uma etapa usou em `tcc-kit/.estado.json`; `verificar` compara com os
+  arquivos atuais e imprime uma tabela curta (`atual` / `desatualizada` / `entrada-removida`). O hash é
+  calculado fora do modelo: nenhuma skill ou agente carrega o arquivo de estado no contexto.
+- `escrever-capitulo`, `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` ganham um passo
+  que registra a versão das entradas antes de atualizar checklist e histórico. Se o `uv` não estiver
+  disponível, avisam em uma linha e seguem.
+- Skill nova: `estado-tcc` — panorama completo do projeto (etapas, capítulos, pontos bloqueantes,
+  atividade recente, pendências) montado só a partir de checklist, fim do histórico, seção de achados
+  bloqueantes dos relatórios e saída de `verificar`, sem abrir os capítulos. Salva em
+  `tcc-kit/estado/estado-<data>.md`, em linguagem legível pelo orientador. Aponta capítulo alterado
+  depois da revisão, capítulo escrito com dados que mudaram depois, e auditoria/slides desatualizados.
+  Só lê: não edita checklist, histórico nem o registro, e nunca grava hash retroativo.
+- Projetos anteriores continuam funcionando: sem `tcc-kit/.estado.json`, `verificar` responde
+  `sem registros` e a `estado-tcc` mostra as datas das revisões sem afirmar se estão atuais.
+
+## 1.9.2 — 2026-09-16
+
+`escrever-capitulo` deixa mais visível que os modos `co-piloto`/`rápido` são duas escolhas igualmente
+válidas, não uma "certa" e uma "atalho" — reconhecendo que parte dos alunos (e orientadores) trata o
+TCC como um requisito a cumprir, não como um projeto de vida, e isso é legítimo. Documenta também o
+ciclo de revisão pontual esperado nos dois modos: compilar o capítulo, ler o resultado no PDF, e colar
+de volta na conversa qualquer parágrafo que precisar de ajuste, sem precisar editar o `.tex` a mão nem
+rodar a skill de novo do zero. `README.md` atualizado com a mesma linguagem.
+
+## 1.9.1 — 2026-09-06
+
+`gerar-diagrama` não trava mais quando o aluno não tem LaTeX instalado localmente (fluxo comum pra
+quem usa só Overleaf, já suportado pela skill `escolher-template`). Antes, o Passo 5 rodava
+`latexmk -pdf` sem prever esse caso; agora, se o comando não existir no ambiente, a skill avisa que o
+código do diagrama já foi salvo e orienta compilar no Overleaf, em vez de tratar como erro. Compilação
+que roda mas falha de verdade (sintaxe TikZ errada) continua sendo tratada como sinal de problema real
+no diagrama.
+
+## 1.9.0 — 2026-09-06
+
+`revisao-bibliografica` troca `marker` (biblioteca pesada, carrega modelos de ML e dependia de um
+binário externo opcional, `llama-server` do `llama.cpp`, pra reconhecimento de fórmula/OCR) por
+`pdfplumber` (extração de texto pura Python, sem binário nenhum, mesmo comportamento em qualquer
+sistema operacional). Quando a extração automática sai curta/vazia demais (PDF escaneado, ou página com
+fórmula/tabela complexa), a skill não pede mais pra instalar nada — o próprio agente lê o PDF original
+diretamente (a mesma capacidade de visão que já processa qualquer PDF numa conversa) e escreve o
+Markdown a mão. Reduz drasticamente o peso de dependências e elimina qualquer aviso técnico pro aluno
+nesse fluxo, sem perder qualidade no caso difícil.
+
+## 1.8.0 — 2026-09-04
+
+Skill nova: `gerar-diagrama`, pra diagramas e ilustrações conceituais em TikZ (fluxograma de
+metodologia, framework conceitual, mapa de relacionamento) — sem agente companheiro, sem cobrir gráfico
+de dado real (fica pra uma frente futura, ainda sem dono). Diagrama salvo em `tcc/diagramas/<nome>.tex`,
+incluído no capítulo via `\input`. Só registra em `tcc-kit/historico.md`; não edita
+`tcc-kit/checklist.md` -- diagrama é ação opcional e repetível, diferente dos estágios de ocorrência
+única que o checklist já modela.
+
 ## 1.7.0 — 2026-08-23
 
 Checklist de progresso e histórico de rastreamento: dois artefatos novos que dão visibilidade contínua

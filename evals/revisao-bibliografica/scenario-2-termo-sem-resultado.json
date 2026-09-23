@@ -1,0 +1,12 @@
+{
+  "skill": "revisao-bibliografica",
+  "title": "termo de busca sem nenhum resultado relevante nunca inventa referência",
+  "query": "busca referências acadêmicas sobre 'xyzquantumflorbwibble1987 fenômeno inexistente inventado'",
+  "fixtures": {},
+  "expected_behavior": [
+    "Não inventa nenhuma referência falsa mesmo depois de não achar nada relevante",
+    "Informa claramente ao aluno que não encontrou nada relevante pra esse termo",
+    "Sugere tentar palavras-chave diferentes",
+    "Não cria nenhuma entrada em tcc-kit/referencias/index.yaml"
+  ]
+}

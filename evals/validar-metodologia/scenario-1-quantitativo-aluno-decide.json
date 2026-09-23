@@ -1,0 +1,16 @@
+{
+  "skill": "validar-metodologia",
+  "title": "aluno decide o paradigma, recebe o teste certo com pressupostos e tamanho de efeito",
+  "turns": [
+    "meu TCC é quantitativo, quero saber se duas variáveis categóricas dos meus dados estão associadas, que teste eu uso?",
+    "sim, pode salvar assim"
+  ],
+  "fixtures": {},
+  "expected_behavior": [
+    "Recomenda o teste qui-quadrado pra associação entre duas variáveis categóricas",
+    "Menciona o pressuposto de frequência esperada (regra de Cochran) e sugere o teste exato de Fisher como alternativa se não for atendido",
+    "Lembra de reportar um tamanho de efeito (V de Cramér), não só o p-valor",
+    "Salva tcc-kit/metodologia.md com Paradigma: Quantitativo e o método (qui-quadrado) registrado",
+    "Status salvo é 'Pendente de execução' (a análise ainda não foi rodada)"
+  ]
+}

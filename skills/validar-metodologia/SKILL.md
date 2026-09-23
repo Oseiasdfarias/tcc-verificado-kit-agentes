@@ -198,7 +198,8 @@ validando retroativamente.
 
 Informe o que foi salvo (paradigma + método). Se o método ainda não foi executado, lembre que, depois
 de rodar a análise (ou fazer a coleta/codificação), `tcc/dados/resumo-real.md` deve registrar o
-resultado real, pra `escrever-capitulo` e `guardiao-dados` poderem usar como fonte de verdade. Se já
+resultado real, pra `escrever-capitulo` e `guardiao-dados` poderem usar como fonte de verdade — a skill
+`reproduzir-dados` monta esse arquivo a partir dos dados e scripts, com a procedência de cada número. Se já
 existia `plano.md` ou capítulo de Metodologia/Resultados escrito antes desta skill rodar, sugira rodar
 `revisar-capitulo` — o `guardiao-metodo` vai conferir coerência com o que acabou de ser definido aqui.
 

@@ -18,6 +18,17 @@ siga direto pra geração se ele preferir. Isso é sugestão, não bloqueio, mes
 
 **COMPORTAMENTO CRÍTICO — SE DESCOBRIR CAPÍTULOS FALTANDO, GERE A APRESENTAÇÃO DIRETO COM SEÇÕES PENDENTES MARCADAS. NÃO PERGUNTE AO ALUNO SE QUER PROSSEGUIR OU PREENCHER CAPÍTULOS PRIMEIRO. A ÚNICA PERGUNTA PERMITIDA NESTE FLUXO É A DO PASSO 1 (AUDITORIA). PROSSIGA DIRETO PARA GERAÇÃO SEM NENHUMA PERGUNTA ADICIONAL — EXCETO SE NENHUM CAPÍTULO TIVER CONTEÚDO REAL. NESSE CASO (ZERO CAPÍTULOS), NÃO GERE NADA: SIGA A REGRA DE "TRATAMENTO DE ERRO" ABAIXO E RECUSE, SUGERINDO `escrever-capitulo`. ESTA EXCEÇÃO SÓ VALE PRA ZERO CAPÍTULOS — COM PELO MENOS UM CAPÍTULO COM CONTEÚDO REAL, A REGRA DE PROSSEGUIR DIRETO SEM PERGUNTAR CONTINUA VALENDO INTEGRALMENTE.**
 
+Se `tcc/apresentacao-defesa.tex` já existir, faça backup antes de gerar o novo (a apresentação antiga
+pode ter ajustes manuais do aluno):
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc/apresentacao-defesa.tex
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu. Se o comando falhar, pergunte se pode seguir sem backup antes de sobrescrever.
+
 Leia os capítulos com conteúdo real disponíveis em `tcc/capitulos/`. Gere `tcc/apresentacao-defesa.tex`
 em Beamer, com esta estrutura:
 
@@ -50,16 +61,32 @@ Resultados ainda não escrito"), em vez de inventar conteúdo de preenchimento.
 
 ## Passo 3 — Prep de perguntas
 
-Use a ferramenta Task pra despachar o agente `banca-critica` (já existente, sem nenhuma mudança
-necessária — ele já aceita "um resumo do TCC completo" como entrada), passando o conteúdo de todos os
-capítulos disponíveis lidos no Passo 2. Peça explicitamente um número maior de perguntas — o dobro do
+Antes do despacho, tire a foto do projeto (trava: o agente pode gravar só o próprio relatório):
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" foto --saida tcc-kit/relatorios/_brutos/defesa-<data>/.foto.json tcc tcc-kit
+```
+
+Se o comando falhar, siga sem a trava e diga ao aluno que a conferência de integridade não rodou.
+
+Use a ferramenta Task pra despachar o agente `banca-critica` (ele já aceita o TCC completo como
+entrada), passando os **caminhos** de todos os capítulos com conteúdo real lidos no Passo 2 (não o
+conteúdo: ele lê os arquivos sozinho) e o caminho do relatório
+`tcc-kit/relatorios/prep-perguntas-defesa-<data>.md` (data no formato AAAA-MM-DD), dizendo que ele deve
+gravar ali e devolver só as 3 linhas. Peça explicitamente um número maior de perguntas — o dobro do
 padrão que ele normalmente geraria pra um capítulo — já que aqui ele está analisando o TCC inteiro, não
 um capítulo isolado.
 
+Depois que ele terminar, rode `estado_projeto.py comparar tcc-kit/relatorios/_brutos/defesa-<data>/.foto.json tcc tcc-kit`.
+`tcc/apresentacao-defesa.tex` foi gerado por você antes da foto, então não aparece. Se a saída listar
+qualquer arquivo, avise o aluno antes de qualquer outra coisa, com a lista, e sugira conferir e
+restaurar esses arquivos.
+
 ## Passo 4 — Salvar e resumir
 
-Salve o relatório do `banca-critica` em `tcc-kit/relatorios/prep-perguntas-defesa-<data>.md` (data no
-formato AAAA-MM-DD), sem reformatação adicional.
+O relatório do `banca-critica` já foi gravado por ele em `tcc-kit/relatorios/prep-perguntas-defesa-<data>.md`.
+Confira (Glob) se o arquivo existe. Se o agente devolveu o relatório inteiro na resposta em vez de
+gravar, grave você mesmo esse texto no caminho, sem reformatação.
 
 Informe ao aluno os dois arquivos gerados: `tcc/apresentacao-defesa.tex` e o prep de perguntas. Feche
 lembrando — mesmo espírito da Aula 3.2 que o próprio `banca-critica` já usa no fechamento do relatório
@@ -73,6 +100,29 @@ próprias palavras antes da defesa de verdade.
 - **Alguns capítulos faltando**: gere a apresentação com as seções correspondentes marcadas como
   pendentes (Passo 2) — nunca invente conteúdo de preenchimento.
 - **Sem auditoria prévia**: avisa e pergunta (Passo 1), segue se o aluno confirmar.
+
+## Passo 4b — Registrar a versão das entradas
+
+Só se a apresentação foi gerada. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa defesa --saida tcc/apresentacao-defesa.tex --entradas tcc/capitulos/introducao.tex tcc/capitulos/referencial-teorico.tex tcc/capitulos/metodologia.tex tcc/capitulos/resultados.tex tcc/capitulos/discussao-consideracoes-finais.tex
+```
+
+Passe sempre os 5 caminhos, mesmo os que não existem: o script registra a ausência, e se um capítulo
+que faltava passar a existir, os slides aparecem como desatualizados. O caminho do plugin segue a mesma
+regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py` relativo à raiz deste plugin, e
+não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata dos capítulos usados nos slides, pra skill
+`estado-tcc` conseguir avisar depois que algum capítulo mudou e os slides podem citar conteúdo antigo.
+Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 5. A apresentação já está salva.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 5
+  em qualquer caso.
 
 ## Passo 5 — Atualizar checklist e histórico
 

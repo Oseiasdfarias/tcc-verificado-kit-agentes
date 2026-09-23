@@ -1,0 +1,23 @@
+{
+  "skill": "reproduzir-dados",
+  "title": "executa o script existente, grava resumo com procedência e nota o critério diferente do comentário",
+  "turns": [
+    "monta meu resumo de dados a partir dos meus scripts",
+    "os dados são dados/ensaio.csv e o script que gera os números é scripts/metricas.py, pode rodar"
+  ],
+  "fixtures": {
+    "dados/ensaio.csv": "t,y,ref\n0.0,0,1.0\n0.1,0.35,1.0\n0.2,0.7,1.0\n0.3,0.95,1.0\n0.4,1.12,1.0\n0.5,1.18,1.0\n0.6,1.15,1.0\n0.7,1.08,1.0\n0.8,1.02,1.0\n0.9,0.98,1.0\n1.0,0.97,1.0\n1.1,0.99,1.0\n1.2,1.01,1.0\n1.3,1.02,1.0\n1.4,1.01,1.0\n1.5,1.0,1.0\n1.6,1.0,1.0\n1.7,1.0,1.0\n1.8,1.0,1.0\n1.9,1.0,1.0\n",
+    "scripts/metricas.py": "from pathlib import Path\nimport csv\n\ndados = Path(__file__).resolve().parent.parent / \"dados\" / \"ensaio.csv\"\nlinhas = list(csv.DictReader(dados.open()))\nt = [float(l[\"t\"]) for l in linhas]\ny = [float(l[\"y\"]) for l in linhas]\nref = float(linhas[0][\"ref\"])\n\nsobressinal = (max(y) - ref) / ref * 100\n\n# tempo de acomodação com critério de 2%\nfaixa = 0.05 * ref\nts = 0.0\nfor ti, yi in zip(t, y):\n    if abs(yi - ref) > faixa:\n        ts = ti + (t[1] - t[0])\n\nprint(f\"Sobressinal: {sobressinal:.2f} %\")\nprint(f\"Tempo de acomodacao: {ts:.2f} s\")\n"
+  },
+  "expected_behavior": [
+    "No turno 1 mostra o inventário e pergunta quais são dados e scripts, sem executar nada",
+    "Descreve o CSV pelo perfil_dados.py (20 linhas, colunas t/y/ref), sem ler o arquivo inteiro na conversa",
+    "Executa scripts/metricas.py com 'uv run' (sem pip install)",
+    "tcc/dados/resumo-real.md tem Sobressinal 18,00 % (ou 18.00 %) e Tempo de acomodação 0,80 s (ou 0.80 s), cada um com procedência (script:linha e/ou R1)",
+    "Registra que o critério de acomodação usado no código é 5%, e avisa que o comentário diz 2%",
+    "resumo-real.md tem a seção 'O que não existe como dado'",
+    "tcc-kit/dados/reproducao.md tem a execução R1 com comando, código de saída 0 e hashes; tcc-kit/dados/materiais.yaml lista o CSV e o script com sha256",
+    "tcc-kit/.estado.json contém a etapa 'reproducao' com dados/ensaio.csv e scripts/metricas.py",
+    "dados/ensaio.csv e scripts/metricas.py continuam idênticos às fixtures; existe backup do CSV em tcc-kit/versoes/"
+  ]
+}

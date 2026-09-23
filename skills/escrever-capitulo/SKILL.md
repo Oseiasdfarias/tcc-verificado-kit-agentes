@@ -15,10 +15,14 @@ dos dois modos abaixo.
 Leia o campo `Modo de escrita` de `tcc-kit/config.md`.
 
 - **Se `tcc-kit/config.md` não existir, ou existir sem esse campo** (config de uma versão anterior a
-  este subprojeto): pergunte ao aluno qual modo ele quer:
+  este subprojeto): pergunte ao aluno qual modo ele quer, deixando claro que não existe escolha
+  "certa" aqui, só um jeito diferente de trabalhar:
   - **`co-piloto`**: eu faço algumas perguntas antes de escrever cada seção, pra usar seu raciocínio de
-    verdade.
-  - **`rápido`**: eu escrevo direto a partir do plano, com o mínimo de perguntas.
+    verdade. Combina com quem quer participar de perto do argumento.
+  - **`rápido`**: eu escrevo direto a partir do plano, com o mínimo de perguntas, e você revisa o
+    resultado depois. Combina com quem quer entregar o capítulo o mais rápido possível e prefere gastar
+    o tempo dele revisando em vez de sendo entrevistado seção por seção — legítimo, principalmente pra
+    quem já trata o TCC como um requisito a cumprir, não como um projeto de vida.
 
   Se `tcc-kit/config.md` existir, pergunte também se ele quer salvar essa escolha como padrão pras
   próximas vezes. Se confirmar, adicione (ou atualize) o campo `Modo de escrita` no arquivo,
@@ -56,6 +60,18 @@ caracteres). Se tiver, pergunte ao aluno ali mesmo: sobrescrever tudo, mesclar c
 só completar as seções que ainda faltam. Só prossiga pro Passo 3a/3b depois dessa resposta — não vale a
 pena fazer o aluno passar pela entrevista de uma seção inteira (Passo 3a) pra só então descobrir que o
 capítulo já estava escrito.
+
+**Backup antes de sobrescrever** (só se o `.tex` já tinha conteúdo real e o aluno escolheu sobrescrever, mesclar ou completar, antes da primeira gravação do Passo 5): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc/capitulos/<slug>.tex
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
 
 ## Passo 3a — Modo co-piloto: entrevista por seção
 
@@ -99,11 +115,12 @@ Ao rascunhar qualquer seção (não só depois de pronta), respeite estas restri
 - **Toda afirmação numérica ou sobre dado/resultado** precisa vir de `tcc/dados/resumo-real.md`.
   Nunca escreva um número, percentual, ou afirmação de resultado que "parece razoável" — se o dado que
   a seção precisaria não está em `resumo-real.md`, avise o aluno explicitamente e pare naquele ponto em
-  vez de inventar ou aproximar. Se o arquivo `tcc/dados/resumo-real.md` não existir (nenhuma skill do
-  kit cria esse arquivo — ele é gerado manualmente pelo aluno, normalmente na Aula 2.3, análise dos
-  dados), avise o aluno explicitamente que esse arquivo ainda não foi criado, e pergunte se ele quer
-  fornecer os números relevantes direto na conversa pra essa seção, ou pausar até criar o arquivo —
-  nunca trave sem explicação, e nunca finja que a seção não precisa de dado nenhum.
+  vez de inventar ou aproximar. Se o arquivo `tcc/dados/resumo-real.md` não existir, avise o aluno
+  explicitamente que esse arquivo ainda não foi criado e ofereça três caminhos: rodar a skill
+  `reproduzir-dados` (monta o resumo a partir dos dados e scripts dele, com a procedência de cada
+  número), fornecer os números relevantes direto na conversa pra essa seção, ou pausar — nunca trave sem
+  explicação, e nunca finja que a seção não precisa de dado nenhum. Se o resumo tiver a seção "O que não
+  existe como dado", nunca escreva afirmação sobre algo listado ali.
 - **Toda citação** usa só `chave`s presentes em `tcc-kit/referencias/index.yaml` com
   `status: verificado`. Nunca cite uma `chave` com outro status (`pendente-manual`,
   `pendente-conversao`) como se já estivesse pronta, e nunca invente uma citação que não está no
@@ -124,6 +141,34 @@ foi feita no Passo 2, antes da entrevista — não repita essa pergunta aqui.
 Informe ao aluno quantas seções foram escritas, e se alguma ficou pendente por falta de dado ou
 referência (Passo 4). **Sempre** sugira rodar a skill `revisar-capitulo` antes de considerar o capítulo
 pronto — em nenhum dos dois modos esta skill se apresenta como aprovação final, só como rascunho.
+
+Sugira também o jeito mais direto de ajustar qualquer trecho específico, sem precisar editar o `.tex`
+a mão nem rodar a skill de novo do zero: compilar o capítulo (`latexmk -pdf`), ler o resultado no PDF
+como um leitor normal leria, e — pra qualquer parágrafo que não ficou bom — copiar aquele trecho e
+colar de volta na conversa, pedindo a reescrita. Isso funciona a qualquer momento, em qualquer um dos
+dois modos, e é o fluxo esperado de revisão pontual entre uma rodada de `revisar-capitulo` e outra.
+
+## Passo 6b — Registrar a versão das entradas
+
+Só se pelo menos uma seção foi salva no Passo 5. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa escrita:<slug> --saida tcc/capitulos/<slug>.tex --entradas tcc-kit/capitulos/<slug>/plano.md [tcc/dados/resumo-real.md]
+```
+
+Inclua `tcc/dados/resumo-real.md` só se o arquivo existia e foi consultado no Passo 4. O caminho do
+plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py` relativo à
+raiz deste plugin, e não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata do plano e dos dados usados nesta escrita. Com
+isso, a skill `estado-tcc` consegue avisar depois se os dados mudaram e os números do capítulo podem
+ter ficado desatualizados. Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 7. O capítulo já está salvo.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 7
+  em qualquer caso.
 
 ## Passo 7 — Atualizar checklist e histórico
 

@@ -1,0 +1,22 @@
+{
+  "skill": "escrever-capitulo",
+  "title": "modo rápido usa só o dado real disponível, ensina o ciclo de revisão via PDF",
+  "turns": [
+    "escreve minha introdução",
+    "rápido"
+  ],
+  "fixtures": {
+    "tcc-kit/capitulos/introducao/plano.md": "# Plano: Introdução\n\n## Seção 1: Contexto do problema\n**Argumento:** Empresas de assinatura perdem receita com cancelamento (churn) sem entender o motivo.\n**Referências:** nenhuma\n\n---\nAprovado em: 2026-01-06\n",
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base de clientes analisada (7043 registros, dataset Telco Customer Churn).\n"
+  },
+  "expected_behavior": [
+    "Pergunta o modo de escrita sem indicar que co-piloto ou rápido é mais 'certo' que o outro (framing neutro, v1.9.2)",
+    "No modo rápido, escreve direto do plano, sem perguntas socráticas extras",
+    "Usa só o número real de resumo-real.md (26,5%, 7.043 registros) -- nenhum outro número/percentual inventado",
+    "Cria tcc/capitulos/introducao.tex com conteúdo real (não placeholder)",
+    "Sugere revisar-capitulo e menciona o ciclo de revisão via PDF (compilar, ler, colar o parágrafo que não ficou bom) -- v1.9.2",
+    "Cria tcc-kit/checklist.md com a linha Introdução = 'Escrito, ainda não revisado'",
+    "Acrescenta uma entrada em tcc-kit/historico.md mencionando o modo rápido",
+    "tcc-kit/.estado.json contém a etapa 'escrita:<slug>' com hash de plano.md e de tcc/dados/resumo-real.md (a saída do comando não é mostrada ao aluno)"
+  ]
+}

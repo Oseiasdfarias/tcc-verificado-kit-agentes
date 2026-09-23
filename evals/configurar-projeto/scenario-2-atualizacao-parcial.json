@@ -1,0 +1,14 @@
+{
+  "skill": "configurar-projeto",
+  "title": "atualização parcial só muda o campo pedido, preserva o resto",
+  "query": "atualiza só o orientador pra Prof. Carlos Lima",
+  "fixtures": {
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** Universidade Federal de Exemplo (UFEX)\n**Curso/Programa:** Administração\n**Orientador(a):** a definir\n**Banca:** a definir\n**Aluno:** Ana Souza\n**Cidade:** Exemplolândia\n**Ano previsto de conclusão:** 2027\n**Logo:** não informado\n**Modo de escrita:** não definido\nDefinido em: 2026-01-10\n"
+  },
+  "expected_behavior": [
+    "Só o campo Orientador(a) muda para 'Prof. Carlos Lima'",
+    "Universidade, Curso/Programa, Aluno, Cidade, Ano previsto, Logo e Modo de escrita permanecem exatamente como estavam no fixture, sem serem re-perguntados",
+    "O campo 'Definido em' é atualizado para a data de hoje, mesmo sendo atualização parcial (não fica em 2026-01-10)",
+    "tcc-kit/historico.md recebe uma nova entrada no final, sem alterar entradas antigas"
+  ]
+}
