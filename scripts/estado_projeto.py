@@ -95,14 +95,20 @@ def verificar(raiz):
 
 
 IGNORAR_NA_FOTO = ("tcc-kit/relatorios/", "tcc-kit/versoes/")
+PASTAS_IGNORADAS = {".git", ".venv", "venv", "env", "node_modules", "__pycache__", ".ipynb_checkpoints"}
 
 
 def arquivos_sob(raiz, pastas):
+    vistos = set()
     for pasta in pastas:
         base = raiz / pasta
         candidatos = [base] if base.is_file() else sorted(p for p in base.rglob("*") if p.is_file())
         for caminho in candidatos:
-            yield caminho.relative_to(raiz).as_posix()
+            rel = caminho.relative_to(raiz)
+            if PASTAS_IGNORADAS.intersection(rel.parts[:-1]) or rel.as_posix() in vistos:
+                continue
+            vistos.add(rel.as_posix())
+            yield rel.as_posix()
 
 
 def tirar_foto(raiz, pastas):
@@ -129,6 +135,7 @@ def comparar(raiz, arquivo_foto, pastas):
     except (json.JSONDecodeError, UnicodeDecodeError) as erro:
         raise EstadoIlegivel(str(erro)) from erro
     depois = tirar_foto(raiz, pastas)
+    depois.pop(normalizar(arquivo_foto), None)
     mudancas = []
     for rel in sorted(set(antes) | set(depois)):
         if rel not in depois:
@@ -186,6 +193,8 @@ def main(argv=None):
     com.add_argument("pastas", nargs="+")
     bkp = sub.add_parser("backup")
     bkp.add_argument("caminhos", nargs="+")
+    hsh = sub.add_parser("hash")
+    hsh.add_argument("arquivos", nargs="+")
     args = parser.parse_args(argv)
     raiz = Path(args.raiz)
 
@@ -201,6 +210,10 @@ def main(argv=None):
         elif args.comando == "comparar":
             mudancas = comparar(raiz, args.foto, args.pastas)
             print("\n".join(f"{tipo}  {rel}" for tipo, rel in mudancas) or "sem alterações")
+        elif args.comando == "hash":
+            for rel in args.arquivos:
+                caminho = raiz / rel
+                print(f"{hash_arquivo(caminho) if caminho.is_file() else 'ausente'}  {normalizar(rel)}")
         else:
             pasta, copiados = backup(raiz, args.caminhos)
             print(f"backup: {pasta} ({len(copiados)} arquivo(s))" if pasta else "nada para copiar")
