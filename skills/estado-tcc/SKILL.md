@@ -33,6 +33,7 @@ A saída é uma tabela com `etapa`, `data`, `estado` e `alterados`. As etapas s�
 | `revisao:<slug>` | Capítulo auditado por `revisar-capitulo`; entradas: capítulo, dados, metodologia |
 | `auditoria-completa` | Auditoria do TCC inteiro; entradas: os 5 capítulos |
 | `defesa` | Apresentação de defesa gerada; entradas: os 5 capítulos |
+| `reproducao` | Resumo de dados montado por `reproduzir-dados`; entradas: dados e scripts confirmados |
 
 Estados: `atual`, `desatualizada` (algum arquivo em `alterados` mudou, ou passou a existir depois do
 registro) e `entrada-removida` (algum arquivo em `alterados` sumiu).
@@ -82,6 +83,8 @@ Passo 3, o número de achados que ela registra.
 - Referências verificadas: conte com Grep as linhas `status: verificado` em
   `tcc-kit/referencias/index.yaml`.
 - Metodologia: leia com Grep só a linha do campo `Status` de `tcc-kit/metodologia.md`.
+- Resumo de dados: se existe etapa `reproducao` no Passo 1, "reproduzido em <data>"; senão, se
+  `tcc/dados/resumo-real.md` existe (Glob), "montado à mão"; senão, "não existe".
 
 Campo ou arquivo ausente vira "não informado" no relatório. Não invente nenhum desses valores.
 
@@ -99,6 +102,9 @@ Cruze o checklist com a saída do Passo 1:
   foi o plano que mudou: "o plano do capítulo <nome> mudou depois da escrita".
 - `auditoria-completa` ou `defesa` **desatualizada**: marque "desatualizada" na linha correspondente da
   visão geral e liste em "Atenção" quais capítulos mudaram (ou passaram a existir) depois.
+- `reproducao` **desatualizada**: entra em "Atenção" como "os dados ou scripts mudaram depois do
+  resumo de dados (<arquivos>): refaça a reprodução antes de confiar nos números". Na visão geral, a
+  linha "Resumo de dados" mostra a data da reprodução e "desatualizado".
 - `entrada-removida`: entra em "Atenção" dizendo qual arquivo sumiu desde o registro.
 - Capítulo com relatório de revisão, mas sem etapa `revisao:<slug>` na saída do Passo 1 (revisão
   anterior a esta versão do kit): mostre a data do relatório, sem afirmar se está atual ou não.
@@ -120,6 +126,7 @@ dia), neste formato:
 | Tema | <definido / pendente> |
 | Referências verificadas | <N> |
 | Metodologia | <estado> |
+| Resumo de dados | <reproduzido em <data>[, desatualizado] / montado à mão / não existe> |
 | Auditoria do TCC completo | <nunca rodada / rodada em <data>[, desatualizada]> |
 | Apresentação de defesa | <nunca gerada / gerada em <data>[, desatualizada]> |
 

@@ -115,11 +115,12 @@ Ao rascunhar qualquer seção (não só depois de pronta), respeite estas restri
 - **Toda afirmação numérica ou sobre dado/resultado** precisa vir de `tcc/dados/resumo-real.md`.
   Nunca escreva um número, percentual, ou afirmação de resultado que "parece razoável" — se o dado que
   a seção precisaria não está em `resumo-real.md`, avise o aluno explicitamente e pare naquele ponto em
-  vez de inventar ou aproximar. Se o arquivo `tcc/dados/resumo-real.md` não existir (nenhuma skill do
-  kit cria esse arquivo — ele é gerado manualmente pelo aluno, normalmente na Aula 2.3, análise dos
-  dados), avise o aluno explicitamente que esse arquivo ainda não foi criado, e pergunte se ele quer
-  fornecer os números relevantes direto na conversa pra essa seção, ou pausar até criar o arquivo —
-  nunca trave sem explicação, e nunca finja que a seção não precisa de dado nenhum.
+  vez de inventar ou aproximar. Se o arquivo `tcc/dados/resumo-real.md` não existir, avise o aluno
+  explicitamente que esse arquivo ainda não foi criado e ofereça três caminhos: rodar a skill
+  `reproduzir-dados` (monta o resumo a partir dos dados e scripts dele, com a procedência de cada
+  número), fornecer os números relevantes direto na conversa pra essa seção, ou pausar — nunca trave sem
+  explicação, e nunca finja que a seção não precisa de dado nenhum. Se o resumo tiver a seção "O que não
+  existe como dado", nunca escreva afirmação sobre algo listado ali.
 - **Toda citação** usa só `chave`s presentes em `tcc-kit/referencias/index.yaml` com
   `status: verificado`. Nunca cite uma `chave` com outro status (`pendente-manual`,
   `pendente-conversao`) como se já estivesse pronta, e nunca invente uma citação que não está no
