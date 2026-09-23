@@ -1,0 +1,15 @@
+{
+  "skill": "auditoria-tcc-completo",
+  "title": "roda parcial com só alguns capítulos, lista explicitamente o que falta",
+  "query": "quero uma visão geral do meu TCC antes da defesa",
+  "fixtures": {
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\nEste trabalho investiga fatores associados ao churn de clientes em empresas de assinatura.\n",
+    "tcc/capitulos/metodologia.tex": "\\chapter{Metodologia}\n\\label{cap:metodologia}\n\nFoi aplicado o teste qui-quadrado sobre a base Telco Customer Churn, com 7.043 registros.\n"
+  },
+  "expected_behavior": [
+    "Roda normalmente com os 2 capítulos disponíveis (introducao e metodologia)",
+    "Lista explicitamente quais dos 5 capítulos estão ausentes (referencial-teorico, resultados, discussao-consideracoes-finais)",
+    "Não trava nem se recusa a gerar o relatório só por faltar capítulo -- só nota que a auditoria é parcial nesse ponto",
+    "Salva tcc-kit/relatorios/auditoria-completa-<data>.md mesmo com a auditoria parcial"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill": "estado-tcc",
+  "title": "capítulo editado depois da revisão aparece como alterado, sem reler o texto",
+  "query": "gera um relatório do andamento do meu TCC pra eu mandar pra minha orientadora",
+  "fixtures": {
+    "tcc-kit/checklist.md": "# Checklist de progresso — TCC\n\n## Configuração institucional\n- [x] Configurado (tcc-kit/config.md)\n\n## Template\n- [x] Escolhido/adaptado (tcc-kit/template.md)\n\n## Tema\n- [x] Definido (tcc-kit/tema.md)\n\n## Referências\n- [x] Pelo menos 1 referência verificada\n\n## Metodologia\n**Estado:** Definida e executada\n\n## Capítulos\n| Capítulo | Estado |\n|---|---|\n| Introdução | Revisado, sem achados bloqueantes |\n| Referencial teórico | Não iniciado |\n| Metodologia | Não iniciado |\n| Resultados | Revisado, sem achados bloqueantes |\n| Discussão/Considerações finais | Não iniciado |\n\n## Auditoria completa do TCC\n- [ ] Nunca rodada\n\n## Apresentação de defesa\n- [ ] Nunca gerada\n\n---\nAtualizado em: 2026-09-21, por: revisar-capitulo\n",
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** Universidade Federal de Exemplo\n**Curso/Programa:** Sistemas de Informação\n**Orientador(a):** Profa. Ana Souza\n**Banca:** a definir\n**Aluno:** João Silva\n**Cidade:** Campinas\n**Ano previsto de conclusão:** 2026\n**Logo:** não informado\n**Modo de escrita:** rápido\n",
+    "tcc-kit/tema.md": "# Tema do TCC\n**Tema:** Previsão de churn em empresas de telecomunicações com modelos de classificação\n**Área/curso:** Sistemas de Informação\n",
+    "tcc-kit/historico.md": "# Histórico — TCC\n\n## 2026-09-20 10:00 — escrever-capitulo (Resultados)\nCapítulo Resultados escrito, modo rápido.\n\n## 2026-09-21 09:00 — revisar-capitulo (Introdução)\nAuditoria rodada pro capítulo Introdução. 0 achados bloqueantes. Relatório: tcc-kit/relatorios/introducao-2026-09-21.md.\n\n## 2026-09-21 11:00 — revisar-capitulo (Resultados)\nAuditoria rodada pro capítulo Resultados. 0 achados bloqueantes. Relatório: tcc-kit/relatorios/resultados-2026-09-21.md.\n",
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base (7043 registros).\nAUC do modelo final: 0,84.\n",
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\\label{cap:resultados}\n\nO modelo final obteve AUC de 0,84 no conjunto de teste, com concordância entre anotadores medida por Kappa de Cohen.\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\nEmpresas de assinatura dependem da retenção de clientes.\n",
+    "tcc-kit/relatorios/resultados-2026-09-21.md": "# Revisão — resultados — 2026-09-21\n\n## Achados bloqueantes\nNenhum achado bloqueante.\n\n## Integridade de dados (guardiao-dados)\nSem divergências.\n\n---\nRevisado por IA.\n",
+    "tcc-kit/relatorios/introducao-2026-09-21.md": "# Revisão — introducao — 2026-09-21\n\n## Achados bloqueantes\nNenhum achado bloqueante.\n\n## Integridade de dados (guardiao-dados)\nSem divergências.\n\n---\nRevisado por IA.\n",
+    "tcc-kit/template.md": "# Template\n**Template:** padrão do curso\n**Definido em:** 2026-09-01\n",
+    "tcc-kit/metodologia.md": "# Metodologia\n**Paradigma:** quantitativo\n**Método:** classificação supervisionada\n**Status:** Executado (ver tcc/dados/resumo-real.md)\n",
+    "tcc-kit/referencias/index.yaml": "- chave: verbeke2012\n  status: verificado\n- chave: huang2012\n  status: verificado\n- chave: candidato2020\n  status: candidato\n"
+  },
+  "setup_script": "python3 -c \"import hashlib,json,pathlib;h=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes().replace(b'\\r\\n',b'\\n')).hexdigest();E={};E['revisao:resultados']={'data':'2026-09-21','saida':'tcc-kit/relatorios/resultados-2026-09-21.md','entradas':{'tcc/capitulos/resultados.tex':h('tcc/capitulos/resultados.tex'),'tcc/dados/resumo-real.md':h('tcc/dados/resumo-real.md')}};E['revisao:introducao']={'data':'2026-09-21','saida':'tcc-kit/relatorios/introducao-2026-09-21.md','entradas':{'tcc/capitulos/introducao.tex':h('tcc/capitulos/introducao.tex')}};pathlib.Path('tcc-kit/.estado.json').write_text(json.dumps({'versao':1,'etapas':E},indent=2,sort_keys=True))\" && printf '\\nNova seção acrescentada depois da revisão, com precisão de 0,91.\\n' >> tcc/capitulos/resultados.tex",
+  "expected_behavior": [
+    "Existe tcc-kit/estado/estado-<data de hoje>.md",
+    "Resultados aparece como 'alterado depois da revisão'; Introdução aparece como revisada e NÃO como alterada",
+    "O relatório não cita nenhum trecho do texto dos capítulos (nem 'Kappa de Cohen' nem '0,91')",
+    "Traz tema, aluno João Silva, orientadora Profa. Ana Souza e curso, tirados de config.md/tema.md",
+    "Referências verificadas = 2 (contadas no index.yaml, ignorando a candidata)",
+    "Não usa 'hash', 'slug', identificadores internos (ex: 'revisao:resultados') nem nomes de skill/agente no corpo do relatório",
+    "Não altera tcc-kit/checklist.md, tcc-kit/historico.md nem tcc-kit/.estado.json (conferir conteúdo com --keep)"
+  ]
+}

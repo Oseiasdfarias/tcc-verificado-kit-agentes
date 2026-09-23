@@ -74,6 +74,29 @@ capítulo ficou de fora da auditoria por ainda não existir.
 - **Só alguns dos 5 capítulos existem**: rode normalmente com o que existir, listando explicitamente o
   que falta (Passo 4).
 
+## Passo 4b — Registrar a versão das entradas
+
+Só se o relatório foi salvo no Passo 4. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa auditoria-completa --saida tcc-kit/relatorios/auditoria-completa-<data>.md --entradas tcc/capitulos/introducao.tex tcc/capitulos/referencial-teorico.tex tcc/capitulos/metodologia.tex tcc/capitulos/resultados.tex tcc/capitulos/discussao-consideracoes-finais.tex
+```
+
+Passe sempre os 5 caminhos, mesmo os que não existem: o script registra a ausência, e se um capítulo
+que faltava passar a existir, a auditoria aparece como desatualizada (ela não cobriu esse capítulo).
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure
+`scripts/estado_projeto.py` relativo à raiz deste plugin, e não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata dos capítulos auditados, pra skill `estado-tcc`
+conseguir avisar depois que algum capítulo mudou desde a auditoria. Não leia `tcc-kit/.estado.json` nem
+mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 5. O relatório já está salvo.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 5
+  em qualquer caso.
+
 ## Passo 5 — Atualizar checklist e histórico
 
 **Se o Passo 1 não encontrou nenhum capítulo com conteúdo real** (caso descrito em "Tratamento de

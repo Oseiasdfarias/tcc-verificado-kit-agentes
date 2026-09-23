@@ -1,0 +1,15 @@
+{
+  "skill": "validar-metodologia",
+  "title": "modo 'IA analisa' sem nenhuma base disponível nunca inventa um corpus",
+  "turns": [
+    "analisa meus dados e me diz que abordagem usar",
+    "não tenho nenhum arquivo pra apontar agora"
+  ],
+  "fixtures": {},
+  "expected_behavior": [
+    "Não inventa uma base de dado, CSV ou corpus de texto que não existe",
+    "Avisa explicitamente que não há informação suficiente (nenhum arquivo, nem tema.md, nem referencias/index.yaml) pra propor algo",
+    "Sugere usar o modo 'aluno decide' em vez de inventar uma proposta",
+    "Não salva tcc-kit/metodologia.md sem uma base real ou uma decisão explícita do aluno"
+  ]
+}

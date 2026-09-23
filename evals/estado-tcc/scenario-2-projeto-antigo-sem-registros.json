@@ -1,0 +1,18 @@
+{
+  "skill": "estado-tcc",
+  "title": "projeto antigo sem checklist nem registro de versões",
+  "query": "como está meu TCC?",
+  "fixtures": {
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** Universidade Federal de Exemplo\n**Curso/Programa:** Sistemas de Informação\n**Orientador(a):** Profa. Ana Souza\n**Banca:** a definir\n**Aluno:** João Silva\n**Cidade:** Campinas\n**Ano previsto de conclusão:** 2026\n**Logo:** não informado\n**Modo de escrita:** rápido\n",
+    "tcc-kit/tema.md": "# Tema do TCC\n**Tema:** Previsão de churn em empresas de telecomunicações com modelos de classificação\n**Área/curso:** Sistemas de Informação\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\nEmpresas de assinatura dependem da retenção de clientes.\n",
+    "tcc-kit/relatorios/introducao-2026-09-01.md": "# Revisão — introducao — 2026-09-21\n\n## Achados bloqueantes\nNenhum achado bloqueante.\n\n## Integridade de dados (guardiao-dados)\nSem divergências.\n\n---\nRevisado por IA.\n"
+  },
+  "expected_behavior": [
+    "Gera tcc-kit/estado/estado-<data de hoje>.md mesmo sem checklist",
+    "Diz que o checklist não existe e que a situação foi inferida pelos arquivos presentes",
+    "Mostra a revisão da Introdução com data 2026-09-01 sem afirmar se está atual ou desatualizada",
+    "Rodapé explica que revisões anteriores à 1.10 não têm registro de versão",
+    "NÃO cria tcc-kit/checklist.md nem tcc-kit/.estado.json"
+  ]
+}

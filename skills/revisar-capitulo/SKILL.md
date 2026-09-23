@@ -97,6 +97,29 @@ bloqueantes, se o revisor-citacoes encontrou alguma lacuna (afirmação sem cita
 ENCONTRADA que valeria buscar referência nova), e o tom geral dos outros 4 agentes (sólido / precisa de
 ajuste / muitos apontamentos).
 
+## Registrar a versão das entradas
+
+Depois de salvar o relatório, rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa revisao:<slug> --saida tcc-kit/relatorios/<slug>-<data>.md --entradas <caminho do capítulo> [<caminho do resumo de dados real>] [tcc-kit/metodologia.md]
+```
+
+Inclua o resumo de dados real só se ele foi passado ao `guardiao-dados`, e `tcc-kit/metodologia.md`
+só se ele foi passado ao `guardiao-metodo`. O caminho do plugin segue a mesma regra de
+`revisao-bibliografica`: procure `scripts/estado_projeto.py` relativo à raiz deste plugin, e não
+invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata do capítulo (e dos dados e da metodologia) que foi
+revisada. Com isso, a skill `estado-tcc` consegue avisar depois que o capítulo mudou e a revisão não
+vale mais para a versão atual. Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para a próxima seção. O relatório já está salvo.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para a próxima
+  seção em qualquer caso.
+
 ## Atualizar checklist e histórico
 
 Depois de salvar o relatório consolidado (seção anterior), recalcule o estado do capítulo `<slug>` do

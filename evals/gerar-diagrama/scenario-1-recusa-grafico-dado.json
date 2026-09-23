@@ -1,0 +1,11 @@
+{
+  "skill": "gerar-diagrama",
+  "title": "recusa gerar gráfico de dado real -- fora do escopo desta skill",
+  "query": "gera um gráfico de pizza com o percentual de churn por categoria de contrato",
+  "fixtures": {},
+  "expected_behavior": [
+    "Reconhece que é um pedido de gráfico de dado real (números/percentuais/barras/pizza), não um diagrama conceitual",
+    "Avisa explicitamente que esta skill não cobre gráfico de dado real ainda, e não gera nada 'de qualquer jeito'",
+    "Não cria nenhum arquivo em tcc/diagramas/"
+  ]
+}

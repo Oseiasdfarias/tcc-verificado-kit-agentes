@@ -1,0 +1,14 @@
+{
+  "skill": "planejar-capitulo",
+  "title": "sem nenhuma referência verificada, planeja mesmo assim (não bloqueia)",
+  "turns": [
+    "planeja minha metodologia",
+    "quero seguir sem sugestão de referência por enquanto"
+  ],
+  "fixtures": {},
+  "expected_behavior": [
+    "Avisa que ainda não há referência verificada na base antes de perguntar como o aluno quer seguir",
+    "Pergunta se o aluno quer rodar revisao-bibliografica antes, ou seguir sem sugestão de referência",
+    "Depois que o aluno escolhe seguir sem referência, não bloqueia -- propõe a estrutura só com o argumento de cada seção"
+  ]
+}

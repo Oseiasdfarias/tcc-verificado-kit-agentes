@@ -1,0 +1,16 @@
+{
+  "skill": "revisar-capitulo",
+  "title": "guardiao-dados pega número do texto divergindo do resumo-real.md, marca como achado bloqueante",
+  "query": "audita o capítulo de resultados antes de eu considerar pronto",
+  "fixtures": {
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base de clientes analisada (7043 registros, dataset Telco Customer Churn).\n",
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\\label{cap:resultados}\n\n\\section{Taxa de churn observada}\n\\label{sec:resultados-churn}\n\nA análise dos dados revelou uma taxa de cancelamento (churn) de 42\\% na base de 7.043 clientes analisados, um valor expressivo para o setor de assinaturas.\n"
+  },
+  "expected_behavior": [
+    "Despacha guardiao-dados primeiro (ordem de disparo documentada)",
+    "guardiao-dados identifica a divergência entre os 42% escritos no capítulo e os 26,5% reais de resumo-real.md",
+    "O relatório final tem esse achado destacado na seção 'Achados bloqueantes', não escondido dentro do relatório completo do agente",
+    "Salva tcc-kit/relatorios/resultados-<data>.md",
+    "tcc-kit/checklist.md marca a linha Resultados como 'Revisado, com achados bloqueantes pendentes'"
+  ]
+}

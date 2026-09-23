@@ -8,6 +8,65 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.10.0 — 2026-09-23
+
+Registro de versões por hash e skill nova `estado-tcc`: o kit passa a saber quando um artefato ficou
+desatualizado depois de uma edição, sem reler o texto pra descobrir.
+
+- Script novo: `scripts/estado_projeto.py` (só biblioteca padrão, roda com `uv run`). `registrar` grava
+  o sha256 dos arquivos que uma etapa usou em `tcc-kit/.estado.json`; `verificar` compara com os
+  arquivos atuais e imprime uma tabela curta (`atual` / `desatualizada` / `entrada-removida`). O hash é
+  calculado fora do modelo: nenhuma skill ou agente carrega o arquivo de estado no contexto.
+- `escrever-capitulo`, `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` ganham um passo
+  que registra a versão das entradas antes de atualizar checklist e histórico. Se o `uv` não estiver
+  disponível, avisam em uma linha e seguem.
+- Skill nova: `estado-tcc` — panorama completo do projeto (etapas, capítulos, pontos bloqueantes,
+  atividade recente, pendências) montado só a partir de checklist, fim do histórico, seção de achados
+  bloqueantes dos relatórios e saída de `verificar`, sem abrir os capítulos. Salva em
+  `tcc-kit/estado/estado-<data>.md`, em linguagem legível pelo orientador. Aponta capítulo alterado
+  depois da revisão, capítulo escrito com dados que mudaram depois, e auditoria/slides desatualizados.
+  Só lê: não edita checklist, histórico nem o registro, e nunca grava hash retroativo.
+- Projetos anteriores continuam funcionando: sem `tcc-kit/.estado.json`, `verificar` responde
+  `sem registros` e a `estado-tcc` mostra as datas das revisões sem afirmar se estão atuais.
+
+## 1.9.2 — 2026-09-16
+
+`escrever-capitulo` deixa mais visível que os modos `co-piloto`/`rápido` são duas escolhas igualmente
+válidas, não uma "certa" e uma "atalho" — reconhecendo que parte dos alunos (e orientadores) trata o
+TCC como um requisito a cumprir, não como um projeto de vida, e isso é legítimo. Documenta também o
+ciclo de revisão pontual esperado nos dois modos: compilar o capítulo, ler o resultado no PDF, e colar
+de volta na conversa qualquer parágrafo que precisar de ajuste, sem precisar editar o `.tex` a mão nem
+rodar a skill de novo do zero. `README.md` atualizado com a mesma linguagem.
+
+## 1.9.1 — 2026-09-06
+
+`gerar-diagrama` não trava mais quando o aluno não tem LaTeX instalado localmente (fluxo comum pra
+quem usa só Overleaf, já suportado pela skill `escolher-template`). Antes, o Passo 5 rodava
+`latexmk -pdf` sem prever esse caso; agora, se o comando não existir no ambiente, a skill avisa que o
+código do diagrama já foi salvo e orienta compilar no Overleaf, em vez de tratar como erro. Compilação
+que roda mas falha de verdade (sintaxe TikZ errada) continua sendo tratada como sinal de problema real
+no diagrama.
+
+## 1.9.0 — 2026-09-06
+
+`revisao-bibliografica` troca `marker` (biblioteca pesada, carrega modelos de ML e dependia de um
+binário externo opcional, `llama-server` do `llama.cpp`, pra reconhecimento de fórmula/OCR) por
+`pdfplumber` (extração de texto pura Python, sem binário nenhum, mesmo comportamento em qualquer
+sistema operacional). Quando a extração automática sai curta/vazia demais (PDF escaneado, ou página com
+fórmula/tabela complexa), a skill não pede mais pra instalar nada — o próprio agente lê o PDF original
+diretamente (a mesma capacidade de visão que já processa qualquer PDF numa conversa) e escreve o
+Markdown a mão. Reduz drasticamente o peso de dependências e elimina qualquer aviso técnico pro aluno
+nesse fluxo, sem perder qualidade no caso difícil.
+
+## 1.8.0 — 2026-09-04
+
+Skill nova: `gerar-diagrama`, pra diagramas e ilustrações conceituais em TikZ (fluxograma de
+metodologia, framework conceitual, mapa de relacionamento) — sem agente companheiro, sem cobrir gráfico
+de dado real (fica pra uma frente futura, ainda sem dono). Diagrama salvo em `tcc/diagramas/<nome>.tex`,
+incluído no capítulo via `\input`. Só registra em `tcc-kit/historico.md`; não edita
+`tcc-kit/checklist.md` -- diagrama é ação opcional e repetível, diferente dos estágios de ocorrência
+única que o checklist já modela.
+
 ## 1.7.0 — 2026-08-23
 
 Checklist de progresso e histórico de rastreamento: dois artefatos novos que dão visibilidade contínua

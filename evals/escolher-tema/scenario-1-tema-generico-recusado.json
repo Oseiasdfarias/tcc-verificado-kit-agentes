@@ -1,0 +1,14 @@
+{
+  "skill": "escolher-tema",
+  "title": "não aceita área genérica como tema final",
+  "turns": [
+    "estudo administração, meu tema vai ser marketing digital",
+    "sim, pode ser esse mesmo: marketing digital"
+  ],
+  "fixtures": {},
+  "expected_behavior": [
+    "Não aceita 'marketing digital' como tema final -- reconhece que é uma área genérica, não um tema específico",
+    "Propõe 1-3 formulações mais específicas de tema (com recorte concreto) antes de considerar qualquer coisa confirmada",
+    "Não cria tcc-kit/tema.md enquanto o aluno não confirmar um tema específico (não uma área genérica)"
+  ]
+}

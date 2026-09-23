@@ -147,7 +147,7 @@ aluno colocou lá por conta própria sem passar pelo Passo 1/2 desta skill; trat
 inserção manual descrito no Passo 6) — rode:
 
 ```bash
-uv run --with marker-pdf "<caminho do plugin>/scripts/pdf_to_md.py" "tcc-kit/referencias/pdfs/<chave>.pdf" "tcc-kit/referencias/md/<chave>.md"
+uv run --with pdfplumber "<caminho do plugin>/scripts/pdf_to_md.py" "tcc-kit/referencias/pdfs/<chave>.pdf" "tcc-kit/referencias/md/<chave>.md"
 ```
 
 (O caminho exato do plugin instalado pode variar — procure o arquivo `scripts/pdf_to_md.py` relativo à
@@ -155,17 +155,16 @@ raiz deste plugin. Se não conseguir localizar automaticamente, informe o aluno 
 caminho.)
 
 Leia o código de saída do comando:
-- **0**: conversão ok (com reconhecimento de fórmula/OCR, quando o PDF precisou) — status vira
-  `verificado`.
-- **3**: conversão ok, mas sem reconhecimento de fórmula/OCR — o binário `llama-server` (usado pelo
-  `marker` pra isso) não está instalado nesta máquina. Status ainda vira `verificado` (o texto restante
-  do artigo saiu normal, é real e usável), mas registre no `resumo` que fórmulas/equações desse artigo
-  podem não ter sido capturadas corretamente, e avise o aluno no resumo final do Passo 7 — sobretudo se
-  o tema tiver cara de precisar de fórmula (áreas exatas/engenharia). Não é preciso pedir pro aluno
-  instalar nada a menos que ele pergunte ou o tema realmente dependa de fórmula.
-- **2**: saída curta/vazia demais — status vira `pendente-conversao`, avise o aluno explicitamente
-  (provável PDF escaneado sem texto, ou arquivo corrompido) em vez de adicionar como se estivesse
-  pronto.
+- **0**: conversão ok — status vira `verificado`.
+- **3**: a extração automática saiu curta/vazia demais (provável PDF escaneado, ou página com
+  fórmula/tabela/layout complexo demais pra extração de texto simples). **Não peça pro aluno instalar
+  nada.** Em vez disso, leia o PDF original você mesmo (sua ferramenta de leitura nativa já entende
+  imagem, fórmula e tabela) e escreva o conteúdo em `tcc-kit/referencias/md/<chave>.md` com suas
+  próprias palavras — capture fórmula como LaTeX quando reconhecer, e tabela como tabela Markdown. Se
+  conseguir extrair conteúdo útil assim, trate como sucesso: status vira `verificado`, igual ao código 0.
+- **2**: a extração levantou um erro de verdade (ex: arquivo corrompido). Tente o mesmo caminho do
+  código 3 (ler o PDF você mesmo) antes de desistir — só marque `pendente-conversao` se você também não
+  conseguir extrair nada útil lendo o PDF diretamente.
 - **1**: arquivo de entrada não encontrado, ou argumentos malformados — não presuma que é impossível
   (por exemplo, um caminho com espaço não citado corretamente quebraria os argumentos): reporte ao
   aluno o comando exato que você rodou, pra facilitar o diagnóstico.
@@ -223,9 +222,7 @@ aguardando download manual, e esse artigo não está mais nessa situação.
 Informe ao aluno, em 2-3 frases: quantas referências foram adicionadas com sucesso (`verificado`),
 quantas ficaram pendentes de conversão, e quantas foram pra `baixar-manualmente.md` aguardando download
 manual. Se algum PDF órfão foi indexado nesta rodada (Passo 6), avise também e peça pro aluno conferir
-os metadados inferidos daquela entrada. Se alguma conversão saiu no código 3 (Passo 5) — sem
-reconhecimento de fórmula por falta do `llama-server` —, avise quais referências caíram nesse caso e
-que fórmulas/equações delas podem precisar de conferência manual.
+os metadados inferidos daquela entrada.
 
 ## Passo 8 — Atualizar checklist e histórico
 

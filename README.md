@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.7.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.10.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -48,6 +48,7 @@ flowchart TD
     Hub2 --> Agentes["6 agentes especialistas<br/>(dados, citações, método, argumento, forma)"]
 
     Hub2 --> S8["8. auditoria-tcc-completo"]
+    S8 --> AgenteAuditoria["guardiao-consistencia<br/>(consistência global)"]
     S8 --> S9["9. preparar-defesa"]
 
     classDef hub fill:#ffd8a8,stroke:#e8590c,stroke-width:2px,color:#1e1e1e
@@ -58,13 +59,14 @@ flowchart TD
     class Hub1 hub
     class Hub2 hub2
     class S1,S2,S3,S4,S5,S6,S7,S8,S9 skill
-    class Agentes agente
+    class Agentes,AgenteAuditoria agente
 ```
 
 `iniciar-tcc` é só um atalho pra quem não sabe por onde começar — nenhuma das 9 skills numeradas
 fica presa a passar por ela primeiro, e `revisar-capitulo` pode ser chamada a qualquer momento,
 direto. Cada skill salva o que produz em `tcc-kit/` (ou edita `tcc/`, no caso de
-`escolher-template`/`escrever-capitulo`) — detalhes na seção "O que tem no kit" abaixo.
+`escolher-template`/`escrever-capitulo`/`gerar-diagrama`) — detalhes na seção "O que tem no kit"
+abaixo.
 
 ## Ferramentas
 
@@ -72,7 +74,7 @@ direto. Cada skill salva o que produz em `tcc-kit/` (ou edita `tcc/`, no caso de
 |---|---|
 | [Claude Code](https://claude.com/claude-code) | Ambiente onde o plugin roda — agentes, skills, subagentes |
 | [Semantic Scholar API](https://api.semanticscholar.org/) | Busca estruturada de artigos acadêmicos reais (metadado + link de acesso aberto) |
-| [marker](https://github.com/datalab-to/marker) | Conversão de PDF pra Markdown, com reconhecimento de fórmula/equação em LaTeX |
+| [pdfplumber](https://github.com/jsvine/pdfplumber) | Conversão de PDF pra texto/Markdown, sem binário externo — funciona igual em qualquer sistema operacional |
 | [uv](https://docs.astral.sh/uv/) | Executa o script de conversão sem instalação manual de dependência Python |
 | YAML | Formato do índice de referências (`tcc-kit/referencias/index.yaml`) |
 
@@ -89,10 +91,16 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 > **Requisito extra pra `revisao-bibliografica`:** essa skill converte PDF em Markdown usando `uv`
 > (gerenciador de pacotes Python). Instale antes de usar essa skill — veja o comando pro seu sistema em
-> https://docs.astral.sh/uv/getting-started/installation/. Os outros 7 agentes, a skill
+> https://docs.astral.sh/uv/getting-started/installation/. O `uv` também é usado pelo registro de
+> versões (ver "Estado do TCC" abaixo), mas ali é opcional: sem ele, as skills só avisam que o registro
+> não foi gravado e seguem normalmente. Os outros 7 agentes, a skill
 > `revisar-capitulo` e as skills de orquestração (`iniciar-tcc`, `configurar-projeto`,
 > `escolher-template`, `escolher-tema`, `validar-metodologia`, `planejar-capitulo`,
-> `escrever-capitulo`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
+> `escrever-capitulo`, `gerar-diagrama`, `auditoria-tcc-completo`, `preparar-defesa`) não precisam disso.
+>
+> `gerar-diagrama` tenta compilar o diagrama com `latexmk` pra conferir o resultado, mas isso é
+> opcional: se você trabalha só pelo Overleaf (sem LaTeX instalado localmente), a skill detecta isso e
+> só salva o código, sem travar — a conferência visual acontece direto no Overleaf.
 
 ## O que tem no kit
 
@@ -100,8 +108,26 @@ Se pedir `/reload-plugins`, rode esse comando também.
 
 Toda skill que produz algo mantém dois arquivos atualizados automaticamente, sem que você precise
 pedir: `tcc-kit/checklist.md` (estado atual de cada etapa — o que já está feito, o que ainda falta,
-capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou, em ordem cronológica).
-Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem precisar perguntar ao kit.
+capítulo por capítulo) e `tcc-kit/historico.md` (jornal de tudo que já rodou, em ordem cronológica)
+(exceto `gerar-diagrama`, que só registra no histórico — diagrama é ação opcional e repetível, não um
+estágio do ciclo de vida). Abra qualquer um dos dois a qualquer momento pra ter uma visão geral sem
+precisar perguntar ao kit.
+
+### Estado do TCC
+
+Peça "como está meu TCC?" ou "gera um relatório do andamento pro meu orientador" — a skill
+`estado-tcc` monta um panorama completo (etapas, capítulos, pontos bloqueantes em aberto, atividade
+recente, pendências) e salva em `tcc-kit/estado/estado-<data>.md`, escrito pra você e pro seu
+orientador lerem. Ela não relê o texto dos capítulos: usa só os registros que o kit já mantém, então é
+rápida e barata mesmo com o TCC inteiro escrito.
+
+Ela também avisa quando algo ficou desatualizado depois de uma edição sua: capítulo alterado depois da
+última revisão, capítulo escrito com dados que mudaram depois (confira os números), auditoria completa
+ou slides de defesa que não correspondem mais à versão atual dos capítulos. Isso funciona porque
+`escrever-capitulo`, `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` gravam, ao
+terminar, uma impressão digital (hash) dos arquivos que usaram em `tcc-kit/.estado.json` — você não
+precisa abrir nem editar esse arquivo. Revisões feitas antes da versão 1.10 não têm esse registro;
+pra passar a acompanhar um capítulo antigo, rode a revisão dele de novo.
 
 ### Por onde começar
 
@@ -159,12 +185,27 @@ seção. Você aprova ou pede ajuste antes do plano ser salvo em
 ### Escrever um capítulo
 
 Depois do plano aprovado, peça "escreve minha introdução" (ou qualquer outro capítulo) — a skill
-`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo: `co-piloto` (ela
-pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade) ou `rápido` (escreve direto
-do plano, com o mínimo de perguntas) — sua escolha fica salva como padrão em `tcc-kit/config.md`, mas
-dá pra trocar pontualmente a qualquer momento ("escreve rápido dessa vez"). Nos dois modos, todo dado
-vem de `tcc/dados/resumo-real.md` e toda citação vem de referência já verificada — nunca inventa
-nenhum dos dois. Sempre sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
+`escrever-capitulo` transforma o plano em prosa de verdade. Você escolhe o modo, sem certo ou errado:
+`co-piloto` (ela pergunta antes de escrever cada seção, pra usar seu raciocínio de verdade — pra quem
+quer participar de perto do argumento) ou `rápido` (escreve direto do plano, com o mínimo de perguntas,
+e você revisa o resultado depois — pra quem quer entregar rápido e prefere gastar o tempo revisando).
+Sua escolha fica salva como padrão em `tcc-kit/config.md`, mas dá pra trocar pontualmente a qualquer
+momento ("escreve rápido dessa vez"). Nos dois modos, todo dado vem de `tcc/dados/resumo-real.md` e
+toda citação vem de referência já verificada — nunca inventa nenhum dos dois.
+
+Pra ajustar qualquer trecho depois de escrito, não precisa editar o `.tex` a mão: compila
+(`latexmk -pdf`), lê o resultado no PDF, e pra qualquer parágrafo que não ficou bom, copia o trecho e
+cola de volta na conversa pedindo a reescrita. Funciona a qualquer momento, nos dois modos. Sempre
+sugere `revisar-capitulo` no final, antes de considerar o capítulo pronto.
+
+### Gerar diagrama
+
+Quer ilustrar um conceito, fluxo ou framework do seu capítulo (não gráfico de dado — isso ainda não é
+coberto)? Peça "preciso de um diagrama da minha metodologia" ou "quero ilustrar esse conceito" — a
+skill `gerar-diagrama` conversa sobre o que desenhar, gera o TikZ certo com legenda numerada (convenção
+ABNT), salva em `tcc/diagramas/<nome>.tex`, e ajuda a incluir no capítulo certo. Separa ajuste de
+conteúdo de ajuste de aparência, pra nenhuma mudança visual arriscar alterar o que o diagrama
+representa.
 
 ### Os 6 agentes de revisão
 
@@ -186,11 +227,12 @@ consolida tudo num relatório único, incluindo qualquer lacuna de referência e
 ### Auditoria do TCC inteiro
 
 Depois que todos os capítulos estiverem escritos, peça "confere meu TCC inteiro antes de eu entregar"
-— a skill `auditoria-tcc-completo` lê todos os capítulos de uma vez (não um por um) e confere o que
-nenhum dos 6 agentes de `revisar-capitulo` consegue ver isoladamente: se todo objetivo da Introdução foi
-respondido na Discussão, se números que você mesmo relata batem entre capítulos, e se a terminologia se
-mantém estável. Inclui também um lembrete de itens que variam por instituição (ficha catalográfica,
-folha de aprovação) e o curso não padroniza.
+— a skill `auditoria-tcc-completo` despacha o `guardiao-consistencia`, o 7º agente do kit (os outros 6
+só revisam capítulo por capítulo, ver tabela acima). Ele lê todos os capítulos de uma vez (não um por
+um) e confere o que nenhum dos 6 agentes de `revisar-capitulo` consegue ver isoladamente: se todo
+objetivo da Introdução foi respondido na Discussão, se números que você mesmo relata batem entre
+capítulos, e se a terminologia se mantém estável. Inclui também um lembrete de itens que variam por
+instituição (ficha catalográfica, folha de aprovação) e o curso não padroniza.
 
 ### Preparar apresentação de defesa
 
