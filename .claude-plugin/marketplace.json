@@ -3,6 +3,9 @@
   "owner": {
     "name": "TCC Verificado"
   },
+  "metadata": {
+    "description": "Marketplace do curso TCC Verificado: kit de agentes para escrever e revisar um TCC com dado real, referência verificada e argumento que se sustenta."
+  },
   "plugins": [
     {
       "name": "tcc-kit",
