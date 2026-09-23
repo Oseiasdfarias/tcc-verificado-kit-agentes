@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.11.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.12.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -166,6 +166,20 @@ de links pra baixar manualmente), converte pra Markdown, e mantém tudo indexado
 `tcc-kit/referencias/index.yaml`. Essa base é o que a escrita consulta pra nunca inventar referência — e
 ela cresce ao longo do processo: se faltar uma referência no meio da escrita, o `revisor-citacoes`
 sugere buscar mais, você confirma.
+
+### Reproduzir os dados
+
+Antes de escrever qualquer número, peça "monta meu resumo de dados" ou "roda meus scripts e confere os
+números" — a skill `reproduzir-dados` encontra seus dados e scripts, pergunta quais são os do TCC,
+executa os scripts Python que já existem (em ambiente isolado, com `uv`, sem instalar nada no seu
+computador e sem mexer nos seus dados, que ganham uma cópia de segurança antes) e lê o código procurando
+parâmetros, unidades e divergências entre o que o código faz e o que o nome ou o comentário dizem.
+
+O resultado é `tcc/dados/resumo-real.md` com a procedência de cada número (script, linha, execução) e
+uma seção "O que não existe como dado": o que não foi medido e, por isso, não pode ser afirmado no
+texto. É esse arquivo que a escrita e o `guardiao-dados` usam como fonte de verdade. Se faltar um
+número que nenhum script calcula, a skill propõe a análise e só escreve um script novo depois que você
+confirmar. Quando os dados ou scripts mudarem, rode de novo: ela só relê o que mudou.
 
 ### Validar metodologia
 

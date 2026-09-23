@@ -154,3 +154,23 @@ def test_backup_sem_nada_para_copiar(projeto, capsys):
     assert ep.backup(projeto, ["nao-existe.tex"]) == (None, [])
     assert ep.main(["--raiz", str(projeto), "backup", "nao-existe.tex"]) == 0
     assert capsys.readouterr().out.strip() == "nada para copiar"
+
+
+def test_hash_imprime_hash_e_ausente(projeto, capsys):
+    assert ep.main(["--raiz", str(projeto), "hash", "tcc/capitulos/resultados.tex", "x.csv"]) == 0
+    linhas = capsys.readouterr().out.splitlines()
+    assert linhas[0] == f"{ep.hash_arquivo(projeto / 'tcc/capitulos/resultados.tex')}  tcc/capitulos/resultados.tex"
+    assert linhas[1] == "ausente  x.csv"
+
+
+def test_foto_da_raiz_ignora_git_e_ambientes(projeto):
+    for pasta in [".git/objects", ".venv/lib", "node_modules/x", "src/__pycache__"]:
+        (projeto / pasta).mkdir(parents=True)
+        (projeto / pasta / "f").write_text("x\n")
+    (projeto / "dados.csv").write_text("a\n1\n")
+    assert sorted(ep.tirar_foto(projeto, ["."])) == ["dados.csv", "tcc/capitulos/resultados.tex"]
+
+
+def test_foto_fora_de_relatorios_nao_se_acusa(projeto):
+    ep.foto(projeto, "tcc-kit/dados/.foto.json", ["."])
+    assert ep.comparar(projeto, "tcc-kit/dados/.foto.json", ["."]) == []

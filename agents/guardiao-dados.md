@@ -33,6 +33,10 @@ significativo quando o resultado real não confirma isso. Isso é mais grave que
 - Nunca sinaliza como problema um número que está no capítulo mas não no resumo por *falta de detalhe*
   do resumo (ex: resumo não menciona idade média, capítulo menciona) — isso não é uma divergência, é
   informação que talvez precise ser adicionada ao resumo. Só sinalize contradição real.
+- Exceção à regra acima: se o resumo tem a seção "O que não existe como dado", uma afirmação do
+  capítulo sobre algo listado ali **é** BLOQUEANTE, porque o resumo registra que aquilo não foi medido
+  (ex: resumo diz "não há medição de jitter", capítulo afirma "jitter de 2 ms"). Nesse caso, o "resumo
+  real diz" da linha de achado cita o item da seção.
 
 ## Como entregar o relatório
 

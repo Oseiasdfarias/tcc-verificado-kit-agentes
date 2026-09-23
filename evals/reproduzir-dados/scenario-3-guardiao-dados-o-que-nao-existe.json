@@ -1,0 +1,14 @@
+{
+  "skill": "reproduzir-dados (agente guardiao-dados chamado direto)",
+  "title": "afirmação sobre algo listado em 'O que não existe como dado' é bloqueante",
+  "query": "confere os números do capítulo tcc/capitulos/resultados.tex contra tcc/dados/resumo-real.md",
+  "fixtures": {
+    "tcc/capitulos/resultados.tex": "\\chapter{Resultados}\n\nO sistema apresentou sobressinal de 18,00\\% e tempo de acomodação de 0,80 s. O laço de controle executou com jitter inferior a 2 ms, garantindo determinismo.\n",
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\n\n## Resultados\n- Sobressinal: 18,00 % — scripts/metricas.py:10 [R1]\n- Tempo de acomodação (critério 5%): 0,80 s — scripts/metricas.py:13-17 [R1]\n\n## O que não existe como dado\n- Não há medição de jitter nem de tempo de execução do laço de controle.\n"
+  },
+  "expected_behavior": [
+    "A afirmação de jitter inferior a 2 ms é tratada como bloqueante, citando o item 'Não há medição de jitter' do resumo",
+    "Sobressinal 18,00% e tempo de acomodação 0,80 s aparecem como conferidos e batendo (cobertura)",
+    "Não grava nenhum arquivo"
+  ]
+}

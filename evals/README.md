@@ -50,7 +50,7 @@ python3 evals/run_eval.py evals/escrever-capitulo/scenario-1-modo-rapido-groundi
 # todos os cenários de uma skill
 python3 evals/run_eval.py evals/escrever-capitulo/
 
-# a suíte inteira (31 cenários, ~1-2min cada -- roda sequencial, não em paralelo)
+# a suíte inteira (34 cenários, ~1-2min cada -- roda sequencial, não em paralelo)
 python3 evals/run_eval.py evals/
 ```
 
@@ -69,10 +69,11 @@ inspecionar os arquivos depois que o script terminar.
 
 ## Cobertura atual
 
-31 cenários: 2 por skill pras 12 skills originais, um caminho feliz e um caso de
+34 cenários: 2 por skill pras 12 skills originais, um caminho feliz e um caso de
 guarda-corrim (grounding anti-alucinação, tratamento de erro, ou uma decisão condicional que a
 própria skill documenta), mais 3 pra `estado-tcc` e 4 da v1.11 (rodada 2 com delta, backup, e dois
-cenários que chamam `revisor-citacoes` e `guardiao-metodo` direto, em linguagem natural). Os outros
+cenários que chamam `revisor-citacoes` e `guardiao-metodo` direto, em linguagem natural), e 3 da
+v1.12 pra `reproduzir-dados` (um deles chama o `guardiao-dados` direto). Os outros
 agentes não são cobertos isoladamente (rodam via `Task`, despachados por uma skill), e a suíte não
 tem grader automático — é o degrau mínimo real acima de "testei uma vez na mão e esqueci", não uma
 suíte exaustiva.

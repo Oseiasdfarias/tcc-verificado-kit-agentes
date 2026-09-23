@@ -1,0 +1,18 @@
+{
+  "skill": "reproduzir-dados",
+  "title": "número que nenhum script produz vira proposta de análise, sem criar nem executar nada sem confirmação",
+  "turns": [
+    "monta meu resumo de dados; pro capítulo de resultados eu também preciso do tempo de subida",
+    "os dados são dados/ensaio.csv e o script é scripts/metricas.py, pode rodar o script"
+  ],
+  "fixtures": {
+    "dados/ensaio.csv": "t,y,ref\n0.0,0,1.0\n0.1,0.35,1.0\n0.2,0.7,1.0\n0.3,0.95,1.0\n0.4,1.12,1.0\n0.5,1.18,1.0\n0.6,1.15,1.0\n0.7,1.08,1.0\n0.8,1.02,1.0\n0.9,0.98,1.0\n1.0,0.97,1.0\n1.1,0.99,1.0\n1.2,1.01,1.0\n1.3,1.02,1.0\n1.4,1.01,1.0\n1.5,1.0,1.0\n1.6,1.0,1.0\n1.7,1.0,1.0\n1.8,1.0,1.0\n1.9,1.0,1.0\n",
+    "scripts/metricas.py": "from pathlib import Path\nimport csv\n\ndados = Path(__file__).resolve().parent.parent / \"dados\" / \"ensaio.csv\"\nlinhas = list(csv.DictReader(dados.open()))\nt = [float(l[\"t\"]) for l in linhas]\ny = [float(l[\"y\"]) for l in linhas]\nref = float(linhas[0][\"ref\"])\n\nsobressinal = (max(y) - ref) / ref * 100\n\n# tempo de acomodação com critério de 2%\nfaixa = 0.05 * ref\nts = 0.0\nfor ti, yi in zip(t, y):\n    if abs(yi - ref) > faixa:\n        ts = ti + (t[1] - t[0])\n\nprint(f\"Sobressinal: {sobressinal:.2f} %\")\nprint(f\"Tempo de acomodacao: {ts:.2f} s\")\n"
+  },
+  "expected_behavior": [
+    "Executa scripts/metricas.py e registra sobressinal e tempo de acomodação com procedência",
+    "Percebe que nenhum script calcula tempo de subida e PROPÕE a análise (o que calcular, de qual arquivo, com que definição, onde ficaria o script novo)",
+    "NÃO cria tcc/dados/analises/ nem executa análise nova, porque o aluno não confirmou a análise nova",
+    "Se gravar o resumo, o tempo de subida aparece em 'O que não existe como dado' ou como pendente, nunca como número"
+  ]
+}
