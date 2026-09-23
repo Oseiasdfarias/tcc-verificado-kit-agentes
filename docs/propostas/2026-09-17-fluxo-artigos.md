@@ -1,10 +1,49 @@
 # Proposta — modo artigo do tcc-kit (fluxo focado em publicação)
 
 **Data:** 2026-09-17
-**Status:** proposta para discussão (nada implementado)
+**Status:** Fase 1 implementada (v1.10 a v1.12, 2026-09-23). Fases 2 e 3 (modo artigo propriamente
+dito) **adiadas** por decisão do autor; ver seção 0 antes de retomar.
 **Base empírica:** [`docs/benchmarks/2026-09-17-artigo-ieee-latam.md`](../benchmarks/2026-09-17-artigo-ieee-latam.md)
 
 ---
+
+## 0. Situação em 2026-09-23 (ler antes de retomar)
+
+A Fase 1 saiu em três versões, todas valendo para o TCC hoje. Parte do que esta proposta previa para
+o modo artigo já existe; o modo artigo em si (Fases 2 e 3) está adiado.
+
+| Item da proposta | Onde está | Como ficou (e o que mudou em relação a esta proposta) |
+|---|---|---|
+| Relatório bruto em arquivo, 3 linhas de retorno (seção 4.2, regra 1) | v1.11 | Os 7 agentes ganharam `Write` só para o próprio relatório. Uma trava por hash (`estado_projeto.py foto`/`comparar`) confere que nada mais mudou. Isso revogou a decisão de 2026-08-23 de agentes sem `Write` |
+| IDs estáveis (regra 2) | v1.11 | Linha de achado fixa: `- **<PREFIXO>-<NN>** · <NÍVEL> · "<trecho>" · <problema>`, prefixos `DADOS`, `CIT`, `LAC`, `MET`, `ORI`, `BANCA`, `FORMA`, `CONS`. A skill consolida por Grep |
+| Data do artefato lido (regra 3) | v1.11 | Virou regra mais simples: log, PDF ou saída de script só vale como evidência se quem acionou disser que é da execução atual |
+| Rodada N com delta e deduplicação (seção 6) | v1.11 | Em `revisar-capitulo`: cada agente recebe o próprio relatório anterior e marca RESOLVIDO / PARCIAL / PENDENTE; achado repetido entre agentes vira uma linha com os IDs juntos |
+| Despacho em paralelo (seção 6) | v1.11 | Os 6 agentes na mesma mensagem; a prioridade dado → citação → resto só na consolidação |
+| DOI e tipo BibTeX no `revisor-citacoes` | v1.11 | Ordem de fonte: Markdown local de `revisao-bibliografica` → Crossref (com `doi.org` para Zenodo/DataCite) → busca. DOI ausente, tipo errado e fonte que não sustenta a frase são APONTAMENTO, não bloqueante (no TCC ABNT o DOI não é obrigatório) |
+| Checklist de vazamento no `guardiao-metodo` | v1.11 | Checklist de modelagem (vazamento, escolha no conjunto de avaliação, comparação justa, testes múltiplos, diagnósticos, reprodutibilidade) e leitura do script que gerou o número quando indicado |
+| Cobertura no `guardiao-dados` (seção 4.2) | v1.11 | Seção `## Cobertura` com o que bateu |
+| Backup e regra de git (seção 7) | v1.11 | `estado_projeto.py backup` para `tcc-kit/versoes/<momento>/` em `escrever-capitulo`, `escolher-template`, `gerar-diagrama` e `preparar-defesa`; git só leitura, nunca encadeado |
+| `reproduzir-dados` (seção 4.1) | v1.12 | Skill **sem** o agente `reprodutor-dados`: roda na conversa principal porque precisa de duas confirmações do aluno (inventário e análise nova). Executa só scripts Python existentes, com `uv run`, foto e backup; MATLAB/R/C/firmware só leitura. Resumo com procedência por número e "O que não existe como dado" (que o `guardiao-dados` trata como BLOQUEANTE) |
+| Resumo com procedência compartilhado (seção 5) | v1.12 | Continua em `tcc/dados/resumo-real.md` (não em `tcc-kit/dados/`); o registro das execuções fica em `tcc-kit/dados/reproducao.md` e o índice de materiais em `tcc-kit/dados/materiais.yaml` |
+| Não estava na proposta | v1.10 | Registro de versões por hash (`tcc-kit/.estado.json`) e skill `estado-tcc`: sabe, sem reler o texto, quando revisão, auditoria, slides ou resumo de dados ficaram desatualizados |
+
+**Números do benchmark que ainda valem como referência de custo:** 450 a 750 mil tokens por rodada
+completa com os agentes devolvendo relatórios inteiros. A v1.11 muda essa conta (a conversa principal
+não carrega mais os relatórios), mas **a economia não foi medida**. Medir antes de retomar a Fase 2, com
+o eval `evals/revisar-capitulo/scenario-3-rodada-2-delta.json` e `claude -p --output-format json`.
+
+**O que a Fase 2 ainda precisa, dado o que já existe:**
+
+- Campo `Tipo de documento` e as pastas `artigos/<nome>/` (seção 5).
+- `configurar-artigo`, `requisitos-veiculo`, `planejar-artigo`.
+- `escrever-secao`: pouco além de `escrever-capitulo` com slug livre, que já existe, mais idioma do veículo.
+- `revisar-artigo`: a orquestração de `revisar-capitulo` (paralelo, brutos, delta, trava) já é a da
+  seção 6. Falta rodar sobre o documento inteiro, o checkpoint de decisões do autor com
+  AskUserQuestion e `decisoes.md`, e o critério de parada.
+- Perfis do `revisor-forma`, `revisor-periodico` (variação de `banca-critica`), `verificar-diagramacao`
+  com o agente `revisor-diagramacao`.
+- Checklist por seção livre: o esqueleto atual tem os 5 capítulos fixos repetidos em 10 skills; mudar
+  isso é a parte mais trabalhosa.
 
 ## 1. Problema
 
@@ -249,24 +288,24 @@ Outros cenários, em uma linha cada:
 
 | Fase | Versão | Entregas | Justificativa |
 |---|---|---|---|
-| 1 | 1.10 | `reproduzir-dados`; regras comuns (relatório bruto em arquivo, IDs, data do artefato); DOI e tipo BibTeX no `revisor-citacoes`; checklist de vazamento no `guardiao-metodo`; despacho paralelo; backup e regra de git | Valem também para o TCC; maior ganho por esforço |
-| 2 | 2.0 | Campo `Tipo de documento`; `configurar-artigo`, `requisitos-veiculo`, `planejar-artigo`, `escrever-secao`, `revisar-artigo` com delta e checkpoint; perfis do `revisor-forma`; `revisor-periodico`; `verificar-diagramacao` | O modo artigo propriamente dito |
-| 3 | 2.1 | `preparar-submissao`, `espelhar-traducao`, `responder-revisores`; evals da seção 8 | Fecha o ciclo de publicação |
+| 1 | 1.10–1.12 (**feita**) | `reproduzir-dados`; regras comuns (relatório bruto em arquivo, IDs, data do artefato); DOI e tipo BibTeX no `revisor-citacoes`; checklist de vazamento no `guardiao-metodo`; despacho paralelo; backup e regra de git | Valem também para o TCC; maior ganho por esforço |
+| 2 | 2.0 (**adiada**) | Campo `Tipo de documento`; `configurar-artigo`, `requisitos-veiculo`, `planejar-artigo`, `escrever-secao`, `revisar-artigo` com delta e checkpoint; perfis do `revisor-forma`; `revisor-periodico`; `verificar-diagramacao` | O modo artigo propriamente dito |
+| 3 | 2.1 (**adiada**) | `preparar-submissao`, `espelhar-traducao`, `responder-revisores`; evals da seção 8 | Fecha o ciclo de publicação |
 
 ## 10. Perguntas em aberto
 
 1. **Nome e posicionamento no curso.** "Modo artigo" dentro do TCC Verificado ou um módulo
    "Publicação Verificada"? Isso afeta o README e a licença de uso.
-2. **Execução de código.** Até onde `reproduzir-dados` pode ir sem pedir permissão: rodar só
-   scripts já existentes, ou também escrever análises novas? No benchmark, as análises novas foram
-   autorizadas explicitamente pelo autor.
+2. ~~**Execução de código.**~~ **Decidido (2026-09-23):** roda só scripts já existentes, depois de o
+   aluno confirmar quais; análise nova só com confirmação, em arquivo novo.
 3. **Perfis de estilo.** Quais veículos priorizar: IEEE, SBC, SBA/CBA, ABENGE/COBENGE, Elsevier?
 4. **Escrita em inglês.** O kit deve escrever direto em inglês, ou escrever em português e usar
    `espelhar-traducao`? O benchmark escreveu direto em inglês a partir de dados em português, sem
    problema de grounding.
 5. **Rodadas.** Qual o limite padrão (2? 3?) antes de parar e devolver para o autor?
 6. **Custo.** Vale oferecer uma rodada "econômica" (dados + citações + método) para alunos com
-   limite de uso, deixando argumento, forma e periódico para a rodada final?
+   limite de uso, deixando argumento, forma e periódico para a rodada final? A v1.11 já reduziu o custo
+   da conversa principal; decidir depois de medir (seção 0).
 
 ## 11. Ferramentas e plugins usados no benchmark (e como incorporar)
 
