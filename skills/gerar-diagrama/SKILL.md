@@ -33,12 +33,36 @@ pacotes do template já estão declarados). Se algum não estiver, adicione:
 - `\usetikzlibrary{positioning}` -- necessário pra sintaxe de posicionamento relativo (ex:
   `right=of a`), comum em diagramas de fluxo.
 
+**Backup antes de sobrescrever** (só se algum item acima precisar ser adicionado, antes de editar o preâmbulo): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup <arquivo do preâmbulo>
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
+
 ## Passo 3 — Gerar o código do diagrama
 
 Gere o código TikZ dentro de um ambiente `figure`, com `\centering` e `\caption{}` numerada (convenção
 ABNT de figura), salvo em `tcc/diagramas/<nome>.tex` -- crie o diretório `tcc/diagramas/` se ainda não
 existir. `<nome>` é um slug curto derivado do que o diagrama representa (ex: `fluxo-metodologia`,
 `framework-conceitual`), decidido em conversa com o aluno no Passo 1.
+
+**Backup antes de sobrescrever** (só se `tcc/diagramas/<nome>.tex` já existir, antes de sobrescrever): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc/diagramas/<nome>.tex
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
 
 Estrutura esperada do arquivo:
 
@@ -62,6 +86,18 @@ depois) quando o capítulo for escrito -- não crie um arquivo de capítulo vazi
 
 Peça a confirmação do aluno sobre onde no capítulo o `\input` deve entrar (normalmente perto do trecho
 que menciona o que o diagrama ilustra).
+
+**Backup antes de sobrescrever** (antes de inserir o `\input` no capítulo): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc/capitulos/<slug-do-capítulo>.tex
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
 
 ## Passo 5 — Compilar e conferir
 

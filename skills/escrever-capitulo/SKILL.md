@@ -61,6 +61,18 @@ só completar as seções que ainda faltam. Só prossiga pro Passo 3a/3b depois 
 pena fazer o aluno passar pela entrevista de uma seção inteira (Passo 3a) pra só então descobrir que o
 capítulo já estava escrito.
 
+**Backup antes de sobrescrever** (só se o `.tex` já tinha conteúdo real e o aluno escolheu sobrescrever, mesclar ou completar, antes da primeira gravação do Passo 5): rode
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" backup tcc/capitulos/<slug>.tex
+```
+
+O caminho do plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py`
+relativo à raiz deste plugin, e não invente um caminho. Diga ao aluno, em uma linha, a pasta que o
+comando imprimiu (`tcc-kit/versoes/<momento>/`). Se o comando falhar, pergunte se pode seguir sem backup
+antes de gravar. Nunca use git pra isso: git, só leitura (`status`, `log`, `diff`, `show`), e nunca
+encadeado com outro comando.
+
 ## Passo 3a — Modo co-piloto: entrevista por seção
 
 Pra cada seção do plano, faça 1-2 perguntas socráticas específicas do tipo de capítulo antes de

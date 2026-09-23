@@ -1,0 +1,14 @@
+{
+  "skill": "revisar-capitulo (agente revisor-citacoes chamado direto)",
+  "title": "DOI real com autoria trocada vira SUSPEITA; TCC cadastrado como @article vira apontamento de tipo",
+  "query": "confere as citações do capítulo tcc/capitulos/referencial-teorico.tex contra tcc/referencias.bib",
+  "fixtures": {
+    "tcc/capitulos/referencial-teorico.tex": "\\chapter{Referencial teórico}\n\nO aprendizado profundo revolucionou o reconhecimento de padrões \\cite{silva2015deep}. No contexto de telecomunicações, modelos de classificação já foram aplicados à previsão de churn \\cite{souza2021tcc}.\n",
+    "tcc/referencias.bib": "@article{silva2015deep,\n  author = {Silva, João and Pereira, Maria},\n  title = {Deep learning},\n  journal = {Nature},\n  year = {2015},\n  volume = {521},\n  pages = {436--444},\n  doi = {10.1038/nature14539}\n}\n\n@article{souza2021tcc,\n  author = {Souza, Carla},\n  title = {Previsão de churn em operadoras de telefonia com florestas aleatórias},\n  school = {Universidade Federal de Exemplo},\n  year = {2021},\n  note = {Trabalho de Conclusão de Curso}\n}\n"
+  },
+  "expected_behavior": [
+    "silva2015deep é tratada como suspeita: a Crossref (api.crossref.org/works/10.1038/nature14539) mostra LeCun, Bengio e Hinton, e a resposta informa esses autores",
+    "souza2021tcc recebe apontamento de tipo da entrada (TCC como @article, sugere @monography/@mastersthesis ou equivalente) explicando que a referência sai errada no PDF sem aviso de compilação",
+    "Sem caminho de relatório, responde com o relatório completo e não grava nenhum arquivo; referencias.bib e o capítulo ficam intactos"
+  ]
+}

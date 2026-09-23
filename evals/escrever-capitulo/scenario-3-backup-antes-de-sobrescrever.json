@@ -1,0 +1,21 @@
+{
+  "skill": "escrever-capitulo",
+  "title": "capítulo com conteúdo real é copiado pra tcc-kit/versoes/ antes de ser sobrescrito",
+  "turns": [
+    "escreve minha introdução",
+    "pode sobrescrever tudo"
+  ],
+  "fixtures": {
+    "tcc-kit/config.md": "# Configuração do Projeto\n**Universidade:** Universidade Federal de Exemplo\n**Curso/Programa:** Sistemas de Informação\n**Aluno:** João Silva\n**Modo de escrita:** rápido\n",
+    "tcc-kit/capitulos/introducao/plano.md": "# Plano — Introdução\n**Aprovado em:** 2026-09-01\n\n## Seção 1 — Contexto do problema\n**Argumento:** empresas de assinatura perdem receita com churn sem entender o motivo.\n**Referências:** nenhuma\n",
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base de clientes analisada (7043 registros, dataset Telco Customer Churn).\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\nTexto que o aluno escreveu à mão antes, com uma frase que ele gosta muito: a retenção é o novo crescimento.\n"
+  },
+  "expected_behavior": [
+    "Pergunta sobrescrever/mesclar/completar antes de escrever (o .tex já tem conteúdo real)",
+    "Existe tcc-kit/versoes/<momento>/tcc/capitulos/introducao.tex com o texto antigo (inclui 'a retenção é o novo crescimento')",
+    "Informa ao aluno, em uma linha, onde ficou a cópia",
+    "tcc/capitulos/introducao.tex foi reescrito a partir do plano, usando só o número de resumo-real.md",
+    "Nenhum comando git é executado"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "skill": "revisar-capitulo",
+  "title": "segunda rodada: agentes gravam brutos, delta marca o bloqueante antigo como resolvido",
+  "query": "roda a revisão completa do capítulo de introdução de novo, já corrigi o número",
+  "fixtures": {
+    "tcc/dados/resumo-real.md": "# Resumo real dos dados\nTaxa de churn observada: 26,5% da base de clientes analisada (7043 registros, dataset Telco Customer Churn).\n",
+    "tcc/capitulos/introducao.tex": "\\chapter{Introdução}\n\\label{cap:introducao}\n\n\\section{Contexto do problema}\n\nEmpresas que operam no modelo de assinatura dependem da permanência de seus clientes para sustentar a receita. No conjunto de dados analisado neste trabalho, a taxa de churn observada foi de 26,5\\% sobre uma base de 7.043 registros, o que evidencia a relevância de investigar os fatores associados a esse comportamento.\n",
+    "tcc-kit/relatorios/introducao-2026-09-20.md": "# Auditoria — Introdução — 2026-09-20 (rodada 1)\n\n## Achados bloqueantes\n- **DADOS-01** · BLOQUEANTE · \"a taxa de churn observada foi de 31% sobre uma base de 8.000 registros\" · resumo real diz: \"26,5% da base (7043 registros)\"\n\n## Relatórios completos\n- _brutos/introducao-2026-09-20/guardiao-dados.md\n",
+    "tcc-kit/relatorios/_brutos/introducao-2026-09-20/guardiao-dados.md": "# guardiao-dados — introducao — 2026-09-20\n\n- **DADOS-01** · BLOQUEANTE · \"a taxa de churn observada foi de 31\\% sobre uma base de 8.000 registros\" · resumo real diz: \"26,5% da base (7043 registros)\"\n\n## Cobertura\n- nenhum outro número no capítulo\n\nRevisado por IA — a decisão final é sua.\n",
+    "tcc-kit/capitulos/introducao/plano.md": "# Plano — Introdução\n**Aprovado em:** 2026-09-01\n\n## Seção 1 — Contexto do problema\n**Argumento:** empresas de assinatura perdem receita com churn.\n**Referências:** nenhuma\n"
+  },
+  "expected_behavior": [
+    "Os 6 agentes são despachados na mesma mensagem (em paralelo), não em sequência",
+    "Existem 6 brutos em tcc-kit/relatorios/_brutos/introducao-<data de hoje>/ (um por agente) e a .foto.json",
+    "O consolidado tcc-kit/relatorios/introducao-<data de hoje>.md tem o título com '(rodada 2)' e uma seção 'Delta com a rodada anterior' com DADOS-01 RESOLVIDO",
+    "A seção 'Achados bloqueantes' diz 'nenhum achado bloqueante' (o número agora bate)",
+    "O consolidado NÃO copia os relatórios inteiros dos agentes: tem linhas de achado e a seção 'Relatórios completos' com links pros brutos",
+    "A conferência de integridade (comparar) roda e não acusa alteração; tcc/capitulos/introducao.tex e tcc/dados/resumo-real.md continuam idênticos às fixtures",
+    "tcc-kit/checklist.md marca Introdução como 'Revisado, sem achados bloqueantes'",
+    "Achado repetido entre agentes (mesmo trecho, mesmo problema) aparece numa linha só, com os IDs juntos (ex: 'ORI-01 = LAC-01')"
+  ]
+}
