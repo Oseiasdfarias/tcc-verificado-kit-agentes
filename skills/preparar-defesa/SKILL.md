@@ -74,6 +74,29 @@ próprias palavras antes da defesa de verdade.
   pendentes (Passo 2) — nunca invente conteúdo de preenchimento.
 - **Sem auditoria prévia**: avisa e pergunta (Passo 1), segue se o aluno confirmar.
 
+## Passo 4b — Registrar a versão das entradas
+
+Só se a apresentação foi gerada. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa defesa --saida tcc/apresentacao-defesa.tex --entradas tcc/capitulos/introducao.tex tcc/capitulos/referencial-teorico.tex tcc/capitulos/metodologia.tex tcc/capitulos/resultados.tex tcc/capitulos/discussao-consideracoes-finais.tex
+```
+
+Passe sempre os 5 caminhos, mesmo os que não existem: o script registra a ausência, e se um capítulo
+que faltava passar a existir, os slides aparecem como desatualizados. O caminho do plugin segue a mesma
+regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py` relativo à raiz deste plugin, e
+não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata dos capítulos usados nos slides, pra skill
+`estado-tcc` conseguir avisar depois que algum capítulo mudou e os slides podem citar conteúdo antigo.
+Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 5. A apresentação já está salva.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 5
+  em qualquer caso.
+
 ## Passo 5 — Atualizar checklist e histórico
 
 **Se o Passo 2 recusou gerar a apresentação** (caso de zero capítulos com conteúdo real, ver

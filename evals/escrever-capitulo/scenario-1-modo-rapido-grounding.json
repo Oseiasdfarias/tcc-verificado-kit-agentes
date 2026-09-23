@@ -16,6 +16,7 @@
     "Cria tcc/capitulos/introducao.tex com conteúdo real (não placeholder)",
     "Sugere revisar-capitulo e menciona o ciclo de revisão via PDF (compilar, ler, colar o parágrafo que não ficou bom) -- v1.9.2",
     "Cria tcc-kit/checklist.md com a linha Introdução = 'Escrito, ainda não revisado'",
-    "Acrescenta uma entrada em tcc-kit/historico.md mencionando o modo rápido"
+    "Acrescenta uma entrada em tcc-kit/historico.md mencionando o modo rápido",
+    "tcc-kit/.estado.json contém a etapa 'escrita:<slug>' com hash de plano.md e de tcc/dados/resumo-real.md (a saída do comando não é mostrada ao aluno)"
   ]
 }

@@ -10,6 +10,7 @@
     "guardiao-dados não encontra nenhuma divergência (o único número, 26,5% sobre 7.043, bate com resumo-real.md)",
     "A seção 'Achados bloqueantes' do relatório final diz 'nenhum achado bloqueante'",
     "tcc-kit/checklist.md marca a linha Introdução como 'Revisado, sem achados bloqueantes'",
-    "Não trava nem se recusa a revisar por o capítulo estar curto (é só uma seção)"
+    "Não trava nem se recusa a revisar por o capítulo estar curto (é só uma seção)",
+    "tcc-kit/.estado.json contém a etapa 'revisao:introducao' com hash de tcc/capitulos/introducao.tex e de tcc/dados/resumo-real.md"
   ]
 }

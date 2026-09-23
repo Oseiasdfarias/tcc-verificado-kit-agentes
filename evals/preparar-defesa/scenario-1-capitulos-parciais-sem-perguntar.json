@@ -15,6 +15,7 @@
     "Gera tcc/apresentacao-defesa.tex com capa, introdução, metodologia e resultados baseados nos capítulos reais",
     "Despacha banca-critica pedindo o dobro de perguntas do padrão de um capítulo isolado",
     "Salva tcc-kit/relatorios/prep-perguntas-defesa-<data>.md",
-    "tcc-kit/checklist.md marca Apresentação de defesa como gerada"
+    "tcc-kit/checklist.md marca Apresentação de defesa como gerada",
+    "tcc-kit/.estado.json contém a etapa 'defesa' com os 5 caminhos de capítulo (null nos que não existem)"
   ]
 }

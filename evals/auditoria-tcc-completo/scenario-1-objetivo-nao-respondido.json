@@ -14,6 +14,7 @@
     "guardiao-consistencia identifica que o objetivo declarado na Introdução ('identificar os principais fatores associados ao churn') não foi realmente respondido na Discussão -- a Discussão só confirma UM fator (tipo de contrato), não fala de 'fatores' no plural nem sintetiza os demais",
     "Inclui o checklist institucional fixo (ficha catalográfica, folha de aprovação, limite de páginas etc.)",
     "Salva tcc-kit/relatorios/auditoria-completa-<data>.md",
-    "tcc-kit/checklist.md marca a Auditoria completa do TCC como rodada, com a contagem de achados de consistência"
+    "tcc-kit/checklist.md marca a Auditoria completa do TCC como rodada, com a contagem de achados de consistência",
+    "tcc-kit/.estado.json contém a etapa 'auditoria-completa' com os 5 caminhos de capítulo (null nos que não existem)"
   ]
 }

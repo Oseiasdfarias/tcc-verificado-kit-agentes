@@ -135,6 +135,28 @@ como um leitor normal leria, e — pra qualquer parágrafo que não ficou bom �
 colar de volta na conversa, pedindo a reescrita. Isso funciona a qualquer momento, em qualquer um dos
 dois modos, e é o fluxo esperado de revisão pontual entre uma rodada de `revisar-capitulo` e outra.
 
+## Passo 6b — Registrar a versão das entradas
+
+Só se pelo menos uma seção foi salva no Passo 5. Rode:
+
+```bash
+uv run "<caminho do plugin>/scripts/estado_projeto.py" registrar --etapa escrita:<slug> --saida tcc/capitulos/<slug>.tex --entradas tcc-kit/capitulos/<slug>/plano.md [tcc/dados/resumo-real.md]
+```
+
+Inclua `tcc/dados/resumo-real.md` só se o arquivo existia e foi consultado no Passo 4. O caminho do
+plugin segue a mesma regra de `revisao-bibliografica`: procure `scripts/estado_projeto.py` relativo à
+raiz deste plugin, e não invente um caminho.
+
+Isso grava em `tcc-kit/.estado.json` a versão exata do plano e dos dados usados nesta escrita. Com
+isso, a skill `estado-tcc` consegue avisar depois se os dados mudaram e os números do capítulo podem
+ter ficado desatualizados. Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
+
+- **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
+  linha que o registro de versão não foi gravado e siga para o Passo 7. O capítulo já está salvo.
+- **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 7
+  em qualquer caso.
+
 ## Passo 7 — Atualizar checklist e histórico
 
 Recalcule o estado do capítulo `<slug>` do zero — não presuma qual era o estado anterior no checklist —
