@@ -41,6 +41,14 @@ Dentro do Claude Code, no terminal do seu projeto:
 
 Se pedir `/reload-plugins`, rode esse comando também.
 
+Se você usa o Claude Code pela extensão do VS Code, o comando `/plugin` não existe ali. Rode no
+terminal do sistema e depois recarregue a janela do VS Code:
+
+```bash
+claude plugin marketplace add Oseiasdfarias/tcc-verificado-kit-agentes
+claude plugin install tcc-kit@tcc-verificado-kit-agentes
+```
+
 Algumas partes do kit usam o [uv](https://docs.astral.sh/uv/getting-started/installation/). Instale
 antes de começar.
 
@@ -50,6 +58,9 @@ antes de começar.
 /plugin marketplace update tcc-verificado-kit-agentes
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
+
+Pela extensão do VS Code, no terminal do sistema: `claude plugin marketplace update
+tcc-verificado-kit-agentes` e `claude plugin update tcc-kit@tcc-verificado-kit-agentes`.
 
 O histórico de versões está no [CHANGELOG.md](CHANGELOG.md).
 
