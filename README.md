@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/claude%20code-plugin-C98A52?style=for-the-badge&logo=anthropic&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
   <img src="https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white">
-  <img src="https://img.shields.io/badge/versão-1.10.0-4A2712?style=for-the-badge">
+  <img src="https://img.shields.io/badge/versão-1.11.0-4A2712?style=for-the-badge">
   <img src="https://img.shields.io/badge/licença-uso%20livre%2C%20sem%20revenda-4A2712?style=for-the-badge">
 </p>
 
@@ -221,8 +221,20 @@ representa.
 ### Auditoria completa
 
 Peça "audita esse capítulo antes de eu considerar pronto" — a skill `revisar-capitulo` roda os 6
-agentes na ordem certa (dado e citação primeiro, são bloqueantes; argumento e forma depois) e
-consolida tudo num relatório único, incluindo qualquer lacuna de referência encontrada.
+agentes ao mesmo tempo e consolida tudo num relatório único, com dado e citação no topo (são
+bloqueantes) e argumento e forma depois, incluindo qualquer lacuna de referência encontrada. Cada
+achado tem um código (`DADOS-01`, `CIT-03`, `MET-02`...) e o mesmo problema apontado por dois agentes
+aparece uma vez só.
+
+Quando você revisa o mesmo capítulo de novo depois de corrigir, a skill compara com a rodada anterior
+item a item: cada código antigo aparece como resolvido, parcial ou pendente. O relatório de cada agente
+fica inteiro em `tcc-kit/relatorios/_brutos/`, e o consolidado aponta pra eles.
+
+O `revisor-citacoes` confere o DOI de cada referência na Crossref, avisa quando o tipo da entrada no
+`.bib` está errado (um TCC cadastrado como `@article`, por exemplo, faz o veículo sumir do PDF) e,
+quando tem o texto da fonte, se ela sustenta a frase citada. O `guardiao-metodo` tem um checklist
+específico pra trabalho com modelos (vazamento de dados, escolha feita no conjunto de teste, comparação
+justa com o baseline).
 
 ### Auditoria do TCC inteiro
 
@@ -247,8 +259,13 @@ a forma/português desse texto".
 
 ## Regra que vale pra todos
 
-Nenhum agente edita seu texto — só relata. A decisão sobre o que mudar, e sobre qual referência entra
-na base, é sempre sua (ver Aula 3.2 do curso: "raciocínio não se terceiriza").
+Nenhum agente edita seu texto — só relata. O único arquivo que um agente grava é o próprio relatório,
+e a skill que o chamou confere depois, por impressão digital dos arquivos, que nada mais no projeto
+mudou. A decisão sobre o que mudar, e sobre qual referência entra na base, é sempre sua (ver Aula 3.2
+do curso: "raciocínio não se terceiriza").
+
+Antes de sobrescrever um arquivo seu (capítulo já escrito, arquivos do template, apresentação,
+diagrama), a skill guarda uma cópia em `tcc-kit/versoes/<data-hora>/`.
 
 ## Licença
 

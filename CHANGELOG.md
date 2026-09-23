@@ -8,6 +8,36 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.11.0 — 2026-09-23
+
+Revisão mais rigorosa e mais barata, a partir do benchmark com um artigo IEEE
+(`docs/benchmarks/2026-09-17-artigo-ieee-latam.md`).
+
+- **Agentes gravam o próprio relatório.** Os 7 agentes ganham a ferramenta Write, só pra gravar o
+  relatório no caminho que a skill passou, e devolvem 3 linhas. A skill monta o consolidado com Grep
+  nas linhas de achado, sem carregar nem reescrever os relatórios inteiros. Chamados direto pelo aluno
+  (sem caminho), continuam respondendo com o relatório completo e sem gravar nada.
+- **Trava por hash**: `revisar-capitulo`, `auditoria-tcc-completo` e `preparar-defesa` tiram uma foto
+  do projeto antes do despacho e conferem depois (`estado_projeto.py foto`/`comparar`). Se um agente
+  mexer em qualquer arquivo além do relatório, o aluno é avisado com a lista.
+- **Linha de achado com ID estável** (`DADOS`, `CIT`, `LAC`, `MET`, `ORI`, `BANCA`, `FORMA`, `CONS`).
+- **`revisar-capitulo`**: os 6 agentes rodam em paralelo (a prioridade dado → citação → resto vale só
+  na consolidação); rodada N com seção Delta (RESOLVIDO / PARCIAL / PENDENTE por ID); achados repetidos
+  entre agentes viram uma linha só; relatórios completos em `tcc-kit/relatorios/_brutos/<slug>-<data>/`.
+- **`revisor-citacoes`**: confere primeiro o Markdown local de `revisao-bibliografica`, depois o DOI na
+  Crossref (com `doi.org` pra Zenodo/DataCite), e só então busca na web; aponta DOI disponível, tipo de
+  entrada BibTeX errado e fonte que não sustenta a frase (só quando leu o texto da fonte).
+- **`guardiao-metodo`**: checklist para estudos com modelagem (vazamento, escolha no conjunto de
+  avaliação, comparação justa, testes múltiplos, diagnósticos, reprodutibilidade) e leitura do script
+  que gerou um número quando ele estiver indicado.
+- **`guardiao-dados`**: seção Cobertura com o que foi conferido e bateu.
+- **Todos os agentes**: log, PDF ou saída de script só contam como evidência se forem da execução atual.
+- **Backup** (`estado_projeto.py backup`) em `tcc-kit/versoes/<momento>/` antes de sobrescrever arquivo
+  do aluno em `escrever-capitulo`, `escolher-template`, `gerar-diagrama` e `preparar-defesa`. Git, só
+  leitura e nunca encadeado.
+- `auditoria-tcc-completo` e `preparar-defesa` passam caminhos dos capítulos ao agente em vez de colar o
+  conteúdo na instrução.
+
 ## 1.10.0 — 2026-09-23
 
 Registro de versões por hash e skill nova `estado-tcc`: o kit passa a saber quando um artefato ficou
