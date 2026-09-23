@@ -80,7 +80,8 @@ desde o Passo 4 (mesmo sem PDF ainda), então uma busca repetida não deve trat�
 ## Passo 4 — Download
 
 Antes de baixar qualquer coisa, garanta que `tcc-kit/referencias/pdfs/` e `tcc-kit/referencias/md/` existem —
-rode `mkdir -p tcc-kit/referencias/pdfs tcc-kit/referencias/md` uma vez no início deste passo. Sem isso, o
+crie as duas pastas uma vez no início deste passo (no bash, `mkdir -p tcc-kit/referencias/pdfs tcc-kit/referencias/md`;
+no PowerShell do Windows, `New-Item -ItemType Directory -Force tcc-kit/referencias/pdfs, tcc-kit/referencias/md`). Sem isso, o
 `curl` e a conversão do Passo 5 falham num projeto novo, e essa falha é fácil de confundir com "o site
 bloqueou o download" quando a causa real é só a pasta não existir.
 
@@ -93,7 +94,8 @@ confirmados no mesmo lote — ex: dois autores "Silva, 2021" diferentes — pode
 ainda saiba disso) — acrescente `b`, `c`, etc: `silva2021b`).
 
 Se o artigo tem `openAccessPdf.url`: tente baixar com
-`curl -sL -o "tcc-kit/referencias/pdfs/<chave>.pdf" "<url>"`. Confirme que o arquivo baixado é um PDF válido —
+`curl -sL -o "tcc-kit/referencias/pdfs/<chave>.pdf" "<url>"` (no PowerShell do Windows, escreva `curl.exe`: `curl` sozinho
+é outro comando ali e não aceita essas opções). Confirme que o arquivo baixado é um PDF válido —
 não basta checar tamanho: um HTML de página de erro ou de desafio anti-bot (Cloudflare e afins) salvo
 com extensão `.pdf` é um sinal de falha disfarçada de sucesso, e uma página de desafio maior que "alguns
 KB" passaria despercebida por uma checagem só de tamanho. Confirme o conteúdo de verdade — rode

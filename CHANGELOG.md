@@ -8,6 +8,13 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.12.2 — 2026-09-23
+
+- `revisao-bibliografica` funciona no PowerShell do Windows: a criação das pastas de download traz o
+  comando do bash e o do PowerShell, e o download avisa que no PowerShell é `curl.exe` (lá, `curl`
+  sozinho é outro comando). Sem o Git for Windows, que ficou opcional, o Claude Code roda os comandos
+  pelo PowerShell.
+
 ## 1.12.1 — 2026-09-23
 
 - `auditoria-tcc-completo` não recusa mais a auditoria quando os capítulos são curtos: uma frase de texto
