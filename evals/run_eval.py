@@ -65,6 +65,11 @@ def run_claude(query: str, cwd: Path, session_id: str, resume: bool, timeout: in
         f"cache criado {uso.get('cache_creation_input_tokens', 0)} · "
         f"turnos internos {dados.get('num_turns', '?')}"
     )
+    for modelo, m in (dados.get("modelUsage") or {}).items():
+        print(
+            f"    {modelo}: US$ {m.get('costUSD', 0):.4f} · entrada {m.get('inputTokens', 0)} · "
+            f"saída {m.get('outputTokens', 0)} · cache lido {m.get('cacheReadInputTokens', 0)}"
+        )
     return (dados.get("result") or "").strip()
 
 
