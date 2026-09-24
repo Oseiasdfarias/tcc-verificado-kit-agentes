@@ -205,6 +205,11 @@ Confira se `tcc-kit/checklist.md` existe.
 ## Tema
 - [ ] Definido (tcc-kit/tema.md)
 
+## Dados
+**Tipo:** não definido
+- [ ] Preparados (tcc-kit/dados/limpeza.md)
+- [ ] Resumo real (tcc/dados/resumo-real.md)
+
 ## Referências
 - [ ] Pelo menos 1 referência verificada
 
@@ -219,6 +224,9 @@ Confira se `tcc-kit/checklist.md` existe.
 | Metodologia | Não iniciado |
 | Resultados | Não iniciado |
 | Discussão/Considerações finais | Não iniciado |
+
+## Formatação ABNT
+- [ ] Nunca rodada
 
 ## Auditoria completa do TCC
 - [ ] Nunca rodada
@@ -235,6 +243,8 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo
 - **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
   acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
   em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo`.
+- **Se o checklist existente não tiver as seções `## Dados` ou `## Formatação ABNT`** (versão anterior
+  do kit), insira-as no lugar do esqueleto acima, no estado inicial, sem mexer nas outras seções.
 - **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
   reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
   existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
