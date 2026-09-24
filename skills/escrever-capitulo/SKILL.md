@@ -185,7 +185,7 @@ uv run "<caminho do plugin>/scripts/bib_do_indice.py" --chaves <chave1> <chave2>
 ```
 
 A saída diz quais entradas foram acrescentadas em `tcc/referencias.bib`. Se alguma aparecer como
-"citada sem entrada no índice", avise o aluno: a citação precisa passar por `revisao-bibliografica` ou
+"citada sem entrada verificada no índice", avise o aluno: a citação precisa passar por `revisao-bibliografica` ou
 `adicionar-referencias`. Entrada montada sem DOI traz a nota "confira o tipo": mencione isso em uma
 linha.
 

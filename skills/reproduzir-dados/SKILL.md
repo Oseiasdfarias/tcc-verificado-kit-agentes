@@ -31,7 +31,12 @@ deste plugin, e não invente um caminho. Se o `uv` não estiver disponível, sig
 Leia o campo **Dados** de `tcc-kit/tema.md`. Com `qualitativos` ou `nenhum`, diga em uma ou duas
 frases que o resumo de dados estruturados não se aplica a este TCC (a verificação central passa a ser
 a das citações) e pare, sem criar nenhum arquivo. Campo ausente: siga a mesma regra do Passo 1 de
-`preparar-dados`.
+`preparar-dados` (se precisar perguntar o tipo ao aluno, pare aqui e termine a sua resposta com essa
+pergunta).
+
+Se existir `tcc/dados/preparar_dados.py` (gerado pela `preparar-dados`), ele é o primeiro script a
+rodar no Passo 6, antes de qualquer análise, e os perfis do Passo 4 são feitos nos arquivos
+`-limpo.csv` que ele gera, não nos brutos: os números do TCC saem dos dados preparados.
 
 ## Passo 1 — Estado anterior
 

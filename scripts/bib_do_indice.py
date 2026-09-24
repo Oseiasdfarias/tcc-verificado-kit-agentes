@@ -20,7 +20,12 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import estado_projeto  # noqa: E402
 
-CITE = re.compile(r"\\cite[a-zA-Z]*\*?(?:\[[^\]]*\]){0,2}\{([^}]*)\}")
+CITACAO = re.compile(
+    r"\\apud\*?(?:\[[^\]]*\]){0,2}\{([^}]*)\}\{([^}]*)\}"
+    r"|\\[a-zA-Z]*[cC]ite[a-zA-Z]*\*?(?:\[[^\]]*\]){0,2}\{([^}]*)\}"
+)
+COMENTARIO = re.compile(r"(?<!\\)%.*")
+ESPECIAIS = re.compile(r"(?<!\\)([&%#_])")
 ENTRADA = re.compile(r"@\w+\s*\{\s*([^,\s]+)\s*,")
 NOTA = "Entrada montada pelo kit: confira o tipo"
 
@@ -28,7 +33,9 @@ NOTA = "Entrada montada pelo kit: confira o tipo"
 def chaves_citadas(pasta):
     vistas = []
     for tex in sorted(Path(pasta).rglob("*.tex")):
-        for grupo in CITE.findall(tex.read_text(encoding="utf-8", errors="replace")):
+        texto = COMENTARIO.sub("", tex.read_text(encoding="utf-8", errors="replace"))
+        grupos = [g for m in CITACAO.finditer(texto) for g in m.groups() if g]
+        for grupo in grupos:
             for chave in grupo.split(","):
                 chave = chave.strip()
                 if chave and chave not in vistas:
@@ -48,7 +55,7 @@ def carregar_indice(caminho):
 def _valor(v):
     if isinstance(v, list):
         v = " and ".join(str(x) for x in v)
-    return str(v).replace("&", r"\&")
+    return ESPECIAIS.sub(r"\\\1", str(v))
 
 
 def entrada_do_indice(ref):
@@ -79,7 +86,8 @@ def buscar_bibtex_doi(doi, timeout=15):
 
 
 def renomear_chave(bibtex, chave):
-    return ENTRADA.sub(lambda m: m.group(0).replace(m.group(1), chave, 1), bibtex, count=1)
+    m = ENTRADA.search(bibtex)
+    return bibtex[: m.start(1)] + chave + bibtex[m.end(1):] if m else bibtex
 
 
 def garantir(raiz, indice, bib, chaves, buscar=buscar_bibtex_doi):
@@ -92,10 +100,11 @@ def garantir(raiz, indice, bib, chaves, buscar=buscar_bibtex_doi):
         if chave in existentes:
             continue
         ref = indice.get(chave)
-        if ref is None:
+        if ref is None or ref.get("status") != "verificado":
             sem_indice.append(chave)
             continue
-        oficial = buscar(str(ref["doi"])) if ref.get("doi") else None
+        usar_oficial = ref.get("doi") and ref.get("fonte_bib") != "indice"
+        oficial = buscar(str(ref["doi"])) if usar_oficial else None
         entrada = renomear_chave(oficial, chave).strip() + "\n" if oficial else entrada_do_indice(ref)
         novas.append((chave, entrada))
         existentes.add(chave)
@@ -123,7 +132,7 @@ def main(argv=None):
     buscar = (lambda doi: None) if args.sem_rede else buscar_bibtex_doi
     novas, sem = garantir(raiz, indice, Path(args.bib), chaves, buscar)
     print("acrescentadas: " + (", ".join(novas) or "nenhuma"))
-    print("citadas sem entrada no índice: " + (", ".join(sem) or "nenhuma"))
+    print("citadas sem entrada verificada no índice: " + (", ".join(sem) or "nenhuma"))
     return 1 if sem else 0
 
 

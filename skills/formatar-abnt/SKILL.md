@@ -43,7 +43,7 @@ A partir da raiz do projeto:
 uv run "<caminho do plugin>/scripts/bib_do_indice.py" --todas-citadas tcc/capitulos
 ```
 
-Chave "citada sem entrada no índice" é pendência do aluno: a referência precisa passar por
+Chave "citada sem entrada verificada no índice" é pendência do aluno: a referência precisa passar por
 `revisao-bibliografica` ou `adicionar-referencias`. Se entradas foram acrescentadas, compile de novo.
 
 ## Passo 3 — Ler o log

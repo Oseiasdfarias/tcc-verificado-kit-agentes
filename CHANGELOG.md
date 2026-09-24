@@ -23,6 +23,8 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 - Corrigido: nenhuma skill escrevia as referências citadas no `tcc/referencias.bib`, e o PDF saía com
   "?". O script novo `bib_do_indice.py` gera as entradas a partir do índice (BibTeX oficial pelo DOI
   quando existe) e é chamado por `escrever-capitulo`, `adicionar-referencias` e `formatar-abnt`.
+- `perfil_dados.py` detecta e informa a codificação (UTF-8 ou a do Excel no Windows), o separador, o
+  decimal e o separador de milhar, e lê `1.234,50` como número.
 - Checklist com as seções `Dados` e `Formatação ABNT`, e teste que garante as 10 cópias do esqueleto
   iguais.
 

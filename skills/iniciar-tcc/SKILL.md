@@ -26,9 +26,10 @@ Confira se `tcc-kit/tema.md` existe.
 - Se não existir: sem tema definido.
 - Se existir: leia o arquivo e extraia o valor do campo **Tema**.
 - Extraia também o campo **Dados** (`estruturados`, `qualitativos` ou `nenhum`). Se o campo não existir
-  (tema de versão anterior do kit): considere `estruturados` se houver algum arquivo em `tcc/dados/`;
-  senão, pergunte ao aluno qual dos três tipos descreve o TCC e grave a linha `**Dados:**` no
-  `tema.md`, logo depois de `**Área/curso:**`.
+  (tema de versão anterior do kit): se houver algum arquivo em `tcc/dados/`, considere `estruturados` e
+  grave a linha `**Dados:** estruturados` no `tema.md`, logo depois de `**Área/curso:**`; senão,
+  pergunte ao aluno qual dos três tipos descreve o TCC (**pare aqui e termine a sua resposta com essa
+  pergunta**) e, com a resposta, grave a linha.
 - Se o arquivo existir mas não for possível extrair um valor claro do campo **Tema** (arquivo
   corrompido, editado manualmente fora do formato esperado, campo ausente): não trave nem invente um
   valor. Avise o aluno explicitamente que `tcc-kit/tema.md` existe mas não conseguiu ler o tema dele, e
@@ -36,6 +37,7 @@ Confira se `tcc-kit/tema.md` existe.
 
 ## Passo 3b — Verificar dados (só com `Dados: estruturados`)
 
+- **Dados no projeto?** existe algum arquivo de dado em `tcc/dados/` (sem contar os `-limpo.csv`)?
 - **Dados preparados?** `tcc-kit/dados/limpeza.md` existe?
 - **Resumo real?** `tcc/dados/resumo-real.md` existe?
 
@@ -115,7 +117,8 @@ com os dados atuais (oferecida quando já existe um `tcc-kit/template.md`) cobre
 
 Se confirmado, continue seguindo o que a skill `escolher-tema` orienta.
 
-**4b. Com tema, `Dados: estruturados`, sem dados preparados:**
+**4b. Com tema, `Dados: estruturados`, dados já no projeto, sem dados preparados** (se os dados ainda
+não estão em `tcc/dados/`, pule esta ramificação: o aluno ainda vai coletar):
 > "Vi que seu TCC usa dados estruturados (<Fonte dos dados>). Antes de seguir, vale preparar esses
 > dados: eu faço o perfil, proponho cada decisão de limpeza e só aplico o que você aprovar. Quer fazer
 > isso agora?"

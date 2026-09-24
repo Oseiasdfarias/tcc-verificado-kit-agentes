@@ -72,8 +72,10 @@ com essa pergunta.** Nada de índice, `.bib` ou cópia de arquivo antes de o alu
 
 ## Passo 5 — Indexar
 
-Para cada item aprovado, gere a `chave` no padrão da `revisao-bibliografica` (`sobrenomeAno`, com `b`,
-`c`... em caso de colisão com o índice ou com outra chave desta rodada) e acrescente em
+Para cada item aprovado, defina a `chave`: item vindo de `.bib` mantém a chave que o aluno já usa (os
+`.tex` dele podem citar essa chave), a menos que ela colida com o índice ou com outra chave desta rodada;
+nos demais casos, ou na colisão, gere no padrão da `revisao-bibliografica` (`sobrenomeAno`, com `b`,
+`c`...). Diga ao aluno toda chave que mudou em relação ao `.bib` dele e acrescente em
 `tcc-kit/referencias/index.yaml` (crie com `referencias:` se não existir), no formato do Passo 6 da
 `revisao-bibliografica`, com o campo novo:
 
@@ -81,10 +83,14 @@ Para cada item aprovado, gere a `chave` no padrão da `revisao-bibliografica` (`
     origem: aluno
 ```
 
-- `verificado` ou `divergente` aprovado: `status: verificado`, com os dados escolhidos pelo aluno.
-- `nao-encontrado` aprovado: `status: pendente-manual`, e o `resumo` começa com "Não confirmada em base
-  oficial; fonte fornecida pelo aluno."
-- Item vindo de PDF: copie o PDF para `tcc-kit/referencias/pdfs/<chave>.pdf` e gere
+- `verificado` ou `divergente` aprovado: `status: verificado`, com os dados escolhidos pelo aluno. Se
+  numa divergência o aluno ficou com o dado dele (e não com o da base), acrescente `fonte_bib: indice`:
+  assim o `.bib` é montado com os dados do índice, e não com o BibTeX oficial do DOI.
+- `nao-encontrado` aprovado: `status: nao-confirmada`, e o `resumo` começa com "Não confirmada em base
+  oficial; fonte fornecida pelo aluno." **Não copie o PDF para `pdfs/`**: o original fica só em
+  `minhas/`. O status `nao-confirmada` não é convertido nem promovido a `verificado` por nenhuma skill;
+  só uma nova conferência desta skill, com dados que a base confirme, muda o status.
+- Item vindo de PDF (verificado ou divergente aprovado): copie o PDF para `tcc-kit/referencias/pdfs/<chave>.pdf` e gere
   `tcc-kit/referencias/md/<chave>.md` com o `pdf_to_md.py` (o original fica em `minhas/`); preencha
   `arquivo_pdf` e `arquivo_md`, e escreva o `resumo` a partir do texto.
 - Item sem PDF: `arquivo_pdf` e `arquivo_md` omitidos; `resumo` a partir do abstract da base, se houver.
@@ -99,7 +105,8 @@ Apague os arquivos temporários `tcc-kit/referencias/md/_minhas-*.md` do Passo 2
 uv run "<caminho do plugin>/scripts/bib_do_indice.py" --chaves <chaves aprovadas com status verificado>
 ```
 
-Pendentes (`pendente-manual`) não vão para o `.bib`.
+Só entradas `status: verificado` vão para o `.bib`; `nao-confirmada` fica de fora, e a revisão de
+citações continua acusando se o texto a citar.
 
 ## Passo 7 — Registrar e resumir
 

@@ -31,7 +31,8 @@ Leia `tcc-kit/tema.md` e o campo **Dados**.
   aplica a este TCC, e pare. Não crie nenhum arquivo.
 - Campo ausente (tema de versão anterior): se houver algum arquivo em `tcc/dados/`, considere
   `estruturados` e grave `**Dados:** estruturados` no `tema.md`, logo depois de `**Área/curso:**`;
-  senão, pergunte ao aluno qual dos três tipos descreve o TCC, grave, e aplique a regra acima.
+  senão, pergunte ao aluno qual dos três tipos descreve o TCC. **Pare aqui e termine a sua resposta
+  com essa pergunta.** Com a resposta, grave o campo e aplique a regra acima.
 - Sem `tema.md`: siga, tratando como `estruturados`.
 
 ## Passo 2 — Inventário
@@ -53,14 +54,17 @@ Para cada arquivo:
 uv run "<caminho do plugin>/scripts/perfil_dados.py" "tcc/dados/<arquivo>"
 ```
 
+A primeira linha da saída (`leitura: encoding=..., sep=..., decimal=...[, thousands=...]`) traz os
+parâmetros de leitura do arquivo. **Use exatamente esses parâmetros** em todo comando e no script:
+planilha salva pelo Excel brasileiro costuma vir em `cp1252`, com `;` e decimal `,`.
+
 Nunca leia o arquivo de dados inteiro na conversa. Se precisar ver valores de uma coluna específica
-(para achar categorias escritas de jeitos diferentes), conte com um comando curto:
+(para achar categorias escritas de jeitos diferentes), conte com um comando curto, trocando os
+parâmetros pelos da linha `leitura:`:
 
 ```bash
-uv run --with pandas python -c "import pandas as pd; df=pd.read_csv('tcc/dados/<arquivo>', sep=None, engine='python', decimal=','); print(df['<coluna>'].value_counts(dropna=False).head(30))"
+uv run --with pandas python -c "import pandas as pd; df=pd.read_csv('tcc/dados/<arquivo>', encoding='<encoding>', sep='<sep>', decimal='<decimal>', thousands=<thousands ou None>); print(df['<coluna>'].value_counts(dropna=False).head(30))"
 ```
-
-Use `decimal=','` quando o perfil indicar número com vírgula.
 
 ## Passo 4 — Proposta e aprovação
 
@@ -85,7 +89,10 @@ resposta com essa pergunta.** Nada de script, execução ou gravação antes de 
 
 Com a resposta, escreva `tcc/dados/preparar_dados.py` só com as decisões aprovadas:
 
-- lê o arquivo bruto com os mesmos parâmetros usados no perfil (`sep`, `decimal`, `encoding`);
+- monta os caminhos a partir da pasta do próprio script (`PASTA = Path(__file__).resolve().parent`), para
+  rodar igual de qualquer diretório;
+- lê o arquivo bruto com os parâmetros da linha `leitura:` do perfil (`encoding`, `sep`, `decimal` e,
+  se houver, `thousands`);
 - um bloco por decisão, começando com o comentário `# Decisão <n>: <resumo>`;
 - em cada bloco, imprime `Decisão <n>: <k> linha(s) afetada(s)`, com `k` calculado pelo próprio script;
 - imprime linhas e colunas antes e depois;

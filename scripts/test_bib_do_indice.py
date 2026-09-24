@@ -114,4 +114,40 @@ def test_cli_todas_citadas_e_codigo_de_saida(tmp_path, monkeypatch, capsys):
     saida = capsys.readouterr().out
     assert codigo == 1
     assert "acrescentadas: silva2021" in saida
-    assert "citadas sem entrada no índice: fantasma2000" in saida
+    assert "citadas sem entrada verificada no índice: fantasma2000" in saida
+
+
+def test_apud_e_citacao_comentada(tmp_path):
+    cap = tmp_path / "capitulos"
+    cap.mkdir()
+    (cap / "a.tex").write_text(
+        "Segundo \\apud[p.~2]{silva2021}{souza2020}.\n% \\cite{comentada2000}\nCusto de 10\\% \\cite{livro2019}.",
+        encoding="utf-8",
+    )
+    assert b.chaves_citadas(cap) == ["silva2021", "souza2020", "livro2019"]
+
+
+def test_renomear_chave_nao_mexe_no_tipo():
+    assert b.renomear_chave("@article{a,\n title={x}}", "silva2021").startswith("@article{silva2021,")
+
+
+def test_caracteres_especiais_do_titulo_sao_escapados():
+    ref = {"chave": "x2020", "titulo": "Churn de 40% em planos #1 com_desconto & mais", "ano": 2020}
+    entrada = b.entrada_do_indice(ref)
+    assert r"title = {Churn de 40\% em planos \#1 com\_desconto \& mais}" in entrada
+
+
+def test_referencia_nao_verificada_nao_entra_no_bib(tmp_path):
+    raiz, _ = projeto(tmp_path)
+    indice = {"pend2022": {"chave": "pend2022", "titulo": "T", "ano": 2022, "status": "pendente-manual"}}
+    novas, sem = b.garantir(raiz, indice, Path("tcc/referencias.bib"), ["pend2022"], SEM_REDE)
+    assert (novas, sem) == ([], ["pend2022"])
+    assert not (raiz / "tcc/referencias.bib").exists()
+
+
+def test_fonte_bib_indice_ignora_o_bibtex_oficial(tmp_path):
+    raiz, indice = projeto(tmp_path)
+    indice["souza2020"]["fonte_bib"] = "indice"
+    b.garantir(raiz, indice, Path("tcc/referencias.bib"), ["souza2020"], lambda doi: "@article{X, title={Oficial}}")
+    texto = (raiz / "tcc/referencias.bib").read_text(encoding="utf-8")
+    assert "Oficial" not in texto and "title = {Churn em telecom}" in texto
