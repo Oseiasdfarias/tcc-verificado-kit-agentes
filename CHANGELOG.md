@@ -8,6 +8,28 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
 /plugin update tcc-kit@tcc-verificado-kit-agentes
 ```
 
+## 1.13.0 — 2026-09-23
+
+- Skill nova `preparar-dados`: perfil dos dados brutos, decisões de limpeza propostas com o motivo e
+  as linhas afetadas, aplicadas só com aprovação, num script que nunca grava sobre o dado bruto.
+  Relatório em `tcc-kit/dados/limpeza.md`.
+- Skill nova `adicionar-referencias`: lê `tcc-kit/referencias/minhas/` (PDFs, `.bib`, `lista.txt`),
+  confere cada item no Crossref, separa verificado, divergente e não encontrado, e indexa só o que o
+  aluno aprovar (`origem: aluno`).
+- Skill nova `formatar-abnt`: compila, lê o log, garante as referências no `.bib`, confere os
+  elementos obrigatórios e propõe correções de forma com antes e depois. Nunca altera frase do aluno.
+- TCC sem dados estruturados: `escolher-tema` registra `Dados: estruturados | qualitativos | nenhum`;
+  `iniciar-tcc`, `reproduzir-dados`, `escrever-capitulo` e o agente `guardiao-dados` seguem o tipo.
+- Corrigido: nenhuma skill escrevia as referências citadas no `tcc/referencias.bib`, e o PDF saía com
+  "?". O script novo `bib_do_indice.py` gera as entradas a partir do índice (BibTeX oficial pelo DOI
+  quando existe) e é chamado por `escrever-capitulo`, `adicionar-referencias` e `formatar-abnt`.
+- `perfil_dados.py` detecta e informa a codificação (UTF-8 ou a do Excel no Windows), o separador, o
+  decimal e o separador de milhar, e lê `1.234,50` como número.
+- `escolher-template`: a opção do modelo padrão (abnTeX2, arquivo único) passa pela reorganização e
+  ganha `tcc/capitulos/<capítulo>.tex` e `tcc/referencias.bib`, a estrutura que as outras skills leem.
+- Checklist com as seções `Dados` e `Formatação ABNT`, e teste que garante as 10 cópias do esqueleto
+  iguais.
+
 ## 1.12.2 — 2026-09-23
 
 - `revisao-bibliografica` funciona no PowerShell do Windows: a criação das pastas de download traz o

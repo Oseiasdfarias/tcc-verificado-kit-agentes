@@ -112,6 +112,11 @@ plano (não dá pra rascunhar do vazio).
 
 Ao rascunhar qualquer seção (não só depois de pronta), respeite estas restrições:
 
+- **Tipo de dado.** Leia o campo **Dados** de `tcc-kit/tema.md`. Com `qualitativos` ou `nenhum`, não
+  exija `tcc/dados/resumo-real.md`: número só entra se vier de uma referência verificada (com a
+  citação) ou do aluno na conversa. Em `qualitativos`, trecho de entrevista ou documento só entra se
+  existir num arquivo de `tcc/dados/`, e o texto indica de qual. Com `estruturados` (ou campo ausente),
+  vale a regra abaixo.
 - **Toda afirmação numérica ou sobre dado/resultado** precisa vir de `tcc/dados/resumo-real.md`.
   Nunca escreva um número, percentual, ou afirmação de resultado que "parece razoável" — se o dado que
   a seção precisaria não está em `resumo-real.md`, avise o aluno explicitamente e pare naquele ponto em
@@ -165,10 +170,24 @@ isso, a skill `estado-tcc` consegue avisar depois se os dados mudaram e os núme
 ter ficado desatualizados. Não leia `tcc-kit/.estado.json` nem mostre a saída do comando ao aluno.
 
 - **Comando falhou** (`uv` ausente, script não encontrado, código diferente de 0 e de 2): avise em uma
-  linha que o registro de versão não foi gravado e siga para o Passo 7. O capítulo já está salvo.
+  linha que o registro de versão não foi gravado e siga para o Passo 6c. O capítulo já está salvo.
 - **Código 2** (`tcc-kit/.estado.json` ilegível): avise o aluno e pergunte se quer apagar o arquivo
-  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 7
+  (perdendo os registros de versão) ou corrigir à mão. Não apague sem confirmação. Siga para o Passo 6c
   em qualquer caso.
+
+
+## Passo 6c — Garantir as referências no `.bib`
+
+Só se alguma seção salva no Passo 5 cita referência. Rode, com as chaves citadas nesta escrita:
+
+```bash
+uv run "<caminho do plugin>/scripts/bib_do_indice.py" --chaves <chave1> <chave2> ...
+```
+
+A saída diz quais entradas foram acrescentadas em `tcc/referencias.bib`. Se alguma aparecer como
+"citada sem entrada verificada no índice", avise o aluno: a citação precisa passar por `revisao-bibliografica` ou
+`adicionar-referencias`. Entrada montada sem DOI traz a nota "confira o tipo": mencione isso em uma
+linha.
 
 ## Passo 7 — Atualizar checklist e histórico
 
@@ -205,6 +224,11 @@ Confira se `tcc-kit/checklist.md` existe.
 ## Tema
 - [ ] Definido (tcc-kit/tema.md)
 
+## Dados
+**Tipo:** não definido
+- [ ] Preparados (tcc-kit/dados/limpeza.md)
+- [ ] Resumo real (tcc/dados/resumo-real.md)
+
 ## Referências
 - [ ] Pelo menos 1 referência verificada
 
@@ -219,6 +243,9 @@ Confira se `tcc-kit/checklist.md` existe.
 | Metodologia | Não iniciado |
 | Resultados | Não iniciado |
 | Discussão/Considerações finais | Não iniciado |
+
+## Formatação ABNT
+- [ ] Nunca rodada
 
 ## Auditoria completa do TCC
 - [ ] Nunca rodada
@@ -235,6 +262,8 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo
 - **Se já existir**, edite só a linha do capítulo `<slug>` na tabela "Capítulos" pro estado recalculado
   acima (preservando as demais linhas e seções como estão), e atualize a linha final pra `Atualizado
   em: <data de hoje, AAAA-MM-DD>, por: escrever-capitulo`.
+- **Se o checklist existente não tiver as seções `## Dados` ou `## Formatação ABNT`** (versão anterior
+  do kit), insira-as no lugar do esqueleto acima, no estado inicial, sem mexer nas outras seções.
 - **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
   reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
   existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo
