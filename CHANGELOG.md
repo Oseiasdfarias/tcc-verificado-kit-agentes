@@ -1,12 +1,7 @@
 # Changelog
 
 Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
-`.claude-plugin/marketplace.json`. Alunos que já instalaram recebem a atualização com:
-
-```
-/plugin marketplace update tcc-verificado-kit-agentes
-/plugin update tcc-kit@tcc-verificado-kit-agentes
-```
+`.claude-plugin/marketplace.json`. Como atualizar está no material do curso.
 
 ## 1.13.0 — 2026-09-23
 
