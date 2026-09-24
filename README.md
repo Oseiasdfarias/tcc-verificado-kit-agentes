@@ -30,37 +30,10 @@ O jeito de usar o kit em cada etapa do trabalho é ensinado no curso.
 
 O kit relata e sugere. Nenhum agente edita o seu texto, e a decisão sobre o que mudar é sempre sua.
 
-## Instalar
+## Como obter e usar
 
-Dentro do Claude Code, no terminal do seu projeto:
-
-```bash
-/plugin marketplace add Oseiasdfarias/tcc-verificado-kit-agentes
-/plugin install tcc-kit@tcc-verificado-kit-agentes
-```
-
-Se pedir `/reload-plugins`, rode esse comando também.
-
-Se você usa o Claude Code pela extensão do VS Code, o comando `/plugin` não existe ali. Rode no
-terminal do sistema e depois recarregue a janela do VS Code:
-
-```bash
-claude plugin marketplace add Oseiasdfarias/tcc-verificado-kit-agentes
-claude plugin install tcc-kit@tcc-verificado-kit-agentes
-```
-
-Algumas partes do kit usam o [uv](https://docs.astral.sh/uv/getting-started/installation/). Instale
-antes de começar.
-
-## Atualizar
-
-```bash
-/plugin marketplace update tcc-verificado-kit-agentes
-/plugin update tcc-kit@tcc-verificado-kit-agentes
-```
-
-Pela extensão do VS Code, no terminal do sistema: `claude plugin marketplace update
-tcc-verificado-kit-agentes` e `claude plugin update tcc-kit@tcc-verificado-kit-agentes`.
+O kit é distribuído para quem faz o curso [TCC Verificado](https://tccverificado.com.br). A
+instalação, a atualização e o uso de cada especialista são ensinados nas aulas.
 
 O histórico de versões está no [CHANGELOG.md](CHANGELOG.md).
 
