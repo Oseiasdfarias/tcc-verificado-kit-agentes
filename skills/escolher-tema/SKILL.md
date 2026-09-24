@@ -15,11 +15,15 @@ Pergunte, uma pergunta por vez (não despeje todas de uma vez):
 1. Área/curso do aluno, e se o orientador já indicou alguma linha ou restrição.
 2. O que desperta interesse real: um problema que o aluno já vive no trabalho/estágio, uma leitura que
    marcou, uma área do curso que mais gostou.
-3. Se já existe acesso a algum dado real (planilha da empresa, dataset público, pesquisa de campo
-   possível) — **importante**: o Módulo 02 do curso hoje é construído em cima de um TCC com dataset ou
-   pesquisa de campo (não cobre tema puramente bibliográfico/qualitativo sem nenhum dado). Se o aluno
-   não tiver ideia nenhuma de fonte de dado, sugira o caminho mais simples: um dataset público do
-   Kaggle relacionado à área de interesse dele (é o que a Aula 2.1 do curso ensina a fazer).
+3. Com que material ele vai trabalhar, e se já tem acesso a ele. Classifique a resposta em um de três
+   tipos, e confirme com o aluno se ficou em dúvida:
+   - **estruturados**: tabela, planilha, dataset, questionário com respostas tabuladas;
+   - **qualitativos**: entrevistas, documentos, observação, textos;
+   - **nenhum**: pesquisa bibliográfica ou teórica, sem coleta de dados.
+
+   Os três tipos são válidos e o kit acompanha todos. Só sugira um dataset público (por exemplo, do
+   Kaggle, na área de interesse dele) se o aluno **quiser** trabalhar com dados estruturados e ainda
+   não tiver nenhuma fonte.
 
 ## Passo 2 — Convergir
 
@@ -56,6 +60,8 @@ sobrescreva sem essa confirmação explícita.
 
 **Tema:** <título definido>
 **Área/curso:** <área/curso>
+**Dados:** <estruturados | qualitativos | nenhum>
+**Fonte dos dados:** <de onde vêm os dados, em uma linha; ou "não se aplica">
 **Justificativa:** <2-4 linhas do porquê esse tema, capturando o que o aluno disse no Passo 1>
 **Termos de busca sugeridos:** <termo1, termo2, termo3>
 
@@ -68,6 +74,10 @@ Definido em: <data de hoje, AAAA-MM-DD>
 salvo, e que o próximo passo natural é buscar referências reais sobre ele — pergunte se ele quer que
 você já rode a skill `revisao-bibliografica` agora, usando os termos de busca sugeridos (do arquivo que
 acabou de salvar) como ponto de partida.
+Se o tema tem `Dados: estruturados` e os dados já estão no projeto, diga que o primeiro passo é
+preparar esses dados (skill `preparar-dados`) e ofereça as duas opções, preparar os dados ou buscar
+referências, deixando o aluno escolher a ordem. Se o aluno já tem artigos próprios, lembre que a skill
+`adicionar-referencias` confere e inclui essas referências.
 
 **Se o aluno optou por manter o tema existente no Passo 4:** deixe claro que nada foi alterado e que o
 tema em uso continua sendo o que já estava salvo em `tcc-kit/tema.md` — não diga que "acabou de salvar".
@@ -133,6 +143,9 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escolher-tema
 - **Se já existir**, edite só a seção "Tema" pra `- [x] Definido (tcc-kit/tema.md)` (preservando as
   demais seções como estão), e atualize a linha final pra `Atualizado em: <data de hoje, AAAA-MM-DD>,
   por: escolher-tema`.
+- **Nos dois casos (checklist criado ou editado)**, preencha também, na seção `## Dados`, a linha
+  `**Tipo:**` com o valor gravado no `tema.md`. Se o tipo for `qualitativos` ou `nenhum`, troque as duas
+  linhas de caixa da seção por `- não se aplica`.
 - **Se o checklist existente não tiver as seções `## Dados` ou `## Formatação ABNT`** (versão anterior
   do kit), insira-as no lugar do esqueleto acima, no estado inicial, sem mexer nas outras seções.
 - **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
