@@ -30,8 +30,11 @@ Se não existir: siga direto pro Passo 2.
 Pergunte: "Quer que eu pesquise um template LaTeX específico da sua universidade no Overleaf, ou
 prefere já usar o template ABNT padrão do curso?"
 
-Se o aluno preferir o padrão do curso: pule direto pro Passo 8 (adaptação) — o template padrão já está
-em `tcc/`, não precisa buscar nem baixar nada.
+Se o aluno preferir o padrão do curso (o modelo de trabalho acadêmico do abnTeX2, o mesmo da Aula 0.6):
+não precisa buscar nada. Confira se há algum `.tex` em `tcc/`. Se não houver, peça ao aluno que copie
+para `tcc/` a pasta do modelo que ele baixou na Aula 0.6 (ou baixe de novo em abntex.net.br), e pare
+aqui até ele confirmar. Com o modelo em `tcc/`, pule pro Passo 7 (reestruturar) e depois pro 8
+(adaptação).
 
 ## Passo 3 — Buscar
 
@@ -121,6 +124,17 @@ quais são os capítulos individuais, e onde fica a bibliografia (`.bib`).
 Se a estrutura já bate com a convenção do kit (`tcc/capitulos/<slug>.tex` pros capítulos,
 `tcc/referencias.bib` pra bibliografia, arquivo principal direto em `tcc/`), não faça nada neste passo
 — registre "já estava no formato esperado" pro resumo do Passo 9.
+
+Se os capítulos estiverem **dentro do arquivo principal** (modelo de arquivo único, como o modelo de
+trabalho acadêmico do abnTeX2):
+- crie `tcc/capitulos/<slug>.tex` para os 5 slugs, cada um com o `\chapter{...}` correspondente e o
+  texto de exemplo do modelo que cabia naquele capítulo (se houver), como placeholder;
+- no arquivo principal, troque os capítulos de exemplo por `\include{capitulos/<slug>}`, na ordem
+  introdução, referencial teórico, metodologia, resultados, discussão e considerações finais,
+  mantendo intactos os elementos pré-textuais (capa, folha de rosto, resumo, listas, sumário) e
+  pós-textuais (referências, apêndices, anexos);
+- se o `.bib` do modelo tiver outro nome, copie para `tcc/referencias.bib` e ajuste o
+  `\bibliography{...}`.
 
 Se a estrutura for diferente (ex: capítulos numa subpasta com nome diferente, tipo `chapters/ch1.tex`):
 - Pra cada capítulo que der pra identificar com confiança um dos 5 slugs do curso (`introducao`,
