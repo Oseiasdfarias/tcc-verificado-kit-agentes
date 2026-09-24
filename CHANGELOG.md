@@ -25,6 +25,8 @@ Toda versão nova aqui corresponde a uma bump em `.claude-plugin/plugin.json` e
   quando existe) e é chamado por `escrever-capitulo`, `adicionar-referencias` e `formatar-abnt`.
 - `perfil_dados.py` detecta e informa a codificação (UTF-8 ou a do Excel no Windows), o separador, o
   decimal e o separador de milhar, e lê `1.234,50` como número.
+- `escolher-template`: a opção do modelo padrão (abnTeX2, arquivo único) passa pela reorganização e
+  ganha `tcc/capitulos/<capítulo>.tex` e `tcc/referencias.bib`, a estrutura que as outras skills leem.
 - Checklist com as seções `Dados` e `Formatação ABNT`, e teste que garante as 10 cópias do esqueleto
   iguais.
 
