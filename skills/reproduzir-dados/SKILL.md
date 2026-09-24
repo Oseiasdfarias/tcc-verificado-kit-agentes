@@ -26,6 +26,18 @@ Os comandos abaixo usam scripts do plugin. O caminho do plugin segue a mesma reg
 deste plugin, e não invente um caminho. Se o `uv` não estiver disponível, siga só com leitura (Passos 2,
 3 e 5), sem perfil nem execução, e diga no resumo que os números não foram reproduzidos.
 
+## Passo 0 — Aplicabilidade
+
+Leia o campo **Dados** de `tcc-kit/tema.md`. Com `qualitativos` ou `nenhum`, diga em uma ou duas
+frases que o resumo de dados estruturados não se aplica a este TCC (a verificação central passa a ser
+a das citações) e pare, sem criar nenhum arquivo. Campo ausente: siga a mesma regra do Passo 1 de
+`preparar-dados` (se precisar perguntar o tipo ao aluno, pare aqui e termine a sua resposta com essa
+pergunta).
+
+Se existir `tcc/dados/preparar_dados.py` (gerado pela `preparar-dados`), ele é o primeiro script a
+rodar no Passo 6, antes de qualquer análise, e os perfis do Passo 4 são feitos nos arquivos
+`-limpo.csv` que ele gera, não nos brutos: os números do TCC saem dos dados preparados.
+
 ## Passo 1 — Estado anterior
 
 Se `tcc-kit/dados/materiais.yaml` existir, esta não é a primeira execução. Rode:
@@ -216,9 +228,14 @@ N scripts executados (M com falha), K números com procedência, J itens em "O q
 dado". Resumo: tcc/dados/resumo-real.md. Execuções: tcc-kit/dados/reproducao.md.
 ```
 
-Não edite `tcc-kit/checklist.md`: a metodologia passa a "Definida e executada" pelo campo `Status` de
-`tcc-kit/metodologia.md`, que é da skill `validar-metodologia`. Se esse campo estiver "Pendente de
-execução" e a reprodução produziu resultados, sugira ao aluno atualizá-lo.
+Se `tcc-kit/checklist.md` existir: na seção `## Dados`, marque
+`- [x] Resumo real (tcc/dados/resumo-real.md)` e atualize a linha final para
+`Atualizado em: <data de hoje, AAAA-MM-DD>, por: reproduzir-dados`. Se a seção não existir (checklist
+de versão anterior), insira-a antes de `## Referências`, com `**Tipo:** estruturados`, a linha de
+preparação marcada só se `tcc-kit/dados/limpeza.md` existir, e a de resumo marcada. Se o checklist não
+existir, não crie. Não mexa na seção de metodologia: ela passa a "Definida e executada" pelo campo
+`Status` de `tcc-kit/metodologia.md`, que é da skill `validar-metodologia`. Se esse campo estiver
+"Pendente de execução" e a reprodução produziu resultados, sugira ao aluno atualizá-lo.
 
 Informe ao aluno, em poucas linhas: quantos números entraram com procedência, o que ficou em "O que não
 existe como dado", qualquer divergência entre o que ele lembrava e o que o script produziu, e qualquer

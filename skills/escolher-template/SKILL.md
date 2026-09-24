@@ -30,8 +30,11 @@ Se não existir: siga direto pro Passo 2.
 Pergunte: "Quer que eu pesquise um template LaTeX específico da sua universidade no Overleaf, ou
 prefere já usar o template ABNT padrão do curso?"
 
-Se o aluno preferir o padrão do curso: pule direto pro Passo 8 (adaptação) — o template padrão já está
-em `tcc/`, não precisa buscar nem baixar nada.
+Se o aluno preferir o padrão do curso (o modelo de trabalho acadêmico do abnTeX2, o mesmo da Aula 0.6):
+não precisa buscar nada. Confira se há algum `.tex` em `tcc/`. Se não houver, peça ao aluno que copie
+para `tcc/` a pasta do modelo que ele baixou na Aula 0.6 (ou baixe de novo em abntex.net.br), e pare
+aqui até ele confirmar. Com o modelo em `tcc/`, pule pro Passo 7 (reestruturar) e depois pro 8
+(adaptação).
 
 ## Passo 3 — Buscar
 
@@ -121,6 +124,17 @@ quais são os capítulos individuais, e onde fica a bibliografia (`.bib`).
 Se a estrutura já bate com a convenção do kit (`tcc/capitulos/<slug>.tex` pros capítulos,
 `tcc/referencias.bib` pra bibliografia, arquivo principal direto em `tcc/`), não faça nada neste passo
 — registre "já estava no formato esperado" pro resumo do Passo 9.
+
+Se os capítulos estiverem **dentro do arquivo principal** (modelo de arquivo único, como o modelo de
+trabalho acadêmico do abnTeX2):
+- crie `tcc/capitulos/<slug>.tex` para os 5 slugs, cada um com o `\chapter{...}` correspondente e o
+  texto de exemplo do modelo que cabia naquele capítulo (se houver), como placeholder;
+- no arquivo principal, troque os capítulos de exemplo por `\include{capitulos/<slug>}`, na ordem
+  introdução, referencial teórico, metodologia, resultados, discussão e considerações finais,
+  mantendo intactos os elementos pré-textuais (capa, folha de rosto, resumo, listas, sumário) e
+  pós-textuais (referências, apêndices, anexos);
+- se o `.bib` do modelo tiver outro nome, copie para `tcc/referencias.bib` e ajuste o
+  `\bibliography{...}`.
 
 Se a estrutura for diferente (ex: capítulos numa subpasta com nome diferente, tipo `chapters/ch1.tex`):
 - Pra cada capítulo que der pra identificar com confiança um dos 5 slugs do curso (`introducao`,
@@ -216,6 +230,11 @@ Confira se `tcc-kit/checklist.md` existe.
 ## Tema
 - [ ] Definido (tcc-kit/tema.md)
 
+## Dados
+**Tipo:** não definido
+- [ ] Preparados (tcc-kit/dados/limpeza.md)
+- [ ] Resumo real (tcc/dados/resumo-real.md)
+
 ## Referências
 - [ ] Pelo menos 1 referência verificada
 
@@ -231,6 +250,9 @@ Confira se `tcc-kit/checklist.md` existe.
 | Resultados | Não iniciado |
 | Discussão/Considerações finais | Não iniciado |
 
+## Formatação ABNT
+- [ ] Nunca rodada
+
 ## Auditoria completa do TCC
 - [ ] Nunca rodada
 
@@ -244,6 +266,8 @@ Atualizado em: <data de hoje, AAAA-MM-DD>, por: escolher-template
 - **Se já existir**, edite só a seção "Template" pra `- [x] Escolhido/adaptado (tcc-kit/template.md)`
   (preservando as demais seções como estão), e atualize a linha final pra `Atualizado em: <data de
   hoje, AAAA-MM-DD>, por: escolher-template`.
+- **Se o checklist existente não tiver as seções `## Dados` ou `## Formatação ABNT`** (versão anterior
+  do kit), insira-as no lugar do esqueleto acima, no estado inicial, sem mexer nas outras seções.
 - **Se o arquivo existir mas não bater com o formato esperado** (seção removida, cabeçalho alterado, não
   reconhecível): não sobrescreva sem avisar. Avise o aluno explicitamente que `tcc-kit/checklist.md`
   existe mas não bate com o formato esperado, e pergunte se quer que a skill recrie o esqueleto (perdendo

@@ -39,7 +39,8 @@ def test_coluna_mista_nao_e_numerica(tmp_path):
 def test_arquivo_vazio(tmp_path):
     arq = tmp_path / "vazio.csv"
     arq.write_text("")
-    assert pd.perfil(arq) == {"linhas": 0, "colunas": [], "amostra": []}
+    r = pd.perfil(arq)
+    assert (r["linhas"], r["colunas"], r["amostra"]) == (0, [], [])
 
 
 def test_formato_nao_suportado_sai_com_2(tmp_path, capsys):
@@ -53,6 +54,35 @@ def test_saida_formatada(tmp_path, capsys):
     arq.write_text("v\n1\n3\n")
     assert pd.main([str(arq), "--amostra", "1"]) == 0
     saida = capsys.readouterr().out.splitlines()
-    assert saida[0] == "linhas de dados: 2"
-    assert saida[1] == "- v: 2 não vazios, numérica, mín 1, máx 3, média 2"
-    assert saida[2:] == ["amostra:", "  1"]
+    assert saida[0].startswith("leitura: encoding=utf-8")
+    assert saida[1] == "linhas de dados: 2"
+    assert saida[2] == "- v: 2 não vazios, numérica, mín 1, máx 3, média 2"
+    assert saida[3:] == ["amostra:", "  1"]
+
+
+def test_excel_brasileiro_latin1_com_milhar(tmp_path):
+    arq = tmp_path / "planilha.csv"
+    arq.write_bytes("nome;valor\nJoão;1.234,50\nMaria;26,5\n".encode("cp1252"))
+    r = pd.perfil(arq)
+    assert r["encoding"] == "cp1252"
+    assert r["separador"] == ";"
+    assert r["decimal"] == ","
+    assert r["milhar"] == "."
+    nome, valor = r["colunas"]
+    assert (valor["minimo"], valor["maximo"]) == (26.5, 1234.5)
+    assert r["amostra"][0][0] == "João"
+
+
+def test_utf8_com_ponto_decimal(tmp_path):
+    arq = tmp_path / "d.csv"
+    arq.write_text("a,b\n1.5,x\n2.5,y\n", encoding="utf-8")
+    r = pd.perfil(arq)
+    assert (r["encoding"], r["separador"], r["decimal"], r["milhar"]) == ("utf-8", ",", ".", None)
+
+
+def test_saida_informa_parametros_de_leitura(tmp_path, capsys):
+    arq = tmp_path / "planilha.csv"
+    arq.write_bytes("nome;valor\nJoão;26,5\n".encode("cp1252"))
+    assert pd.main([str(arq)]) == 0
+    saida = capsys.readouterr().out
+    assert "leitura: encoding=cp1252, sep=';', decimal=','" in saida

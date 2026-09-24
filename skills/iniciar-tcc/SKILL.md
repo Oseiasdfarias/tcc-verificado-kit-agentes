@@ -25,10 +25,23 @@ Confira se `tcc-kit/template.md` existe.
 Confira se `tcc-kit/tema.md` existe.
 - Se não existir: sem tema definido.
 - Se existir: leia o arquivo e extraia o valor do campo **Tema**.
+- Extraia também o campo **Dados** (`estruturados`, `qualitativos` ou `nenhum`). Se o campo não existir
+  (tema de versão anterior do kit): se houver algum arquivo em `tcc/dados/`, considere `estruturados` e
+  grave a linha `**Dados:** estruturados` no `tema.md`, logo depois de `**Área/curso:**`; senão,
+  pergunte ao aluno qual dos três tipos descreve o TCC (**pare aqui e termine a sua resposta com essa
+  pergunta**) e, com a resposta, grave a linha.
 - Se o arquivo existir mas não for possível extrair um valor claro do campo **Tema** (arquivo
   corrompido, editado manualmente fora do formato esperado, campo ausente): não trave nem invente um
   valor. Avise o aluno explicitamente que `tcc-kit/tema.md` existe mas não conseguiu ler o tema dele, e
   pergunte como prosseguir (corrigir o arquivo manualmente, ou rodar `escolher-tema` de novo).
+
+## Passo 3b — Verificar dados (só com `Dados: estruturados`)
+
+- **Dados no projeto?** existe algum arquivo de dado em `tcc/dados/` (sem contar os `-limpo.csv`)?
+- **Dados preparados?** `tcc-kit/dados/limpeza.md` existe?
+- **Resumo real?** `tcc/dados/resumo-real.md` existe?
+
+Com `qualitativos` ou `nenhum`, pule este passo: as etapas de dados não se aplicam.
 
 ## Passo 4 — Verificar referências
 
@@ -65,7 +78,8 @@ Confira, pra cada um dos 5 slugs fixos (`introducao`, `referencial-teorico`, `me
 `discussao-consideracoes-finais`), se `tcc/capitulos/<slug>.tex` existe e tem conteúdo real (mesmo
 critério de julgamento de leitura do Passo 6). Conte quantos dos 5 têm conteúdo real.
 
-Confira também se existe algum arquivo `tcc-kit/relatorios/auditoria-completa-*.md`, e se
+Confira também se existe algum arquivo `tcc-kit/relatorios/formatacao-*.md`, se existe algum arquivo
+`tcc-kit/relatorios/auditoria-completa-*.md`, e se
 `tcc/apresentacao-defesa.tex` existe.
 
 Critério exato: os 5 capítulos só contam como "completos" se todos os 5 tiverem conteúdo real — 4 de 5
@@ -103,6 +117,14 @@ com os dados atuais (oferecida quando já existe um `tcc-kit/template.md`) cobre
 
 Se confirmado, continue seguindo o que a skill `escolher-tema` orienta.
 
+**4b. Com tema, `Dados: estruturados`, dados já no projeto, sem dados preparados** (se os dados ainda
+não estão em `tcc/dados/`, pule esta ramificação: o aluno ainda vai coletar):
+> "Vi que seu TCC usa dados estruturados (<Fonte dos dados>). Antes de seguir, vale preparar esses
+> dados: eu faço o perfil, proponho cada decisão de limpeza e só aplico o que você aprovar. Quer fazer
+> isso agora?"
+
+Se confirmado, continue seguindo o que a skill `preparar-dados` orienta.
+
 **5. Com tema, sem referências:**
 > "Vi que seu tema é '<tema de tcc-kit/tema.md>'. Você ainda não tem nenhuma referência verificada na
 > base. Quer que eu busque referências sobre esse tema agora?"
@@ -118,9 +140,15 @@ outros termos.
 
 Se confirmado, continue seguindo o que a skill `validar-metodologia` orienta.
 
+**6b. Com metodologia definida, `Dados: estruturados`, sem resumo real:**
+> "Sua metodologia está definida. Agora dá para rodar a análise e montar o resumo de dados, com a
+> origem de cada número, que os capítulos vão usar. Quer fazer isso agora?"
+
+Se confirmado, continue seguindo o que a skill `reproduzir-dados` orienta.
+
 **7. Com tema, referências e metodologia, sem plano pro capítulo em foco (ou nenhum capítulo em foco
 ainda) (não se aplica se todos os 5 capítulos já tiverem conteúdo real — nesse caso, vá direto pra
-ramificação 10):**
+ramificação 9b, ou pra 10 se a formatação já foi feita):**
 > "Vi que seu tema é '<tema>' e você já tem <N> referência(s) verificada(s). Quer planejar algum
 > capítulo agora? (introdução, referencial teórico, metodologia, resultados, ou
 > discussão/considerações finais)"
@@ -142,7 +170,13 @@ foco.
 Se confirmado, continue seguindo o que a skill `revisar-capitulo` orienta, já passando o capítulo em
 foco.
 
-**10. Todos os 5 capítulos com conteúdo real, nenhuma auditoria completa ainda:**
+**9b. Todos os 5 capítulos com conteúdo real, sem formatação ABNT ainda:**
+> "Todos os capítulos já têm conteúdo. Antes da auditoria final, quer que eu confira a formatação ABNT
+> do documento (sumário, referências, legendas, elementos obrigatórios)?"
+
+Se confirmado, continue seguindo o que a skill `formatar-abnt` orienta.
+
+**10. Todos os 5 capítulos com conteúdo real, formatação ABNT já feita, nenhuma auditoria completa ainda:**
 > "Vi que todos os capítulos do seu TCC já têm conteúdo. Quer que eu rode uma auditoria completa,
 > conferindo consistência entre eles, antes de você seguir pra entrega ou defesa?"
 

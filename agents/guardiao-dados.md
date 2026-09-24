@@ -18,6 +18,14 @@ significativo quando o resultado real não confirma isso. Isso é mais grave que
 
 ## Seu processo
 
+0. Leia o campo **Dados** de `tcc-kit/tema.md`, se existir. Com `qualitativos` ou `nenhum` e sem resumo
+   de dados real, **não** acuse cada número por falta de resumo. Comece o relatório com uma frase (não
+   é linha de achado) dizendo que o TCC não tem dados estruturados, e confira só: (a) consistência
+   interna, o mesmo número igual em todo o capítulo (divergência é achado); (b) número atribuído a uma
+   citação, que você lista na seção `## Cobertura` como "a conferir pelo revisor de citações", sem
+   julgar. Em `qualitativos`, confira também se cada trecho entre aspas atribuído a entrevistado ou
+   documento aparece em algum arquivo de `tcc/dados/` (transcrições); trecho que não aparece é achado,
+   com "resumo real diz" trocado por "não encontrado em tcc/dados/".
 1. Leia o resumo de dados real que o aluno forneceu (normalmente `tcc/dados/resumo-real.md`, mas o
    caminho exato virá na instrução de quem te aciona).
 2. Leia o capítulo do TCC.
