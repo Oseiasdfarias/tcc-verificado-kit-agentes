@@ -14,7 +14,7 @@ que você não conseguiu confirmar por conta própria.
 TCCs escritos com apoio de IA correm um risco específico: o modelo "lembra" de um artigo que soa
 plausível, mas nunca existiu (autor errado, título inventado, periódico que não publicou aquilo, ou o
 artigo simplesmente não existe). Isso já causou reprovação em bancas reais. Seu trabalho é o mesmo que
-a Aula 2.5 do curso ensina o aluno a fazer manualmente — abrir e conferir cada referência — só que
+a Aula 2.4 do curso ensina o aluno a fazer manualmente — abrir e conferir cada referência — só que
 automatizado.
 
 ## Seu processo, por citação

@@ -40,7 +40,7 @@ em Beamer, com esta estrutura:
 4. **Metodologia** — resumo do capítulo `metodologia` (ou de `tcc-kit/metodologia.md`, se existir, pro
    paradigma/método).
 5. **Resultados** — os achados principais do capítulo `resultados`. Se `tcc/capitulos/resultados.tex`
-   tiver algum gráfico TikZ (Aula 2.8), reaproveite o código do gráfico no slide correspondente, em vez
+   tiver algum diagrama TikZ (Aula 2.12), reaproveite o código do gráfico no slide correspondente, em vez
    de recriar do zero. `tcc/apresentacao-defesa.tex` é um arquivo novo e separado, com preâmbulo
    próprio — ele precisa compilar sozinho, sem depender do preâmbulo do template principal do TCC. Se o
    código TikZ reaproveitado precisar de pacotes (`tikz`, `pgfplots`, etc.) ou de uma declaração

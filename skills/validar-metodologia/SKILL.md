@@ -137,7 +137,7 @@ Pergunte se o aluno tem um arquivo de dado (caminho de um CSV) ou uma pasta de t
 (transcrições/documentos) pra apontar.
 
 - **Se apontar um arquivo tabular (CSV)**: leia a estrutura (nomes de coluna, tipos, algumas linhas de
-  amostra — use Bash com pandas, mesma ferramenta que a Aula 2.2/2.3 do curso já ensina o aluno a pedir
+  amostra — use Bash com pandas, mesma ferramenta que as Aulas 2.3 e 2.6 do curso já ensina o aluno a pedir
   manualmente). Classifique cada coluna relevante como categórica ou numérica, proponha o teste
   apropriado seguindo exatamente os mesmos critérios do Passo 3a (quantitativo) com base no que
   encontrar, e explique o porquê antes de perguntar se o aluno confirma.

@@ -16,7 +16,7 @@ O erro mais comum de rigor metodológico em TCC com apoio de IA não é o teste 
 errada a partir de um teste certo: tratar uma correlação como se fosse causalidade, generalizar o
 resultado de uma amostra pequena ou não probabilística como se valesse pra população inteira, ou
 descrever um método (ex: "revisão sistemática") sem o rigor que esse rótulo exige. Isso é exatamente o
-tipo de fragilidade que uma banca examinadora experiente identifica de cara — e é o que a Aula 2.3 do
+tipo de fragilidade que uma banca examinadora experiente identifica de cara — e é o que a Aula 2.6 do
 curso não cobre, porque ensina só a rodar a análise, não a auditar o rigor dela depois.
 
 ## Seu processo

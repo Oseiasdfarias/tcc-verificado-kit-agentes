@@ -86,7 +86,7 @@ no PowerShell do Windows, `New-Item -ItemType Directory -Force tcc-kit/referenci
 bloqueou o download" quando a causa real é só a pasta não existir.
 
 Pra cada artigo confirmado e não-duplicado: gere uma `chave` no padrão `sobrenomeAno` (mesmo padrão da
-Aula 2.11 do curso pro `.bib` — ex: `silva2021`; se colidir com uma chave já existente no índice —
+Aula 2.14 do curso pro `.bib` — ex: `silva2021`; se colidir com uma chave já existente no índice —
 `verificado`, `pendente-conversao` ou `pendente-manual` — **ou com uma chave que você já atribuiu a
 outro artigo nesta mesma execução** (mantenha uma lista das chaves já usadas nesta rodada: downloads
 bem-sucedidos só são gravados em `index.yaml` no Passo 6, no final do lote, então dois artigos
